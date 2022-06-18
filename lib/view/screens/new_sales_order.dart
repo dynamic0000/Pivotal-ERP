@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:pivotal_erp/view/screens/User_home_screen.dart';
+import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/sales_dashboard.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
 
@@ -57,7 +59,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
         leading: IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SalesDashboard()));
+                  MaterialPageRoute(builder: (context) => UserHomeScreen()));
             },
             icon: Icon(Icons.arrow_back)),
         actions: [
@@ -272,7 +274,12 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddItem()));
+                                },
                                 icon: Icon(Icons.add_circle_rounded),
                                 color: Colors.green,
                                 iconSize: 23,

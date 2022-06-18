@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:pivotal_erp/screens/User_home_screen.dart';
 import 'package:pivotal_erp/screens/widgets/drawer_screen.dart';
 
 class SalesDashboard extends StatefulWidget {
@@ -15,9 +16,18 @@ class _SalesDashboardState extends State<SalesDashboard> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Dashboard"),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => UserHomeScreen()));
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              size: 28,
+            )),
         // leading: IconButton(onPressed: () {}, icon: Icon(Icons.home)),
       ),
-      drawer: DrawerScreen(),
+      // drawer: DrawerScreen(),
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,

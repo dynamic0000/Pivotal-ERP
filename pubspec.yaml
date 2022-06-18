@@ -38,9 +38,11 @@ dependencies:
   dropdown_formfield: ^0.1.4
   grouped_list: ^5.1.1
   flutter_speed_dial: ^6.0.0
-  dio: ^4.0.6
-  flutter_polyline_points: ^1.0.0
-  google_maps_flutter: ^2.1.8
+  dotted_border: ^2.0.0+2
+  intl: ^0.17.0
+  # dio: ^4.0.6
+  # flutter_polyline_points: ^1.0.0
+  # google_maps_flutter: ^2.1.8
   
 dev_dependencies:
   flutter_test:

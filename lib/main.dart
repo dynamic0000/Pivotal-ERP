@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pivotal_erp/screens/User_home_screen.dart';
+import 'package:pivotal_erp/screens/new_sales_order.dart';
 import 'package:pivotal_erp/screens/sales_dashboard.dart';
+import 'package:pivotal_erp/screens/select_customer.dart';
 import 'package:pivotal_erp/screens/splash_screen.dart';
 
 void main() {
@@ -20,8 +22,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: SalesDashboard(),
-      // home: SplashScreen(),
-      home: UserHomeScreen(),
+      home: SplashScreen(),
+      // home: SelectCustomer(),
     );
   }
 }

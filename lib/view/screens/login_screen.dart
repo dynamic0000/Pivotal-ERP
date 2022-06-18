@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 350,
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/background_bottom.png'),
+                      image: AssetImage('images/background_bottom.png'),
                       fit: BoxFit.cover)),
             )),
 
@@ -82,12 +82,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextFormField(
                         validator: MultiValidator([
-MatchValidator(errorText: 'passwords do not match').validateMatch(val, password),  
-
                           RequiredValidator(errorText: 'password is required'),
                           MinLengthValidator(4,
                               errorText: 'password must be at least 4 digits')
                         ]),
+                        obscureText: true,
                         controller: passwordController,
                         decoration: InputDecoration(
                           prefixIcon: Padding(
@@ -175,7 +174,7 @@ MatchValidator(errorText: 'passwords do not match').validateMatch(val, password)
             height: 330,
             width: 230,
             decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage('assets/cloud.png'))),
+                image: DecorationImage(image: AssetImage('imagesgi/cloud.png'))),
           ),
         ),
         Positioned(

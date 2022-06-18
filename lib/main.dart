@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pivotal_erp/screens/User_home_screen.dart';
-import 'package:pivotal_erp/screens/new_sales_order.dart';
-import 'package:pivotal_erp/screens/sales_dashboard.dart';
-import 'package:pivotal_erp/screens/select_customer.dart';
-import 'package:pivotal_erp/screens/splash_screen.dart';
+import 'package:pivotal_erp/view/screens/User_home_screen.dart';
+
+import 'package:pivotal_erp/view/screens/sales_dashboard.dart';
+import 'package:pivotal_erp/view/screens/select_customer.dart';
+import 'package:pivotal_erp/view/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

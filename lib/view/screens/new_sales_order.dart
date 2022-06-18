@@ -2,9 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pivotal_erp/screens/sales_dashboard.dart';
+
 import 'package:dotted_border/dotted_border.dart';
-import 'package:pivotal_erp/screens/select_customer.dart';
+import 'package:pivotal_erp/view/screens/sales_dashboard.dart';
+import 'package:pivotal_erp/view/screens/select_customer.dart';
 
 class NewSalesOrder extends StatefulWidget {
   const NewSalesOrder({Key? key}) : super(key: key);

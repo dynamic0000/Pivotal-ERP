@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
-import 'package:pivotal_erp/screens/User_home_screen.dart';
-import 'package:pivotal_erp/screens/widgets/drawer_screen.dart';
+import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 
 class SalesDashboard extends StatefulWidget {
   const SalesDashboard({Key? key}) : super(key: key);

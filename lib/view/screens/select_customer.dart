@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pivotal_erp/screens/new_sales_order.dart';
-import 'package:pivotal_erp/screens/widgets/my_search_delegate.dart';
+import 'package:pivotal_erp/view/screens/new_sales_order.dart';
+import 'package:pivotal_erp/view/screens/widgets/my_search_delegate.dart';
 
 class SelectCustomer extends StatefulWidget {
   const SelectCustomer({Key? key}) : super(key: key);

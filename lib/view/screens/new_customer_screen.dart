@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pivotal_erp/screens/User_home_screen.dart';
-import 'package:pivotal_erp/screens/splash_screen.dart';
+import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 
 class NewCustomerScreen extends StatefulWidget {
   const NewCustomerScreen({Key? key}) : super(key: key);

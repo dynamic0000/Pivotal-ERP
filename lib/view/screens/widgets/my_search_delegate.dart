@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pivotal_erp/screens/new_sales_order.dart';
-
 
 class MySearchDelegate extends SearchDelegate {
   @override

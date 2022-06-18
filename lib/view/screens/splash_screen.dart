@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:pivotal_erp/screens/User_home_screen.dart';
+import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 
-import 'package:pivotal_erp/screens/sales_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {

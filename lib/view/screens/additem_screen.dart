@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({Key? key}) : super(key: key);
@@ -23,7 +24,12 @@ class _AddItemState extends State<AddItem> {
             )
           ],
           title: const Text('Add Item'),
-          leading: const Icon(Icons.backspace_outlined),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NewSalesOrder()));
+              },
+              icon: Icon(Icons.arrow_back_ios)),
         ),
         body: SingleChildScrollView(
           child: Column(children: [

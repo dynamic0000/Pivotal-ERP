@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
+import 'package:pivotal_erp/view/screens/login_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => UserHomeScreen()));
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
     });
   }
 

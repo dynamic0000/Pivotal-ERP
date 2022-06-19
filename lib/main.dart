@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:pivotal_erp/view/screens/splash_screen.dart';
+import 'view/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

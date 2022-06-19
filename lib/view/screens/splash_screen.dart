@@ -3,10 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/login_screen.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -27,9 +24,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    // final heirhg = MediaQuery.of(context).size.height;
-    // log('sizeeeeeeeeeeee $width,heightttt$heirhg');
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    log("widthhh$width" "heighttt$height");
+
     return Scaffold(
       body: Container(
           width: MediaQuery.of(context).size.width,
@@ -45,8 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                 SizedBox(
-                  height: 250.h,
+                const SizedBox(
+                  height: 250,
                 ),
                 Container(
                   width: 420.w,
@@ -83,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         // fit: BoxFit.fill
                       )),
                     ),
-                     Text(
+                    Text(
                       "Save Paper Save Tree",
                       style: TextStyle(
                         fontSize: 25.sp,
@@ -92,16 +90,16 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                     Container(
-                      height: 70.h,
-                      width: 50.w,
+                      height: 70,
+                      width: 50,
                       decoration: const BoxDecoration(
                           image: DecorationImage(
                         image: AssetImage("images/line_13.png"),
                         // fit: BoxFit.fill
                       )),
                     ),
-                     SizedBox(
-                      height: 30.h,
+                    const SizedBox(
+                      height: 30,
                     ),
                   ],
                 )

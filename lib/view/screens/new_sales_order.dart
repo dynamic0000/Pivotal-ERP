@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -16,9 +14,12 @@ class NewSalesOrder extends StatefulWidget {
 }
 
 class _NewSalesOrderState extends State<NewSalesOrder> {
+  // Size size = MediaQuery.of(context).size;
   bool _checkbox = false;
-  DateTime date = DateTime.now();
+  DateTime selectedDate = DateTime.now();
   late String formattedText = "";
+  late String formattedDueText = "";
+  DateTime selectedDueDate = DateTime.now();
 
   bool isEnabled = true;
   final node1 = FocusNode();
@@ -29,25 +30,45 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
     super.initState();
     // String formatted = DateFormat.yMEd().format(DateTime.now());
     formattedText = DateFormat("yyyy-MM-dd").format(DateTime.now());
-    log('dateeeee$formattedText');
+    print('dateeeee$formattedText');
+    formattedDueText = DateFormat("yyyy-MM-dd").format(DateTime.now());
+    print('dateeeee$formattedDueText');
   }
 
   Future<void> _selectDate() async {
-    final DateTime? newDate = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: date,
+        initialDate: selectedDate,
         firstDate: DateTime(2010),
         lastDate: DateTime(2040));
-    if (newDate != null && newDate != date) {
+    if (picked != null && picked != selectedDate) {
       setState(() {
-        date = newDate;
-        formattedText = DateFormat("yyyy-MM-dd").format(date);
+        selectedDate = picked;
+        formattedText = DateFormat("yyyy-MM-dd").format(selectedDate);
+      });
+    }
+  }
+
+  /// for due date
+
+  // late String formattedText = "";
+  Future<void> _selectDueDate() async {
+    final DateTime? pickedDue = await showDatePicker(
+        context: context,
+        initialDate: selectedDueDate,
+        firstDate: DateTime(2010),
+        lastDate: DateTime(2040));
+    if (pickedDue != null && pickedDue != selectedDate) {
+      setState(() {
+        selectedDueDate = pickedDue;
+        formattedDueText = DateFormat("yyyy-MM-dd").format(selectedDueDate);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
@@ -155,9 +176,10 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           ),
                         ],
                       ),
-                      const SizedBox(width: 110),
+                      const SizedBox(width: 65),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
+                        // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           const Text(
                             "Invoice No.",
@@ -213,15 +235,47 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                 fontWeight: FontWeight.normal),
                           ),
                           // SizedBox(
-                          //   height: 35,
+                          //   height: 5,
                           // ),
-                          // TextFormField(
-                          //   decoration: InputDecoration(
-                          //       border: UnderlineInputBorder(),
-                          //       suffixIcon: IconButton(
-                          //           onPressed: () {},
-                          //           icon: Icon(Icons.calendar_today))),
-                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: _selectDueDate,
+                                child: Container(
+                                  height: 20,
+                                  width: 80,
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 2.0, color: Colors.grey)),
+                                  ),
+                                  child: Text(
+                                    formattedDueText,
+                                    style: const TextStyle(fontSize: 15),
+                                  ),
+                                ),
+                              ),
+                              // SizedBox(
+                              //   width: 80,
+                              //   height: 16,
+                              //   child: TextFormField(
+                              //     // initialValue: formattedText,
+                              //     decoration: const InputDecoration(),
+                              //     style: const TextStyle(fontSize: 15),
+                              //     // readOnly: true,
+                              //   ),
+                              // ),
+                              IconButton(
+                                  onPressed: () {
+                                    _selectDueDate();
+                                  },
+                                  icon: const Icon(
+                                    Icons.calendar_today,
+                                    size: 18,
+                                  ))
+                            ],
+                          ),
                         ],
                       )
                     ],

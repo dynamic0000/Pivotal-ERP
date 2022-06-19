@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pivotal_erp/view/screens/User_home_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:pivotal_erp/view/screens/sales_dashboard.dart';
-import 'package:pivotal_erp/view/screens/select_customer.dart';
-import 'package:pivotal_erp/view/screens/splash_screen.dart';
-import 'package:pivotal_erp/view/screens/login_screen.dart';
+import 'view/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,15 +13,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      // home: SalesDashboard(),
-      home: SplashScreen(),
-      // home: SelectCustomer(),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(392.72, 781.09),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            // home: const NewSalesOrder()
+            home: const SplashScreen(),
+            // home: SalesDashboard(),
+            // home: UserHomeScreen(),
+
+            // home: SelectCustomer(),
+          );
+        });
   }
 }

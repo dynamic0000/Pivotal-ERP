@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pivotal_erp/view/screens/widgets/drawer_screen.dart';
 import 'package:pivotal_erp/view/screens/widgets/speedDial_icons.dart';
@@ -26,12 +27,12 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Dashboard"),
+          title: const Text("Dashboard"),
           centerTitle: true,
         ),
-        drawer: DrawerScreen(),
+        drawer: const DrawerScreen(),
         body: SingleChildScrollView(
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Padding(
@@ -41,35 +42,35 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    width: 60,
+                    width: 60.w,
                   ),
-                  Text(
+                  const Text(
                     "Sales",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 30.h,
                   ),
                   salesRow(context, 'images/today.png', 'Today', '4 orders',
                       'Yesterday', '0 order'),
                   SizedBox(
-                    height: 15,
+                    height: 15.h,
                   ),
                   salesRow(context, 'images/week.png', 'This Week', '5 orders',
                       'Last Week', '1 order'),
                   SizedBox(
-                    height: 15,
+                    height: 15.h,
                   ),
                   salesRow(context, 'images/month.png', 'This Month',
                       '4 orders', 'Last Month', '0 order'),
                   SizedBox(
-                    height: 15,
+                    height: 15.h,
                   ),
                   salesRow(context, 'images/year.png', 'This Year', '8 orders',
                       'Last Order', '0 order'),
 
                   /////////second
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                 ],
@@ -92,7 +93,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         //     ),
         //   ),
         // ),
-        floatingActionButton: SpeedDialIcon(),
+        floatingActionButton: const SpeedDialIcon(),
       ),
     );
   }
@@ -104,14 +105,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.white30, width: 1.0),
-          color: Color.fromARGB(255, 255, 253, 253),
+          color: const Color.fromARGB(255, 255, 253, 253),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2, //spread radius
               blurRadius: 2, // blur radius
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             )
           ]),
       child: Padding(
@@ -137,15 +138,15 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   children: <Widget>[
                     Text(
                       latestTime,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     Text(
                       latestOrder,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 18,
                           color: Colors.grey,
                           fontWeight: FontWeight.w700),
@@ -153,7 +154,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                   // width: 68,
                   ),
               //yesterday
@@ -163,17 +164,17 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 children: <Widget>[
                   Text(
                     previousTime,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Text(
                     previousOrder,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 13,
                         color: Colors.black,
                         fontWeight: FontWeight.w700),
@@ -184,7 +185,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               Row(
                 // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(
                     Icons.arrow_upward,
                     size: 40,

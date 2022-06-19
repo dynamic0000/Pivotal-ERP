@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/login_screen.dart';
 
@@ -17,19 +19,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    Timer(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // final width = MediaQuery.of(context).size.width;
+    // final heirhg = MediaQuery.of(context).size.height;
+    // log('sizeeeeeeeeeeee $width,heightttt$heirhg');
     return Scaffold(
       body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
             image: AssetImage('images/background.png'),
             fit: BoxFit.fill,
@@ -40,12 +45,12 @@ class _SplashScreenState extends State<SplashScreen> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
-                  height: 250,
+                 SizedBox(
+                  height: 250.h,
                 ),
                 Container(
-                  width: 420,
-                  height: 130,
+                  width: 420.w,
+                  height: 130.h,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("images/pivotal_erp_png_logo.png"),
@@ -66,37 +71,37 @@ class _SplashScreenState extends State<SplashScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     Container(
                       height: 70,
                       width: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
                         image: AssetImage("images/line_13.png"),
                         // fit: BoxFit.fill
                       )),
                     ),
-                    Text(
+                     Text(
                       "Save Paper Save Tree",
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 25.sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.white,
                       ),
                     ),
                     Container(
-                      height: 70,
-                      width: 50,
-                      decoration: BoxDecoration(
+                      height: 70.h,
+                      width: 50.w,
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
                         image: AssetImage("images/line_13.png"),
                         // fit: BoxFit.fill
                       )),
                     ),
-                    SizedBox(
-                      height: 30,
+                     SizedBox(
+                      height: 30.h,
                     ),
                   ],
                 )

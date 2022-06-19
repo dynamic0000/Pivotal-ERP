@@ -25,4 +25,18 @@ class RemoteService {
       rethrow;
     }
   }
+
+  Future<String> getUrl(String url) async {
+    try {
+      var uri = Uri.parse(url);
+
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        return "Success";
+      }
+      return 'Failed';
+    } catch (e) {
+      return "error Failed";
+    }
+  }
 }

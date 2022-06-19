@@ -24,29 +24,31 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "New Customer",
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
         ),
         leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UserHomeScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserHomeScreen()));
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               size: 28,
             )),
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.file_upload_outlined,
                 size: 28,
               )),
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.verified_rounded,
                 size: 28,
               ))
@@ -59,7 +61,7 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                const Text(
                   "Name",
                   style: TextStyle(
                       fontSize: 17,
@@ -71,10 +73,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "Address",
                   style: TextStyle(
                       fontSize: 17,
@@ -86,10 +88,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "PanVat No.",
                   style: TextStyle(
                       fontSize: 17,
@@ -101,10 +103,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "Province",
                   style: TextStyle(
                       fontSize: 17,
@@ -121,10 +123,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "District",
                   style: TextStyle(
                       fontSize: 17,
@@ -136,10 +138,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "Area",
                   style: TextStyle(
                       fontSize: 17,
@@ -151,10 +153,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "Contact Person",
                   style: TextStyle(
                       fontSize: 17,
@@ -166,10 +168,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "Contact No.",
                   style: TextStyle(
                       fontSize: 17,
@@ -181,10 +183,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "Email ID",
                   style: TextStyle(
                       fontSize: 17,
@@ -196,17 +198,17 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "Location",
                   style: TextStyle(
                       fontSize: 17,
                       color: Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 TextFormField(
@@ -214,14 +216,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                Text(
+                const Text(
                   "Nearest Location",
                   style: TextStyle(
                       fontSize: 17,
                       color: Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 TextFormField(
@@ -229,7 +231,7 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                Text(
+                const Text(
                   "Customer Type",
                   style: TextStyle(
                       fontSize: 17,

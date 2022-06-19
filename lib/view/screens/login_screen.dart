@@ -1,10 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:pivotal_erp/constant.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
-import 'package:pivotal_erp/view/screens/dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,9 +15,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  //GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController urlController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    urlController.text = 'https://demo.pivotalerp.app/';
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isChecked = false;
@@ -59,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  key: formkey,
+                  //   key: formkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -147,10 +157,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       .getToken(userName, password);
                                   if (response != null) {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const UserHomeScreen()));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserHomeScreen(),
+                                      ),
+                                    );
                                   }
                                 } catch (e) {
                                   //  FlutterError.demangleStackTrace.toString();
@@ -189,20 +201,32 @@ class _LoginScreenState extends State<LoginScreen> {
                     return AlertDialog(
                       title: const Text('Change API'),
                       content: TextFormField(
-                        initialValue: 'https://demo.pivotalerp.app/',
+                        controller: urlController,
+                        //  initialValue: 'https://demo.pivotalerp.app/',
                         decoration: const InputDecoration(
                           label: Text('Url Please'),
                         ),
                         //`   readOnly: true,
                       ),
-                      semanticLabel: 'sd',
+                      semanticLabel: 'Hurray',
                       actions: [
                         MaterialButton(
                           onPressed: () {},
                           child: const Text('Edit'),
                         ),
                         MaterialButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            var currentUrl = urlController.text;
+                            log('qqqqqqqqqqqq$currentUrl');
+                            final response =
+                                await RemoteService().getUrl(currentUrl);
+                            Fluttertoast.showToast(msg: response);
+                            if (response == 'Success') {
+                              Navigator.pop(context);
+                            } else {
+                              return;
+                            }
+                          },
                           child: const Text('Check'),
                         ),
                         MaterialButton(

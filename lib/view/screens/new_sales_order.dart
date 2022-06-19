@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
-import 'package:pivotal_erp/view/screens/sales_dashboard.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
 
 class NewSalesOrder extends StatefulWidget {
@@ -51,28 +50,30 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 29, 117, 189),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 29, 117, 189),
+        title: const Text(
           "Sales Invoice",
           style: TextStyle(fontSize: 30),
         ),
         leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UserHomeScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserHomeScreen()));
             },
-            icon: Icon(Icons.arrow_back)),
+            icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 // Icons.assignment_turned_in,
                 Icons.difference_outlined,
                 size: 30,
               )),
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.verified,
                 color: Colors.green,
                 size: 30,
@@ -81,7 +82,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -89,7 +90,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                 height: 210,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 169, 213, 248),
+                    color: const Color.fromARGB(255, 169, 213, 248),
                     borderRadius: BorderRadius.circular(8)),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -99,26 +100,27 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                         // mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Billed To",
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color.fromARGB(255, 16, 124, 213),
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           DottedBorder(
-                            color: Color.fromARGB(255, 155, 154, 154),
+                            color: const Color.fromARGB(255, 155, 154, 154),
                             strokeWidth: 1,
-                            radius: Radius.circular(5),
+                            radius: const Radius.circular(5),
                             borderType: BorderType.RRect,
                             child: Container(
                                 height: 80,
                                 width: 120,
                                 decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 205, 231, 252),
+                                    color: const Color.fromARGB(
+                                        255, 205, 231, 252),
                                     borderRadius: BorderRadius.circular(5)),
                                 child: Center(
                                   child: Row(
@@ -130,18 +132,19 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      SelectCustomer()));
+                                                      const SelectCustomer()));
                                           // Navigator.push(
                                           //     context,
                                           //     MaterialPageRoute(
                                           //         builder: (context) =>
                                           //             SelectCustomer()));
                                         },
-                                        icon: Icon(Icons.add_circle_rounded),
+                                        icon: const Icon(
+                                            Icons.add_circle_rounded),
                                         color: Colors.green,
                                         iconSize: 23,
                                       ),
-                                      Text(
+                                      const Text(
                                         "Customer",
                                         style: TextStyle(
                                             fontSize: 15, color: Colors.green),
@@ -152,18 +155,18 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           ),
                         ],
                       ),
-                      SizedBox(width: 110),
+                      const SizedBox(width: 110),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
+                          const Text(
                             "Invoice No.",
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color.fromARGB(255, 16, 124, 213),
                                 fontWeight: FontWeight.normal),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           SizedBox(
@@ -171,27 +174,27 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             height: 16,
                             child: TextField(
                               focusNode: node1,
-                              style: TextStyle(fontSize: 10),
+                              style: const TextStyle(fontSize: 10),
                               enabled: isEnabled,
                               readOnly: !isEnabled,
                             ),
                           ),
 
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
+                          const Text(
                             "Date of Issue",
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color.fromARGB(255, 16, 124, 213),
                                 fontWeight: FontWeight.normal),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 12,
                           ),
                           GestureDetector(
-                              child: Container(
+                              child: SizedBox(
                                   width: 60,
                                   height: 16,
                                   child: Text(formattedText)),
@@ -199,10 +202,10 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                 _selectDate();
                               }),
 
-                          SizedBox(
+                          const SizedBox(
                             height: 35,
                           ),
-                          Text(
+                          const Text(
                             "Due Date",
                             style: TextStyle(
                                 fontSize: 15,
@@ -227,12 +230,12 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
               ),
               Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
                         "Description",
                         style: TextStyle(
@@ -241,7 +244,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        width: 215,
+                        width: 200,
                       ),
                       Text(
                         "Line Total",
@@ -252,15 +255,15 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
 
                   ///for add line container
                   DottedBorder(
-                    color: Color.fromARGB(255, 194, 194, 194),
+                    color: const Color.fromARGB(255, 194, 194, 194),
                     strokeWidth: 2,
-                    radius: Radius.circular(8),
+                    radius: const Radius.circular(8),
                     borderType: BorderType.RRect,
                     child: Container(
                         height: 35,
@@ -278,13 +281,14 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => AddItem()));
+                                          builder: (context) =>
+                                              const AddItem()));
                                 },
-                                icon: Icon(Icons.add_circle_rounded),
+                                icon: const Icon(Icons.add_circle_rounded),
                                 color: Colors.green,
                                 iconSize: 23,
                               ),
-                              Text(
+                              const Text(
                                 "Add a line",
                                 style: TextStyle(
                                     fontSize: 15,
@@ -294,11 +298,11 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           ),
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
                         width: 80,
                       ),
@@ -321,13 +325,13 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                     ],
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
-                        width: 80,
+                        width: 70,
                       ),
                       Text(
                         "Discount @ ",
@@ -370,13 +374,13 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
-                        width: 80,
+                        width: 70,
                       ),
                       Text(
                         "Excise @ ",
@@ -420,11 +424,11 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
                         width: 80,
                       ),
@@ -472,12 +476,12 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 6,
                   ),
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 68,
                       ),
                       Checkbox(
@@ -488,14 +492,14 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           });
                         },
                       ),
-                      Text(
+                      const Text(
                         'Round off',
                         style: TextStyle(fontSize: 18, color: Colors.grey),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 120,
                       ),
-                      Text(
+                      const Text(
                         "0.00",
                         style: TextStyle(
                             fontSize: 18,
@@ -504,13 +508,13 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
-                        width: 75,
+                        width: 65,
                       ),
                       Text(
                         'Grand Amount',
@@ -531,13 +535,13 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 35,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
-                        width: 75,
+                        width: 65,
                       ),
                       Text(
                         'Received Amount',
@@ -558,13 +562,13 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
-                        width: 90,
+                        width: 80,
                       ),
                       Text(
                         'Amount Due',
@@ -585,10 +589,10 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  TextField(
+                  const TextField(
                     // textAlignVertical: TextAlignVertical.bottom,
 
                     // textAlign: TextAlign.,

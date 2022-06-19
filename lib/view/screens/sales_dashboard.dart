@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 
 class SalesDashboard extends StatefulWidget {
@@ -14,13 +13,15 @@ class _SalesDashboardState extends State<SalesDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dashboard"),
+        title: const Text("Dashboard"),
         leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UserHomeScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserHomeScreen()));
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               size: 28,
             )),
@@ -28,7 +29,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
       ),
       // drawer: DrawerScreen(),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Padding(
@@ -37,14 +38,14 @@ class _SalesDashboardState extends State<SalesDashboard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   width: 60,
                 ),
-                Text(
+                const Text(
                   "Sales",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Container(
@@ -52,14 +53,14 @@ class _SalesDashboardState extends State<SalesDashboard> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.white30, width: 1.0),
-                      color: Color.fromARGB(255, 255, 253, 253),
+                      color: const Color.fromARGB(255, 255, 253, 253),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2, //spread radius
                           blurRadius: 2, // blur radius
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         )
                       ]),
                   child: Padding(
@@ -70,7 +71,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                         Container(
                           height: 80,
                           width: 110,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("images/today.png"),
                                   fit: BoxFit.fill)),
@@ -79,7 +80,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                           padding: const EdgeInsets.all(2.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
+                            children: const <Widget>[
                               Text(
                                 "Today",
                                 style: TextStyle(
@@ -98,12 +99,12 @@ class _SalesDashboardState extends State<SalesDashboard> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          width: 68,
+                        const SizedBox(
+                          width: 53,
                         ),
                         Column(
                           // crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
+                          children: const <Widget>[
                             Text(
                               "Yesterday",
                               style: TextStyle(
@@ -124,7 +125,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.arrow_upward,
                               size: 40,
@@ -146,7 +147,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                   ),
                 ),
                 /////////second
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -154,14 +155,14 @@ class _SalesDashboardState extends State<SalesDashboard> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.white30, width: 1.0),
-                      color: Color.fromARGB(255, 255, 253, 253),
+                      color: const Color.fromARGB(255, 255, 253, 253),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2, //spread radius
                           blurRadius: 2, // blur radius
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         )
                       ]),
                   child: Padding(
@@ -172,7 +173,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                         Container(
                           height: 80,
                           width: 110,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("images/week.png"),
                                   fit: BoxFit.fill)),
@@ -182,7 +183,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             // mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
+                            children: const <Widget>[
                               // SizedBox(
                               //   width: 80,
                               // ),
@@ -204,11 +205,11 @@ class _SalesDashboardState extends State<SalesDashboard> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          width: 44,
+                        const SizedBox(
+                          width: 34,
                         ),
                         Column(
-                          children: <Widget>[
+                          children: const <Widget>[
                             Text(
                               "Last Week",
                               style: TextStyle(
@@ -229,7 +230,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.arrow_upward,
                               size: 40,
@@ -241,7 +242,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -249,14 +250,14 @@ class _SalesDashboardState extends State<SalesDashboard> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.white30, width: 1.0),
-                      color: Color.fromARGB(255, 255, 253, 253),
+                      color: const Color.fromARGB(255, 255, 253, 253),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2, //spread radius
                           blurRadius: 2, // blur radius
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         )
                       ]),
                   child: Padding(
@@ -267,7 +268,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                         Container(
                           height: 80,
                           width: 110,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("images/month.png"),
                                   fit: BoxFit.fill)),
@@ -276,7 +277,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                           padding: const EdgeInsets.all(2.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
+                            children: const <Widget>[
                               // SizedBox(
                               //   width: 20,
                               // ),
@@ -298,11 +299,11 @@ class _SalesDashboardState extends State<SalesDashboard> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          width: 30,
+                        const SizedBox(
+                          width: 20,
                         ),
                         Column(
-                          children: <Widget>[
+                          children: const <Widget>[
                             Text(
                               "Last Month",
                               style: TextStyle(
@@ -323,7 +324,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.arrow_upward,
                               size: 40,
@@ -335,7 +336,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -343,14 +344,14 @@ class _SalesDashboardState extends State<SalesDashboard> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.white30, width: 1.0),
-                      color: Color.fromARGB(255, 255, 253, 253),
+                      color: const Color.fromARGB(255, 255, 253, 253),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2, //spread radius
                           blurRadius: 2, // blur radius
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         )
                       ]),
                   child: Padding(
@@ -361,7 +362,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                         Container(
                           height: 80,
                           width: 110,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("images/year.png"),
                                   fit: BoxFit.fill)),
@@ -370,7 +371,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                           padding: const EdgeInsets.all(2.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
+                            children: const <Widget>[
                               SizedBox(
                                 width: 10,
                               ),
@@ -392,11 +393,11 @@ class _SalesDashboardState extends State<SalesDashboard> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          width: 60,
+                        const SizedBox(
+                          width: 50,
                         ),
                         Column(
-                          children: <Widget>[
+                          children: const <Widget>[
                             Text(
                               "Last Year",
                               style: TextStyle(
@@ -417,7 +418,7 @@ class _SalesDashboardState extends State<SalesDashboard> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.arrow_upward,
                               size: 40,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:pivotal_erp/view/screens/login_screen.dart';
 import 'package:pivotal_erp/view/screens/widgets/drawer_screen.dart';
 import 'package:pivotal_erp/view/screens/widgets/speedDial_icons.dart';
 
@@ -29,6 +29,16 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         appBar: AppBar(
           title: const Text("Dashboard"),
           centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const LoginScreen())));
+                },
+                icon: const Icon(Icons.logout))
+          ],
         ),
         drawer: const DrawerScreen(),
         body: SingleChildScrollView(

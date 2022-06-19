@@ -156,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   final response = await RemoteService()
                                       .getToken(userName, password);
                                   if (response != null) {
+                                    const CircularProgressIndicator();
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

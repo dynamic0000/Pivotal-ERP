@@ -176,7 +176,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           ),
                         ],
                       ),
-                      const SizedBox(width: 65),
+                      const SizedBox(width: 70),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         // mainAxisAlignment: MainAxisAlignment.end,
@@ -189,7 +189,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                 fontWeight: FontWeight.normal),
                           ),
                           const SizedBox(
-                            height: 15,
+                            height: 5,
                           ),
                           SizedBox(
                             width: 60,
@@ -203,7 +203,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           ),
 
                           const SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
                           const Text(
                             "Date of Issue",
@@ -212,20 +212,43 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                 color: Color.fromARGB(255, 16, 124, 213),
                                 fontWeight: FontWeight.normal),
                           ),
-                          const SizedBox(
-                            height: 12,
+                          // const SizedBox(
+                          //   height: 2,
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: _selectDate,
+                                child: Container(
+                                  height: 20,
+                                  width: 80,
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 2.0, color: Colors.grey)),
+                                  ),
+                                  child: Text(
+                                    formattedText,
+                                    style: const TextStyle(fontSize: 15),
+                                  ),
+                                ),
+                              ),
+
+                              // ),
+                              IconButton(
+                                  onPressed: () {
+                                    _selectDate();
+                                  },
+                                  icon: const Icon(
+                                    Icons.calendar_today,
+                                    size: 18,
+                                  ))
+                            ],
                           ),
-                          GestureDetector(
-                              child: SizedBox(
-                                  width: 60,
-                                  height: 16,
-                                  child: Text(formattedText)),
-                              onTap: () {
-                                _selectDate();
-                              }),
 
                           const SizedBox(
-                            height: 35,
+                            height: 4,
                           ),
                           const Text(
                             "Due Date",
@@ -256,15 +279,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                   ),
                                 ),
                               ),
-                              // SizedBox(
-                              //   width: 80,
-                              //   height: 16,
-                              //   child: TextFormField(
-                              //     // initialValue: formattedText,
-                              //     decoration: const InputDecoration(),
-                              //     style: const TextStyle(fontSize: 15),
-                              //     // readOnly: true,
-                              //   ),
+
                               // ),
                               IconButton(
                                   onPressed: () {

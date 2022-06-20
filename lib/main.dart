@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
             // home: SalesDashboard(),
             home: const SplashScreen(),
             // home: SelectCustomer(),
+            // home: const NewSalesOrder(),
           );
         });
   }

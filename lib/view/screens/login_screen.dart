@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
             right: 0,
             left: 0,
             child: Container(
-              width: MediaQuery.of(context).size.width,
+              // width: MediaQuery.of(context).size.width,
               height: 350.h,
               decoration: const BoxDecoration(
                   image: DecorationImage(

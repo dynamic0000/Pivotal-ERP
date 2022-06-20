@@ -1,5 +1,9 @@
+import 'dart:developer';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -67,6 +71,19 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
     }
   }
 
+  Future pickImage() async {
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    log('abccccc');
+  }
+
+  Future captureImage() async {
+    await ImagePicker().pickImage(source: ImageSource.camera);
+  }
+
+  Future selectFile() async {
+    await FilePicker.platform.pickFiles(allowMultiple: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -87,7 +104,17 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
             icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.r),
+                            topRight: Radius.circular(20.r))
+                        // BorderRadius.vertical(top: Radius.circular(20.r))
+                        ),
+                    context: context,
+                    builder: (context) => buildSheet());
+              },
               icon: Icon(
                 // Icons.assignment_turned_in,
                 Icons.difference_outlined,
@@ -672,4 +699,72 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
       ),
     );
   }
+
+  GestureDetector filesColumn(
+    BuildContext context,
+    String photo,
+    String fileType,
+    VoidCallback ontap,
+  ) {
+    return GestureDetector(
+      onTap: ontap,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            Container(
+              height: 30.h,
+              width: 30.w,
+              decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage(photo))),
+            ),
+            SizedBox(
+              width: 8.h,
+            ),
+            Text(
+              fileType,
+              style: TextStyle(fontSize: 15.sp),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildSheet() => SizedBox(
+        height: 230.h,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.cancel_outlined))
+              ],
+            ),
+            filesColumn(
+              context,
+              "images/gallery.png",
+              "Gallery",
+              () {
+                pickImage();
+              },
+            ),
+            SizedBox(
+              height: 6.h,
+            ),
+            filesColumn(
+                context, "images/camera.png", "Camera", () => captureImage()),
+            SizedBox(
+              height: 6.h,
+            ),
+            filesColumn(context, "images/upload.png", "Upload file",
+                () => selectFile()),
+          ],
+        ),
+      );
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,9 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    log("widthhh$width" "heighttt$height");
+    // final width = MediaQuery.of(context).size.width;
+    // final height = MediaQuery.of(context).size.height;
+    // log("widthhh$width" "heighttt$height");
 
     return Scaffold(
       body: Container(
@@ -44,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: 250.h,
+                  height: 220.h,
                 ),
                 Container(
                   width: 420.w,
@@ -96,9 +95,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         image: AssetImage("images/line_13.png"),
                       )),
                     ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    // SizedBox(
+                    //   height: 30.h,
+                    // ),
                   ],
                 )
               ],

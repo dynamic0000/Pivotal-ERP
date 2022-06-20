@@ -20,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController urlController = TextEditingController();
+  bool _showPassword = false;
 
   @override
   void initState() {
@@ -43,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
             right: 0,
             left: 0,
             child: Container(
+              width: MediaQuery.of(context).size.width,
               height: 350.h,
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -98,24 +100,33 @@ class _LoginScreenState extends State<LoginScreen> {
                           MinLengthValidator(4,
                               errorText: 'password must be at least 4 digits')
                         ]),
-                        obscureText: true,
+                        // obscureText: obscureText,
                         controller: passwordController,
                         decoration: InputDecoration(
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Icon(
-                              Icons.lock,
-                              color: ColorConst.iconColor,
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: Icon(
+                                Icons.lock,
+                                color: ColorConst.iconColor,
+                              ),
                             ),
-                          ),
-                          focusedBorder: const UnderlineInputBorder(),
-                          hintText: 'Password',
-                          suffixIcon: Icon(
-                            Icons.remove_red_eye,
-                            color: ColorConst.iconColor,
-                          ),
-                        ),
+                            focusedBorder: const UnderlineInputBorder(),
+                            hintText: 'Password',
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _showPassword = !_showPassword;
+                                });
+                              },
+                              child: Icon(
+                                _showPassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                            )),
+                        obscureText: !_showPassword,
                       ),
+
                       SizedBox(
                         height: 8.h,
                       ),

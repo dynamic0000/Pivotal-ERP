@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 
 class NewCustomerScreen extends StatefulWidget {
@@ -24,9 +25,9 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "New Customer",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
+          style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.normal),
         ),
         leading: IconButton(
             onPressed: () {
@@ -61,11 +62,11 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
+                Text(
                   "Name",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -73,14 +74,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "Address",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -88,14 +89,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "PanVat No.",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -103,14 +104,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "Province",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 // DropdownButton(
@@ -123,14 +124,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "District",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -138,14 +139,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "Area",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -153,14 +154,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "Contact Person",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -168,14 +169,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "Contact No.",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -183,14 +184,14 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "Email ID",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -198,44 +199,44 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
-                const Text(
+                Text(
                   "Location",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const Text(
+                Text(
                   "Nearest Location",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                   ),
                 ),
-                const Text(
+                Text(
                   "Customer Type",
                   style: TextStyle(
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 21, 115, 193),
+                      fontSize: 17.sp,
+                      color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
                 TextFormField(

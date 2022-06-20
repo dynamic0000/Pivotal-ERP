@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -7,31 +8,31 @@ class DrawerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         children: <Widget>[
-          ListTile(
+          const ListTile(
             title: Text("Options 1"),
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
-          ListTile(
+          const ListTile(
             title: Text("Options 2"),
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
-          ListTile(
+          const ListTile(
             title: Text("Options 3"),
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
-          ListTile(
+          const ListTile(
             title: Text("Options 4"),
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
         ],
       ),

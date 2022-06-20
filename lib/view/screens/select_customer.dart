@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:pivotal_erp/view/screens/widgets/my_search_delegate.dart';
 
@@ -14,13 +15,15 @@ class _SelectCustomerState extends State<SelectCustomer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Select Customer"),
+        title: const Text("Select Customer"),
         leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewSalesOrder()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NewSalesOrder()));
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
         actions: [
           IconButton(
               onPressed: () {
@@ -29,7 +32,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
                   delegate: MySearchDelegate(),
                 );
               },
-              icon: Icon(Icons.search))
+              icon: const Icon(Icons.search))
         ],
       ),
       body: SingleChildScrollView(
@@ -37,14 +40,14 @@ class _SelectCustomerState extends State<SelectCustomer> {
           child: Column(
             children: [
               Container(
-                color: Color.fromARGB(255, 161, 212, 254),
+                color: const Color.fromARGB(255, 161, 212, 254),
                 child: ExpansionTile(
                   // backgroundColor: Color.fromARGB(255, 157, 207, 247),
                   title: Text(
                     "Cash-in-hand",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         color: Colors.black
                         // backgroundColor: Color.fromARGB(255, 154, 203, 242)
                         ),
@@ -52,7 +55,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
                   children: [
                     Container(
                       color: Colors.white,
-                      child: ListTile(
+                      child: const ListTile(
                         title: Text("CASH"),
                       ),
                     )
@@ -60,14 +63,14 @@ class _SelectCustomerState extends State<SelectCustomer> {
                 ),
               ),
               Container(
-                color: Color.fromARGB(255, 161, 212, 254),
+                color: const Color.fromARGB(255, 161, 212, 254),
                 child: ExpansionTile(
                   // backgroundColor: Color.fromARGB(255, 157, 207, 247),
                   title: Text(
                     "Primary",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         color: Colors.black
                         // backgroundColor: Color.fromARGB(255, 154, 203, 242)
                         ),
@@ -75,7 +78,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
                   children: [
                     Container(
                       color: Colors.white,
-                      child: ListTile(
+                      child: const ListTile(
                         title: Text("PROFIT & LOSS ACCOUNT "),
                       ),
                     )
@@ -83,14 +86,14 @@ class _SelectCustomerState extends State<SelectCustomer> {
                 ),
               ),
               Container(
-                color: Color.fromARGB(255, 161, 212, 254),
+                color: const Color.fromARGB(255, 161, 212, 254),
                 child: ExpansionTile(
                   // backgroundColor: Color.fromARGB(255, 157, 207, 247),
                   title: Text(
                     "Purchase Account",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         color: Colors.black
                         // backgroundColor: Color.fromARGB(255, 154, 203, 242)
                         ),
@@ -98,7 +101,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
                   children: [
                     Container(
                       color: Colors.white,
-                      child: ListTile(
+                      child: const ListTile(
                         title: Text("PURCHASE A/C"),
                       ),
                     )
@@ -106,14 +109,14 @@ class _SelectCustomerState extends State<SelectCustomer> {
                 ),
               ),
               Container(
-                color: Color.fromARGB(255, 161, 212, 254),
+                color: const Color.fromARGB(255, 161, 212, 254),
                 child: ExpansionTile(
                   // backgroundColor: Color.fromARGB(255, 157, 207, 247),
                   title: Text(
                     "Sales Account",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         color: Colors.black
                         // backgroundColor: Color.fromARGB(255, 154, 203, 242)
                         ),
@@ -121,7 +124,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
                   children: [
                     Container(
                       color: Colors.white,
-                      child: ListTile(
+                      child: const ListTile(
                         title: Text("SALES A/C"),
                       ),
                     )
@@ -129,14 +132,14 @@ class _SelectCustomerState extends State<SelectCustomer> {
                 ),
               ),
               Container(
-                color: Color.fromARGB(255, 161, 212, 254),
+                color: const Color.fromARGB(255, 161, 212, 254),
                 child: ExpansionTile(
                   // backgroundColor: Color.fromARGB(255, 157, 207, 247),
                   title: Text(
                     "Duties & Taxes",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         color: Colors.black
                         // backgroundColor: Color.fromARGB(255, 154, 203, 242)
                         ),
@@ -144,19 +147,19 @@ class _SelectCustomerState extends State<SelectCustomer> {
                   children: [
                     Container(
                       color: Colors.white,
-                      child: ListTile(
+                      child: const ListTile(
                         title: Text("VAT"),
                       ),
                     ),
                     Container(
                       color: Colors.white,
-                      child: ListTile(
+                      child: const ListTile(
                         title: Text("EXCISE DUTY"),
                       ),
                     ),
                     Container(
                       color: Colors.white,
-                      child: ListTile(
+                      child: const ListTile(
                         title: Text("TDS"),
                       ),
                     ),

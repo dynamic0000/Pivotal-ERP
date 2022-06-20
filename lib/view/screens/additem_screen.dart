@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class AddItem extends StatefulWidget {
@@ -26,26 +27,19 @@ class _AddItemState extends State<AddItem> {
           title: const Text('Add Item'),
           leading: IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NewSalesOrder()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NewSalesOrder()));
               },
-              icon: Icon(Icons.arrow_back_ios)),
+              icon: const Icon(Icons.arrow_back_ios)),
         ),
         body: SingleChildScrollView(
           child: Column(children: [
-            // DropdownButton<dynamic>(
-            //   items: items.map((e) {
-            //     return DropdownMenuItem(child: Text(e));
-            //   }).toList(),
-            //   onChanged: (newValue) {
-            //     dropdownValue = newValue;
-            //   },
-            //   value: dropdownValue,
-            // ),
             SizedBox(
               //  color: Colors.grey,
               width: double.infinity,
-              height: 230,
+              height: 230.h,
               child: Column(
                 children: [
                   Padding(
@@ -61,7 +55,7 @@ class _AddItemState extends State<AddItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
-                        width: 90,
+                        width: 90.w,
                         child: TextFormField(
                           decoration: InputDecoration(
                               label: Text(
@@ -72,7 +66,7 @@ class _AddItemState extends State<AddItem> {
                       ),
                       SizedBox(
                         //  height: 50,
-                        width: 90,
+                        width: 90.w,
                         child: TextFormField(
                           initialValue: 'N/A',
                           decoration: InputDecoration(
@@ -84,7 +78,7 @@ class _AddItemState extends State<AddItem> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 90.w,
                         child: TextFormField(
                           initialValue: '0',
                           decoration: InputDecoration(
@@ -100,7 +94,7 @@ class _AddItemState extends State<AddItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
-                        width: 90,
+                        width: 90.w,
                         child: TextFormField(
                           initialValue: '0',
                           decoration: InputDecoration(
@@ -111,7 +105,7 @@ class _AddItemState extends State<AddItem> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 90.w,
                         child: TextFormField(
                           initialValue: 'N/A',
                           decoration: InputDecoration(
@@ -123,7 +117,7 @@ class _AddItemState extends State<AddItem> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 90.w,
                         child: TextFormField(
                           initialValue: '0',
                           decoration: InputDecoration(
@@ -144,8 +138,8 @@ class _AddItemState extends State<AddItem> {
                 color: Colors.grey[300],
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     _rowData('Closing Stock', 0),
                     _rowData('Alternative Unit', 0),
@@ -158,8 +152,8 @@ class _AddItemState extends State<AddItem> {
                     _rowData('Product Type', 0),
                     _rowData('Vat Rate', 0),
                     _rowData('EXDutyRate', 0),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                   ],
                 ),

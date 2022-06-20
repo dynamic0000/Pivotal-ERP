@@ -43,8 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const SizedBox(
-                  height: 250,
+                SizedBox(
+                  height: 250.h,
                 ),
                 Container(
                   width: 420.w,
@@ -55,12 +55,12 @@ class _SplashScreenState extends State<SplashScreen> {
                         fit: BoxFit.fill),
                   ),
                 ),
-                const SizedBox(
-                  height: 210,
+                SizedBox(
+                  height: 210.h,
                 ),
                 Container(
-                  width: 75,
-                  height: 70,
+                  width: 75.w,
+                  height: 70.h,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("images/environment.png"),
@@ -69,16 +69,15 @@ class _SplashScreenState extends State<SplashScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const SizedBox(
-                      height: 35,
+                    SizedBox(
+                      height: 35.h,
                     ),
                     Container(
-                      height: 70,
-                      width: 50,
+                      height: 70.h,
+                      width: 50.w,
                       decoration: const BoxDecoration(
                           image: DecorationImage(
                         image: AssetImage("images/line_13.png"),
-                        // fit: BoxFit.fill
                       )),
                     ),
                     Text(
@@ -90,16 +89,15 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                     Container(
-                      height: 70,
-                      width: 50,
+                      height: 70.h,
+                      width: 50.w,
                       decoration: const BoxDecoration(
                           image: DecorationImage(
                         image: AssetImage("images/line_13.png"),
-                        // fit: BoxFit.fill
                       )),
                     ),
-                    const SizedBox(
-                      height: 30,
+                    SizedBox(
+                      height: 30.h,
                     ),
                   ],
                 )

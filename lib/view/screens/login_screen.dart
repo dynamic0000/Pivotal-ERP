@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:pivotal_erp/constant.dart';
@@ -42,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             right: 0,
             left: 0,
             child: Container(
-              height: 350,
+              height: 350.h,
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('images/background_bottom.png'),
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
           top: 300,
           child: Center(
             child: Container(
-              width: size.width - 50,
+              width: size.width - 50.w,
               margin: const EdgeInsets.only(right: 25, left: 25),
               height: 300,
               decoration: BoxDecoration(
@@ -61,10 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   boxShadow: [
                     BoxShadow(
                         color: Colors.black.withOpacity(0.4),
-                        blurRadius: 15,
-                        spreadRadius: 5)
+                        blurRadius: 15.r,
+                        spreadRadius: 5.r)
                   ],
-                  borderRadius: BorderRadius.circular(15)),
+                  borderRadius: BorderRadius.circular(15.r)),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
@@ -88,8 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             hintText: 'Email/Username'),
                       ),
-                      const SizedBox(
-                        height: 8,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       TextFormField(
                         validator: MultiValidator([
@@ -115,8 +116,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 8,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       Row(
                         children: [
@@ -128,8 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 });
                               }),
                           const Text('Remember Me'),
-                          const SizedBox(
-                            width: 40,
+                          SizedBox(
+                            width: 40.w,
                           ),
                           GestureDetector(
                               child: const Text(
@@ -138,16 +139,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           ))
                         ],
                       ),
-                      const SizedBox(
-                        height: 8,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       //logggggggggggggggggg INnnnnnnnnnnnnnnnnnnnnnnn
                       Container(
-                          height: 43,
-                          width: 100,
+                          height: 43.h,
+                          width: 100.w,
                           decoration: BoxDecoration(
                               color: Colors.green,
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(10.r)),
                           child: TextButton(
                               onPressed: () async {
                                 var userName = userNameController.text;
@@ -170,9 +171,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Fluttertoast.showToast(msg: e.toString());
                                 }
                               },
-                              child: const Text('Log In',
+                              child: Text('Log In',
                                   style: TextStyle(
-                                      fontSize: 16, color: Colors.white))))
+                                      fontSize: 16.sp, color: Colors.white))))
                     ],
                   ),
                 ),
@@ -185,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
           top: 50,
           left: 80,
           child: Container(
-            height: 330,
+            height: 330.h.w,
             width: 230,
             decoration: const BoxDecoration(
                 image: DecorationImage(image: AssetImage('images/cloud.png'))),

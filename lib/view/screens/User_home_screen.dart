@@ -80,29 +80,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                       'Last Order', '0 order'),
 
                   /////////second
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: 15.h,
                   ),
                 ],
               ),
             ),
           ),
         ),
-        // body: Container(
-        //   child: Padding(
-        //     padding: const EdgeInsets.all(10.0),
-        //     child: Column(
-        //       // crossAxisAlignment: CrossAxisAlignment.center,
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: <Widget>[
-        //         Align(
-        //           alignment: Alignment.center,
-        //         ),
-        //         Text("This is the dashboard of type user"),
-        //       ],
-        //     ),
-        //   ),
-        // ),
         floatingActionButton: const SpeedDialIcon(),
       ),
     );
@@ -116,7 +101,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.white30, width: 1.0),
           color: const Color.fromARGB(255, 255, 253, 253),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -134,8 +119,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             children: <Widget>[
               //images
               Container(
-                height: 80,
-                width: 110,
+                height: 80.h,
+                width: 110.w,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(photo), fit: BoxFit.fill)),
@@ -148,25 +133,22 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   children: <Widget>[
                     Text(
                       latestTime,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
-                      height: 35,
+                    SizedBox(
+                      height: 35.h,
                     ),
                     Text(
                       latestOrder,
-                      style: const TextStyle(
-                          fontSize: 18,
+                      style: TextStyle(
+                          fontSize: 18.sp,
                           color: Colors.grey,
                           fontWeight: FontWeight.w700),
                     )
                   ],
                 ),
               ),
-              const SizedBox(
-                  // width: 68,
-                  ),
               //yesterday
               Column(
                 // mainAxisAlignment: MainAxisAlignment.start,
@@ -174,18 +156,18 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 children: <Widget>[
                   Text(
                     previousTime,
-                    style: const TextStyle(
-                        fontSize: 13,
+                    style: TextStyle(
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w700,
                         color: Colors.black),
                   ),
-                  const SizedBox(
-                    height: 3,
+                  SizedBox(
+                    height: 3.h,
                   ),
                   Text(
                     previousOrder,
-                    style: const TextStyle(
-                        fontSize: 13,
+                    style: TextStyle(
+                        fontSize: 13.sp,
                         color: Colors.black,
                         fontWeight: FontWeight.w700),
                   )
@@ -195,23 +177,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               Row(
                 // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.arrow_upward,
-                    size: 40,
+                    size: 40.sp,
                     color: Colors.green,
                   )
                 ],
               )
-              // Container(
-              //   height: 50,
-              //   width: 40,
-              //   child: Icon(
-              //     Icons.arrow_upward,
-              //     size: 50,
-              //     color: Colors.green,
-              //   ),
-              // )
             ],
           ),
         ),

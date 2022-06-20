@@ -22,18 +22,20 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
       children: [
         SpeedDialChild(
             backgroundColor: Colors.green,
-            child: Icon(
+            child: const Icon(
               Icons.business,
               color: Colors.white,
             ),
             label: "New Sales Order",
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewSalesOrder()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NewSalesOrder()));
             }),
         SpeedDialChild(
           backgroundColor: Colors.green,
-          child: Icon(
+          child: const Icon(
             Icons.exposure_zero_outlined,
             color: Colors.white,
           ),
@@ -45,32 +47,34 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
         ),
         SpeedDialChild(
             backgroundColor: Colors.green,
-            child: Icon(
+            child: const Icon(
               Icons.person_add_alt_1_outlined,
               color: Colors.white,
             ),
             label: "New Customer",
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewCustomerScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NewCustomerScreen()));
             }),
         SpeedDialChild(
             backgroundColor: Colors.green,
-            child: Icon(
+            child: const Icon(
               Icons.person,
               color: Colors.white,
             ),
             label: "My Customer"),
         SpeedDialChild(
             backgroundColor: Colors.green,
-            child: Icon(
+            child: const Icon(
               Icons.people_alt_outlined,
               color: Colors.white,
             ),
             label: "My Colleagues"),
         SpeedDialChild(
             backgroundColor: Colors.green,
-            child: Icon(
+            child: const Icon(
               Icons.location_city_outlined,
               color: Colors.white,
             ),

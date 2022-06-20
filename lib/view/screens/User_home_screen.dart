@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/login_screen.dart';
-import 'package:pivotal_erp/view/screens/widgets/drawer_screen.dart';
-import 'package:pivotal_erp/view/screens/widgets/speedDial_icons.dart';
+import 'package:pivotal_erp/view/widgets/drawer_screen.dart';
+import 'package:pivotal_erp/view/widgets/speedDial_icons.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key? key}) : super(key: key);

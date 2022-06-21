@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController urlController = TextEditingController();
-  bool _showPassword = false;
+  final bool _showPassword = false;
 
   @override
   void initState() {
@@ -50,6 +50,77 @@ class _LoginScreenState extends State<LoginScreen> {
                       fit: BoxFit.cover)),
             )),
 
+        //  cloudddddddddddddddddd
+        Positioned(
+          top: 50.h,
+          left: 80.w,
+          child: Container(
+            height: 330.h,
+            width: 230.w,
+            decoration: const BoxDecoration(
+                image: DecorationImage(image: AssetImage('images/cloud.png'))),
+          ),
+        ),
+        Positioned(
+          top: 30,
+          right: 10,
+          child: IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Change API'),
+                      content: TextFormField(
+                        controller: urlController,
+                        //  initialValue: 'https://demo.pivotalerp.app/',
+                        decoration: const InputDecoration(
+                          label: Text('Url Please'),
+                        ),
+                        //`   readOnly: true,
+                      ),
+                      semanticLabel: 'Hurray',
+                      actions: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              MaterialButton(
+                                onPressed: () {},
+                                child: const Text('Edit'),
+                              ),
+                              MaterialButton(
+                                onPressed: () async {
+                                  var currentUrl = urlController.text;
+                                  // log('qqqqqqqqqqqq$currentUrl');
+                                  final response =
+                                      await RemoteService().getUrl(currentUrl);
+                                  Fluttertoast.showToast(msg: response);
+                                  if (response == 'Success') {
+                                    Navigator.pop(context);
+                                  } else {
+                                    return;
+                                  }
+                                },
+                                child: const Text('Check'),
+                              ),
+                              MaterialButton(
+                                onPressed: () {},
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+            },
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+              size: 24,
+            ),
+          ),
+        ),
         Positioned(
           top: 300.h,
           child: Center(
@@ -113,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  _showPassword = !_showPassword;
+                                  //   _showPassword = !_showPassword;
                                 });
                               },
                               child: Icon(
@@ -194,77 +265,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-            ),
-          ),
-        ),
-        //cloudddddddddddddddddd
-        Positioned(
-          top: 50.h,
-          left: 80.w,
-          child: Container(
-            height: 330.h,
-            width: 230.w,
-            decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage('images/cloud.png'))),
-          ),
-        ),
-        Positioned(
-          top: 30,
-          right: 10,
-          child: IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Change API'),
-                      content: TextFormField(
-                        controller: urlController,
-                        //  initialValue: 'https://demo.pivotalerp.app/',
-                        decoration: const InputDecoration(
-                          label: Text('Url Please'),
-                        ),
-                        //`   readOnly: true,
-                      ),
-                      semanticLabel: 'Hurray',
-                      actions: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              MaterialButton(
-                                onPressed: () {},
-                                child: const Text('Edit'),
-                              ),
-                              MaterialButton(
-                                onPressed: () async {
-                                  var currentUrl = urlController.text;
-                                  // log('qqqqqqqqqqqq$currentUrl');
-                                  final response =
-                                      await RemoteService().getUrl(currentUrl);
-                                  Fluttertoast.showToast(msg: response);
-                                  if (response == 'Success') {
-                                    Navigator.pop(context);
-                                  } else {
-                                    return;
-                                  }
-                                },
-                                child: const Text('Check'),
-                              ),
-                              MaterialButton(
-                                onPressed: () {},
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    );
-                  });
-            },
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 24,
             ),
           ),
         ),

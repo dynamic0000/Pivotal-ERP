@@ -53,12 +53,12 @@ class _LoginScreenState extends State<LoginScreen> {
             )),
 
         Positioned(
-          top: 300,
+          top: 300.h,
           child: Center(
             child: Container(
               width: size.width - 50.w,
-              margin: const EdgeInsets.only(right: 25, left: 25),
-              height: 300,
+              margin: EdgeInsets.only(right: 25.w, left: 25.w),
+              height: 300.h,
               decoration: BoxDecoration(
                   color: Colors.grey[100],
                   boxShadow: [
@@ -127,28 +127,35 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: !_showPassword,
                       ),
 
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: isChecked,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isChecked = value!;
-                                });
-                              }),
-                          const Text('Remember Me'),
-                          SizedBox(
-                            width: 40.w,
-                          ),
-                          GestureDetector(
-                              child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(color: Colors.blue),
-                          ))
-                        ],
+                      // SizedBox(
+                      //   height: 8.h,
+                      // ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              children: [
+                                Checkbox(
+                                    value: isChecked,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isChecked = value!;
+                                      });
+                                    }),
+                                const Text('Remember Me'),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 35.w,
+                            ),
+                            GestureDetector(
+                                child: const Text(
+                              'Forgot Password?',
+                              style: TextStyle(color: Colors.blue),
+                            ))
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 8.h,
@@ -194,11 +201,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         //cloudddddddddddddddddd
         Positioned(
-          top: 50,
-          left: 80,
+          top: 50.h,
+          left: 80.w,
           child: Container(
-            height: 330.h.w,
-            width: 230,
+            height: 330.h,
+            width: 230.w,
             decoration: const BoxDecoration(
                 image: DecorationImage(image: AssetImage('images/cloud.png'))),
           ),
@@ -223,28 +230,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       semanticLabel: 'Hurray',
                       actions: [
-                        MaterialButton(
-                          onPressed: () {},
-                          child: const Text('Edit'),
-                        ),
-                        MaterialButton(
-                          onPressed: () async {
-                            var currentUrl = urlController.text;
-                            log('qqqqqqqqqqqq$currentUrl');
-                            final response =
-                                await RemoteService().getUrl(currentUrl);
-                            Fluttertoast.showToast(msg: response);
-                            if (response == 'Success') {
-                              Navigator.pop(context);
-                            } else {
-                              return;
-                            }
-                          },
-                          child: const Text('Check'),
-                        ),
-                        MaterialButton(
-                          onPressed: () {},
-                          child: const Text('OK'),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              MaterialButton(
+                                onPressed: () {},
+                                child: const Text('Edit'),
+                              ),
+                              MaterialButton(
+                                onPressed: () async {
+                                  var currentUrl = urlController.text;
+                                  log('qqqqqqqqqqqq$currentUrl');
+                                  final response =
+                                      await RemoteService().getUrl(currentUrl);
+                                  Fluttertoast.showToast(msg: response);
+                                  if (response == 'Success') {
+                                    Navigator.pop(context);
+                                  } else {
+                                    return;
+                                  }
+                                },
+                                child: const Text('Check'),
+                              ),
+                              MaterialButton(
+                                onPressed: () {},
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     );

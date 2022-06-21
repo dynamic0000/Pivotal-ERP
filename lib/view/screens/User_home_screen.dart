@@ -118,73 +118,89 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               //images
-              Container(
-                height: 80.h,
-                width: 110.w,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(photo), fit: BoxFit.fill)),
-              ),
-              //today
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      latestTime,
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 35.h,
-                    ),
-                    Text(
-                      latestOrder,
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w700),
-                    )
-                  ],
-                ),
-              ),
-              //yesterday
-              Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    previousTime,
-                    style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
+              Row(
+                children: [
+                  Container(
+                    height: 80.h,
+                    width: 110.w,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(photo), fit: BoxFit.fill)),
                   ),
                   SizedBox(
-                    height: 3.h,
+                    width: 5.w,
                   ),
-                  Text(
-                    previousOrder,
-                    style: TextStyle(
-                        fontSize: 13.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          latestTime,
+                          style: TextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 35.h,
+                        ),
+                        Text(
+                          latestOrder,
+                          style: TextStyle(
+                              fontSize: 18.sp,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w700),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              //today
+
+              //yesterday
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        previousTime,
+                        style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      SizedBox(
+                        height: 4.h,
+                      ),
+                      Text(
+                        previousOrder,
+                        style: TextStyle(
+                            fontSize: 13.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 1,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.arrow_upward,
+                        size: 40.sp,
+                        color: Colors.green,
+                      )
+                    ],
                   )
                 ],
               ),
               //arrowwwww
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.arrow_upward,
-                    size: 40.sp,
-                    color: Colors.green,
-                  )
-                ],
-              )
             ],
           ),
         ),

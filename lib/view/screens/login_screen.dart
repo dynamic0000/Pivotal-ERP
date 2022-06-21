@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  //GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController urlController = TextEditingController();
@@ -72,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  //   key: formkey,
+                  key: formkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: 'Email/Username'),
                       ),
                       SizedBox(
-                        height: 8.h,
+                        height: 20.h,
                       ),
                       TextFormField(
                         validator: MultiValidator([
@@ -147,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                             SizedBox(
-                              width: 22.w,
+                              width: 20.w,
                             ),
                             GestureDetector(
                                 child: const Text(
@@ -210,66 +208,66 @@ class _LoginScreenState extends State<LoginScreen> {
                 image: DecorationImage(image: AssetImage('images/cloud.png'))),
           ),
         ),
-        Positioned(
-          top: 30,
-          right: 10,
-          child: IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Change API'),
-                      content: TextFormField(
-                        controller: urlController,
-                        //  initialValue: 'https://demo.pivotalerp.app/',
-                        decoration: const InputDecoration(
-                          label: Text('Url Please'),
-                        ),
-                        //`   readOnly: true,
-                      ),
-                      semanticLabel: 'Hurray',
-                      actions: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              MaterialButton(
-                                onPressed: () {},
-                                child: const Text('Edit'),
-                              ),
-                              MaterialButton(
-                                onPressed: () async {
-                                  var currentUrl = urlController.text;
-                                  log('qqqqqqqqqqqq$currentUrl');
-                                  final response =
-                                      await RemoteService().getUrl(currentUrl);
-                                  Fluttertoast.showToast(msg: response);
-                                  if (response == 'Success') {
-                                    Navigator.pop(context);
-                                  } else {
-                                    return;
-                                  }
-                                },
-                                child: const Text('Check'),
-                              ),
-                              MaterialButton(
-                                onPressed: () {},
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    );
-                  });
-            },
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 24,
-            ),
-          ),
-        ),
+        // Positioned(
+        //   top: 30,
+        //   right: 10,
+        //   child: IconButton(
+        //     onPressed: () {
+        //       showDialog(
+        //           context: context,
+        //           builder: (BuildContext context) {
+        //             return AlertDialog(
+        //               title: const Text('Change API'),
+        //               content: TextFormField(
+        //                 controller: urlController,
+        //                 //  initialValue: 'https://demo.pivotalerp.app/',
+        //                 decoration: const InputDecoration(
+        //                   label: Text('Url Please'),
+        //                 ),
+        //                 //`   readOnly: true,
+        //               ),
+        //               semanticLabel: 'Hurray',
+        //               actions: [
+        //                 Expanded(
+        //                   child: Row(
+        //                     children: [
+        //                       MaterialButton(
+        //                         onPressed: () {},
+        //                         child: const Text('Edit'),
+        //                       ),
+        //                       MaterialButton(
+        //                         onPressed: () async {
+        //                           var currentUrl = urlController.text;
+        //                           log('qqqqqqqqqqqq$currentUrl');
+        //                           final response =
+        //                               await RemoteService().getUrl(currentUrl);
+        //                           Fluttertoast.showToast(msg: response);
+        //                           if (response == 'Success') {
+        //                             Navigator.pop(context);
+        //                           } else {
+        //                             return;
+        //                           }
+        //                         },
+        //                         child: const Text('Check'),
+        //                       ),
+        //                       MaterialButton(
+        //                         onPressed: () {},
+        //                         child: const Text('OK'),
+        //                       ),
+        //                     ],
+        //                   ),
+        //                 ),
+        //               ],
+        //             );
+        //           });
+        //     },
+        //     icon: const Icon(
+        //       Icons.settings,
+        //       color: Colors.white,
+        //       size: 24,
+        //     ),
+        //   ),
+        // ),
         // Container(
         //   height: 200,
         //   color: Colors.white,

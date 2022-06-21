@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/new_sales_order.dart';
+import 'package:pivotal_erp/view/screens/splash_screen.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 
@@ -26,10 +26,10 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
             ),
             // home: SalesDashboard(),
-            // home: const SplashScreen(),
+            home: const SplashScreen(),
             // home: SelectCustomer(),
             // home: const NewSalesOrder(),
-            home: const NewSalesOrder(),
+            // home: const LoginScreen(),
           );
         });
   }

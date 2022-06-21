@@ -136,7 +136,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: 210.h,
+                height: 215.h,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 169, 213, 248),

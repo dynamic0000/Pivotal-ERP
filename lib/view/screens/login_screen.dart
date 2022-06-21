@@ -147,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                             SizedBox(
-                              width: 35.w,
+                              width: 22.w,
                             ),
                             GestureDetector(
                                 child: const Text(

@@ -15,16 +15,20 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      icon: Icons.add,
+      animatedIcon: AnimatedIcons.search_ellipsis,
+      foregroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 136, 236, 140),
       spacing: 12,
       spaceBetweenChildren: 12,
       openCloseDial: isDialOpen,
+      overlayColor: const Color.fromARGB(255, 194, 194, 194),
+      overlayOpacity: 0.95,
       children: [
         SpeedDialChild(
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 136, 236, 140),
             child: const Icon(
               Icons.business,
-              color: Colors.white,
+              color: Colors.black,
             ),
             label: "New Sales Order",
             onTap: () {
@@ -34,10 +38,10 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
                       builder: (context) => const NewSalesOrder()));
             }),
         SpeedDialChild(
-          backgroundColor: Colors.green,
+          backgroundColor: const Color.fromARGB(255, 136, 236, 140),
           child: const Icon(
             Icons.exposure_zero_outlined,
-            color: Colors.white,
+            color: Colors.black,
           ),
           label: "Zero Sales Order",
           // onTap: () {
@@ -46,10 +50,10 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
           // }
         ),
         SpeedDialChild(
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 136, 236, 140),
             child: const Icon(
               Icons.person_add_alt_1_outlined,
-              color: Colors.white,
+              color: Colors.black,
             ),
             label: "New Customer",
             onTap: () {
@@ -59,24 +63,26 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
                       builder: (context) => const NewCustomerScreen()));
             }),
         SpeedDialChild(
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 136, 236, 140),
             child: const Icon(
               Icons.person,
-              color: Colors.white,
+              color: Colors.black,
             ),
             label: "My Customer"),
         SpeedDialChild(
-            backgroundColor: Colors.green,
-            child: const Icon(
-              Icons.people_alt_outlined,
-              color: Colors.white,
-            ),
-            label: "My Colleagues"),
+          backgroundColor: const Color.fromARGB(255, 136, 236, 140),
+          child: const Icon(
+            Icons.people_alt_outlined,
+            color: Colors.black,
+          ),
+          label: "My Colleagues",
+          // labelStyle: TextTheme(fonn)
+        ),
         SpeedDialChild(
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 136, 236, 140),
             child: const Icon(
               Icons.location_city_outlined,
-              color: Colors.white,
+              color: Colors.black,
             ),
             label: "Live Colleagues"),
       ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:pivotal_erp/view/screens/login_screen.dart';
+import 'package:pivotal_erp/view/screens/splash_screen.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             // home: MapSample(),
             // home: SelectCustomer(),
             // home: const NewSalesOrder(),
-            home: const LoginScreen(),
+            home: const SplashScreen(),
           );
         });
   }

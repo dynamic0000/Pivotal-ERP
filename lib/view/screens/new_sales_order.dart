@@ -159,44 +159,51 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           const SizedBox(
                             height: 5,
                           ),
-                          DottedBorder(
-                            color: const Color.fromARGB(255, 155, 154, 154),
-                            strokeWidth: 1,
-                            radius: const Radius.circular(5),
-                            borderType: BorderType.RRect,
-                            child: Container(
-                                height: 80.h,
-                                width: 120.w,
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 205, 231, 252),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Center(
-                                  child: Row(
-                                    // mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const SelectCustomer()));
-                                        },
-                                        icon: const Icon(
-                                            Icons.add_circle_rounded),
-                                        color: Colors.green,
-                                        iconSize: 23,
-                                      ),
-                                      Text(
-                                        "Customer",
-                                        style: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Colors.green),
-                                      )
-                                    ],
-                                  ),
-                                )),
+                          GestureDetector(
+                            child: DottedBorder(
+                              color: const Color.fromARGB(255, 155, 154, 154),
+                              strokeWidth: 1,
+                              radius: const Radius.circular(5),
+                              borderType: BorderType.RRect,
+                              child: Container(
+                                  height: 80.h,
+                                  width: 120.w,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 205, 231, 252),
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Center(
+                                    child: Row(
+                                      // mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        const Icon(
+                                          Icons.add_circle_rounded,
+                                          color: Colors.green,
+                                          size: 23,
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          "Customer",
+                                          style: TextStyle(
+                                              fontSize: 15.sp,
+                                              color: Colors.green),
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SelectCustomer()));
+                            },
                           ),
                         ],
                       ),
@@ -349,43 +356,50 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                   ),
 
                   ///for add line container
-                  DottedBorder(
-                    color: const Color.fromARGB(255, 194, 194, 194),
-                    strokeWidth: 2,
-                    radius: Radius.circular(8.r),
-                    borderType: BorderType.RRect,
-                    child: Container(
-                        height: 35.h,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: Colors.white,
-                        ),
-                        child: Center(
-                          child: Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AddItem()));
-                                },
-                                icon: const Icon(Icons.add_circle_rounded),
-                                color: Colors.green,
-                                iconSize: 23,
-                              ),
-                              Text(
-                                "Add a line",
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    color: const Color.fromARGB(
-                                        255, 182, 182, 182)),
-                              )
-                            ],
+                  GestureDetector(
+                    child: DottedBorder(
+                      color: const Color.fromARGB(255, 194, 194, 194),
+                      strokeWidth: 2,
+                      radius: Radius.circular(8.r),
+                      borderType: BorderType.RRect,
+                      child: Container(
+                          height: 35.h,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: Colors.white,
                           ),
-                        )),
+                          child: Center(
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                const Icon(
+                                  Icons.add_circle_rounded,
+                                  color: Colors.green,
+                                  size: 23,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  "Add a line",
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      color: const Color.fromARGB(
+                                          255, 182, 182, 182)),
+                                )
+                              ],
+                            ),
+                          )),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddItem()));
+                    },
                   ),
                   SizedBox(
                     height: 30.h,

@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  //   _showPassword = !_showPassword;
+                                  //  _showPassword = !_showPassword;
                                 });
                               },
                               child: Icon(

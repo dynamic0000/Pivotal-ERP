@@ -52,7 +52,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     width: 60.w,
                   ),
                   const Text(
-                    "Sales Page",
+                    "Sales Order",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                   SizedBox(

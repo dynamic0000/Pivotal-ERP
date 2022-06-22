@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController urlController = TextEditingController();
   bool _showPassword = false;
+  bool _checkbox = false;
 
   @override
   void initState() {
@@ -206,12 +207,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             Row(
                               children: [
                                 Checkbox(
-                                    value: isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        isChecked = value!;
-                                      });
-                                    }),
+                                  value: _checkbox,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _checkbox = !_checkbox;
+                                    });
+                                  },
+                                ),
                                 const Text('Remember Me'),
                               ],
                             ),

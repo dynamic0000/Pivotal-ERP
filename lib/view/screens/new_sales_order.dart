@@ -1,12 +1,10 @@
-import 'dart:developer';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:nepali_date_picker/nepali_date_picker.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
@@ -21,10 +19,11 @@ class NewSalesOrder extends StatefulWidget {
 class _NewSalesOrderState extends State<NewSalesOrder> {
   // Size size = MediaQuery.of(context).size;
   bool _checkbox = false;
-  DateTime selectedDate = DateTime.now();
-  late String formattedText = "";
-  late String formattedDueText = "";
-  DateTime selectedDueDate = DateTime.now();
+
+  late String formattedTextNepali = '';
+  late String formattedDueTextNepali = '';
+  NepaliDateTime selectedNepaliDate = NepaliDateTime.now();
+  NepaliDateTime selectedDueNepaliDate = NepaliDateTime.now();
 
   bool isEnabled = true;
   final node1 = FocusNode();
@@ -33,47 +32,50 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
   @override
   void initState() {
     super.initState();
-    // String formatted = DateFormat.yMEd().format(DateTime.now());
-    formattedText = DateFormat("yyyy-MM-dd").format(DateTime.now());
-    print('dateeeee$formattedText');
-    formattedDueText = DateFormat("yyyy-MM-dd").format(DateTime.now());
-    print('dateeeee$formattedDueText');
+
+    formattedTextNepali =
+        NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
+    formattedDueTextNepali =
+        NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
   }
 
-  Future<void> _selectDate() async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2010),
-        lastDate: DateTime(2040));
-    if (picked != null && picked != selectedDate) {
+  //first issue calendar
+  Future<void> _selectedNepaliDate() async {
+    NepaliDateTime? pickedNepali = await showMaterialDatePicker(
+      context: context,
+      initialDate: selectedNepaliDate,
+      firstDate: NepaliDateTime(2000),
+      lastDate: NepaliDateTime(2090),
+    );
+    if (pickedNepali != null && pickedNepali != selectedNepaliDate) {
       setState(() {
-        selectedDate = picked;
-        formattedText = DateFormat("yyyy-MM-dd").format(selectedDate);
+        selectedNepaliDate = pickedNepali;
+        formattedTextNepali =
+            NepaliDateFormat("yyyy-MM-dd").format(selectedNepaliDate);
       });
     }
   }
 
-  /// for due date
-
-  // late String formattedText = "";
-  Future<void> _selectDueDate() async {
-    final DateTime? pickedDue = await showDatePicker(
-        context: context,
-        initialDate: selectedDueDate,
-        firstDate: DateTime(2010),
-        lastDate: DateTime(2040));
-    if (pickedDue != null && pickedDue != selectedDate) {
+  //second due date calendar
+  Future<void> _selectedDueNepaliDate() async {
+    NepaliDateTime? pickedDueNepali = await showMaterialDatePicker(
+      context: context,
+      initialDate: selectedDueNepaliDate,
+      firstDate: NepaliDateTime(2000),
+      lastDate: NepaliDateTime(2090),
+      // language: Language.english,
+    );
+    if (pickedDueNepali != null && pickedDueNepali != selectedDueNepaliDate) {
       setState(() {
-        selectedDueDate = pickedDue;
-        formattedDueText = DateFormat("yyyy-MM-dd").format(selectedDueDate);
+        selectedDueNepaliDate = pickedDueNepali;
+        formattedDueTextNepali =
+            NepaliDateFormat("yyyy-MM-dd").format(selectedDueNepaliDate);
       });
     }
   }
 
   Future pickImage() async {
     await ImagePicker().pickImage(source: ImageSource.gallery);
-    log('abccccc');
   }
 
   Future captureImage() async {
@@ -109,9 +111,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.r),
-                            topRight: Radius.circular(20.r))
-                        // BorderRadius.vertical(top: Radius.circular(20.r))
-                        ),
+                            topRight: Radius.circular(20.r))),
                     context: context,
                     builder: (context) => buildSheet());
               },
@@ -210,7 +210,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       SizedBox(width: 70.w),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
                             "Invoice No.",
@@ -248,7 +247,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: _selectDate,
+                                onTap: _selectedNepaliDate,
                                 child: Container(
                                   height: 20.h,
                                   width: 80.w,
@@ -258,7 +257,9 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                             width: 2.0.w, color: Colors.grey)),
                                   ),
                                   child: Text(
-                                    formattedText,
+                                    formattedTextNepali,
+                                    // formattedText,
+
                                     style: TextStyle(fontSize: 15.sp),
                                   ),
                                 ),
@@ -267,7 +268,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                               // ),
                               IconButton(
                                   onPressed: () {
-                                    _selectDate();
+                                    _selectedNepaliDate();
                                   },
                                   icon: const Icon(
                                     Icons.calendar_today,
@@ -293,7 +294,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: _selectDueDate,
+                                onTap: _selectedDueNepaliDate,
                                 child: Container(
                                   height: 20.h,
                                   width: 80.w,
@@ -303,14 +304,16 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                             width: 2.h, color: Colors.grey)),
                                   ),
                                   child: Text(
-                                    formattedDueText,
+                                    formattedDueTextNepali,
+                                    // formattedDueText,
+
                                     style: TextStyle(fontSize: 15.sp),
                                   ),
                                 ),
                               ),
                               IconButton(
                                   onPressed: () {
-                                    _selectDueDate();
+                                    _selectedDueNepaliDate();
                                   },
                                   icon: const Icon(
                                     Icons.calendar_today,

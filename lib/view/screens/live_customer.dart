@@ -47,8 +47,8 @@ class MapSampleState extends State<MapSample> {
       Marker(
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
           markerId: const MarkerId('3'),
-          position: const LatLng(27.6, 85),
-          infoWindow: const InfoWindow(title: 'Dipika ko Ghar')),
+          position: const LatLng(27.6868, 85.33),
+          infoWindow: const InfoWindow(title: 'Dynamic')),
     ];
     _marker.addAll(list);
   }

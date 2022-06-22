@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:pivotal_erp/view/screens/live_customer.dart';
 import 'package:pivotal_erp/view/screens/new_customer_screen.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
@@ -84,7 +85,11 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
               Icons.location_pin,
               color: Colors.black,
             ),
-            label: "Live Colleagues"),
+            label: "Live Colleagues",
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MapSample()));
+            }),
       ],
     );
   }

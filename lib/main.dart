@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/splash_screen.dart';
+import 'package:pivotal_erp/view/screens/live_customer.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
             ),
             // home: SalesDashboard(),
-            home: const SplashScreen(),
+            home: MapSample(),
             // home: SelectCustomer(),
             // home: const NewSalesOrder(),
             // home: const LoginScreen(),

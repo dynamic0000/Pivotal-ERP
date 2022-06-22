@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController urlController = TextEditingController();
-  final bool _showPassword = false;
+  bool _showPassword = false;
 
   @override
   void initState() {
@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  //  _showPassword = !_showPassword;
+                                  _showPassword = !_showPassword;
                                 });
                               },
                               child: Icon(

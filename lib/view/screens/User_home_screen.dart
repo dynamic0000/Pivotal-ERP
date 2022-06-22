@@ -32,10 +32,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => const LoginScreen())));
+                  showLogOutAlertDialog(context);
                 },
                 icon: const Icon(Icons.logout))
           ],
@@ -55,7 +52,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     width: 60.w,
                   ),
                   const Text(
-                    "Sales",
+                    "Sales Page",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                   SizedBox(
@@ -205,6 +202,40 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  showLogOutAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget NoButton = FlatButton(
+      child: const Text("No"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget YesButton = FlatButton(
+      child: const Text("Yes"),
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: ((context) => const LoginScreen())));
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Are you sure you want to logout?"),
+      // content: Text(
+      //     "Would you like to continue learning how to use Flutter alerts?"),
+      actions: [
+        YesButton,
+        NoButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

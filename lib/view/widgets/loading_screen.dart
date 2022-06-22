@@ -24,12 +24,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  "assets/background.png",
-                ),
-                fit: BoxFit.fill)),
+        color: const Color.fromARGB(255, 96, 173, 237),
         child: const Center(
             child: CircularProgressIndicator(
           color: Colors.black,

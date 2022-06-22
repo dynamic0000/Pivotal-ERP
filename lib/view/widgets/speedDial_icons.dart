@@ -52,7 +52,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
         SpeedDialChild(
             backgroundColor: const Color.fromARGB(255, 136, 236, 140),
             child: const Icon(
-              Icons.person_add_alt_1_outlined,
+              Icons.person_add_alt_1_rounded,
               color: Colors.black,
             ),
             label: "New Customer",
@@ -72,7 +72,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
         SpeedDialChild(
           backgroundColor: const Color.fromARGB(255, 136, 236, 140),
           child: const Icon(
-            Icons.people_alt_outlined,
+            Icons.people_rounded,
             color: Colors.black,
           ),
           label: "My Colleagues",
@@ -81,7 +81,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
         SpeedDialChild(
             backgroundColor: const Color.fromARGB(255, 136, 236, 140),
             child: const Icon(
-              Icons.location_city_outlined,
+              Icons.location_pin,
               color: Colors.black,
             ),
             label: "Live Colleagues"),

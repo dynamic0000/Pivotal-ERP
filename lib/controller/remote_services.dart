@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -18,6 +19,7 @@ class RemoteService {
       final tokenModel = TokenModel.fromMap(jsonDecoded);
       //log('httppppppppp$tokenModel');
       if (response.statusCode == 200) {
+        log('resssssssssssssssssssssss$response');
         return tokenModel;
       }
       return null;

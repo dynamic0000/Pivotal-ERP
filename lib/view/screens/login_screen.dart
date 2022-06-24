@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         validator: MultiValidator([
                           RequiredValidator(errorText: 'password is required'),
-                          MinLengthValidator(4,
+                          MinLengthValidator(3,
                               errorText: 'password must be at least 4 digits')
                         ]),
                         // obscureText: obscureText,
@@ -257,7 +257,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 } catch (e) {
                                   //  FlutterError.demangleStackTrace.toString();
-                                  Fluttertoast.showToast(msg: e.toString());
+                                  Fluttertoast.showToast(
+                                      msg: 'Credential error');
                                 }
                               },
                               child: Text('Log In',

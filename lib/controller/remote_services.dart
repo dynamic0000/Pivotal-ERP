@@ -37,7 +37,7 @@ class RemoteService {
 
       String jsonUser = jsonEncode(user);
       log('jjjjjjjjjjjjjjjjjj$jsonUser');
-      //var uri = Uri.parse('$urlERP/v1/General/UpdatePwd');
+      //var uri = Uri.parse('$urlERP/v1/General/UpdatePwd'); 
       var uri = Uri.parse('https://demo.pivotalerp.app/v1/General/UpdatePwd');
       final response = await http.post(uri,
           headers: {

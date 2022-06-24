@@ -26,7 +26,7 @@ class _OrganisationDetialsState extends State<OrganisationDetials> {
         bottomOpacity: 0,
 
         // toolbarOpacity: 0,
-        backgroundColor: const Color.fromARGB(255, 24, 84, 137),
+        backgroundColor: const Color.fromARGB(255, 80, 159, 244),
         title: const Text('Organisation'),
         actions: const [Icon(Icons.edit)],
       ),
@@ -35,7 +35,7 @@ class _OrganisationDetialsState extends State<OrganisationDetials> {
           Container(
             height: 40,
             width: double.infinity,
-            color: const Color.fromARGB(255, 24, 84, 137),
+            color: const Color.fromARGB(255, 80, 159, 244),
             child: const Padding(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
               child: Text(

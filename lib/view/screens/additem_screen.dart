@@ -17,13 +17,7 @@ class _AddItemState extends State<AddItem> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 14, 102, 175),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-              child: Icon(Icons.verified_user),
-            )
-          ],
+          backgroundColor: const Color.fromARGB(255, 44, 148, 233),
           title: const Text('Add Item'),
           leading: IconButton(
               onPressed: () {
@@ -33,6 +27,14 @@ class _AddItemState extends State<AddItem> {
                         builder: (context) => const NewSalesOrder()));
               },
               icon: const Icon(Icons.arrow_back_ios)),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.verified_rounded,
+                  size: 30.sp,
+                ))
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(children: [

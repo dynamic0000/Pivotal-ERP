@@ -94,7 +94,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
         title: Text(
           "Sales Invoice",
-          style: TextStyle(fontSize: 30.sp),
+          style: TextStyle(fontSize: 25.sp),
         ),
         leading: IconButton(
             onPressed: () {
@@ -126,7 +126,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                 Icons.verified,
                 color: Colors.green,
                 size: 30.sp,
-              ))
+              )),
         ],
       ),
       body: SingleChildScrollView(

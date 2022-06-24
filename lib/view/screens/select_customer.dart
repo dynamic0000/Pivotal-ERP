@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
 
@@ -27,12 +28,24 @@ class _SelectCustomerState extends State<SelectCustomer> {
         actions: [
           IconButton(
               onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UserHomeScreen()));
+              },
+              icon: Icon(
+                Icons.home,
+                color: Colors.white,
+                size: 30.sp,
+              )),
+          IconButton(
+              onPressed: () {
                 showSearch(
                   context: context,
                   delegate: MySearchDelegate(),
                 );
               },
-              icon: const Icon(Icons.search))
+              icon: const Icon(Icons.search)),
         ],
       ),
       body: SingleChildScrollView(

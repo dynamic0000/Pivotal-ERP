@@ -46,9 +46,21 @@ class MapSampleState extends State<MapSample> {
       //     infoWindow: const InfoWindow(title: 'Kalanki')),
       Marker(
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
-          markerId: const MarkerId('3'),
+          markerId: const MarkerId('2'),
           position: const LatLng(27.6868, 85.33),
           infoWindow: const InfoWindow(title: 'Dynamic')),
+      Marker(
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
+          markerId: const MarkerId('3'),
+          position: const LatLng(27.684459, 85.3148378),
+          infoWindow: const InfoWindow(title: 'PCPS College')),
+      Marker(
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          markerId: const MarkerId('3'),
+          position: const LatLng(27.6933824, 85.3187376),
+          infoWindow: const InfoWindow(title: 'Sandesh College')),
     ];
     _marker.addAll(list);
   }
@@ -58,6 +70,11 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Live Colleague",
+        ),
+      ),
       body: GoogleMap(
         markers: Set<Marker>.of(_marker),
         mapType: MapType.normal,

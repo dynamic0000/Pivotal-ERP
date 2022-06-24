@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
+import 'package:pivotal_erp/view/screens/login_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({Key? key}) : super(key: key);
@@ -20,7 +19,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reset Password'),
-        backgroundColor: const Color.fromARGB(255, 9, 13, 94),
+        backgroundColor: const Color.fromARGB(255, 80, 159, 244),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const LoginScreen())));
+            },
+            icon: const Icon(Icons.arrow_back_ios)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -34,7 +41,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 child: Text(
                   'Update Password',
                   style: TextStyle(
-                      color: Color.fromARGB(255, 12, 77, 129),
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 18),
                 ),
@@ -55,13 +62,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 9, 13, 94))),
+                              const Color.fromARGB(255, 80, 159, 244))),
                       onPressed: () async {
                         var oldPWD = oldPassword.text;
                         var newPWD = newPassword.text;
                         final changeeeeee =
                             RemoteService().updatePassword(oldPWD, newPWD);
-                      //  log('changeeeeeeeeeee: $changeeeeee');
+                        //  log('changeeeeeeeeeee: $changeeeeee');
                         //log('oldpwd::::$oldPWD' 'newpwd:::$newPWD');
                       },
                       child: const Text('Update Password')),

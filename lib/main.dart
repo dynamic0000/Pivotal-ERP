@@ -23,13 +23,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            // home: SalesDashboard(),
-            // home: MapSample(),
-            // home: SelectCustomer(),
-            // home: const NewSalesOrder(),
+            theme: ThemeData(primarySwatch: Colors.blue),
             home: const SplashScreen(),
           );
         });

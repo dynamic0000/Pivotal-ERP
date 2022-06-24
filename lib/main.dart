@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/live_customer.dart';
+import 'package:pivotal_erp/view/screens/resetpassword_screen.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 
@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
+            theme: ThemeData(primarySwatch: Colors.blue),
+            //home: const OrganisationDetials(),
+            home: const ResetPasswordScreen(),
+            // home: const LoginScreen(),
             // home: SalesDashboard(),
-            home: MapSample(),
+
             // home: SelectCustomer(),
             // home: const NewSalesOrder(),
-            // home: const LoginScreen(),
           );
         });
   }

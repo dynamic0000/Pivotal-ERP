@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:pivotal_erp/constant.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
 
 class RemoteService {
   Future<TokenModel?> getToken(String userName, String password) async {
     try {
-      var uri = Uri.parse('https://demo.pivotalerp.app/v1//token');
+      var uri = Uri.parse('$urlERP/v1//token');
       final response = await http.post(uri, body: {
         "userName": userName,
         "password": password,
@@ -20,10 +22,33 @@ class RemoteService {
       if (response.statusCode == 200) {
         return tokenModel;
       }
+      print('sad');
       return null;
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<http.Response?> updatePassword(String oldPWD, String newPWD) async {
+    try {
+      var uri = Uri.parse('$urlERP/General/UpdatePwd');
+      final response = await http.post(uri, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization':
+            'Bearer $accessToken'
+      }, body: {
+        "oldPWD": oldPWD,
+        "newPWD": newPWD,
+      });
+     // log('newwwwwwwwwwwwwwwwww$response');
+      final jsonDecoded = jsonDecode(response.body);
+     // log('updateeeeeeeeeeeeeeeeeeee$jsonDecoded');
+    } catch (e) {
+      log('errorrrrrrrr${e.toString()}');
+      rethrow;
+    }
+    return null;
   }
 
   Future<String> getUrl(String url) async {
@@ -36,7 +61,7 @@ class RemoteService {
       }
       return 'Failed';
     } catch (e) {
-      return "error Failed";
+      return " Failed:";
     }
   }
 }

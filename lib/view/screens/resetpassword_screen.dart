@@ -61,7 +61,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         var newPWD = newPassword.text;
                         final changeeeeee =
                             RemoteService().updatePassword(oldPWD, newPWD);
-                      //  log('changeeeeeeeeeee: $changeeeeee');
+                        log('changeeeeeeeeeee: $changeeeeee');
                         //log('oldpwd::::$oldPWD' 'newpwd:::$newPWD');
                       },
                       child: const Text('Update Password')),

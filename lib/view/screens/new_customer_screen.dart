@@ -24,10 +24,10 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        // centerTitle: true,
         title: Text(
           "New Customer",
-          style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.normal),
+          style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.normal),
         ),
         leading: IconButton(
             onPressed: () {

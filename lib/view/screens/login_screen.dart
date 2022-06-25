@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:pivotal_erp/constant.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
+import 'package:pivotal_erp/view/screens/resetpassword_screen.dart';
 import 'package:pivotal_erp/view/widgets/loading_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -167,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         validator: MultiValidator([
                           RequiredValidator(errorText: 'password is required'),
-                          MinLengthValidator(4,
+                          MinLengthValidator(3,
                               errorText: 'password must be at least 4 digits')
                         ]),
                         // obscureText: obscureText,
@@ -221,10 +222,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 20.w,
                             ),
                             GestureDetector(
-                                child: const Text(
-                              'Forgot Password?',
-                              style: TextStyle(color: Colors.blue),
-                            ))
+                              child: const Text(
+                                'Forgot Password?',
+                                style: TextStyle(color: Colors.blue),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ResetPasswordScreen()));
+                              },
+                            )
                           ],
                         ),
                       ),
@@ -257,7 +266,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 } catch (e) {
                                   //  FlutterError.demangleStackTrace.toString();
-                                  Fluttertoast.showToast(msg: e.toString());
+                                  Fluttertoast.showToast(
+                                      msg: 'Credential error');
                                 }
                               },
                               child: Text('Log In',

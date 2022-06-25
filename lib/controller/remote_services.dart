@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:pivotal_erp/constant.dart';
+import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,21 +33,27 @@ class RemoteService {
 
   Future<http.Response?> updatePassword(String oldPWD, String newPWD) async {
     try {
-      var uri = Uri.parse('$urlERP/General/UpdatePwd');
-      final response = await http.post(uri, headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization':
-            'Bearer $accessToken'
-      }, body: {
-        "oldPWD": oldPWD,
-        "newPWD": newPWD,
-      });
-     // log('newwwwwwwwwwwwwwwwww$response');
+      User user = User(oldPWD, newPWD);
+
+      String jsonUser = jsonEncode(user);
+      log('jjjjjjjjjjjjjjjjjj$jsonUser');
+      //var uri = Uri.parse('$urlERP/v1/General/UpdatePwd'); 
+      var uri = Uri.parse('https://demo.pivotalerp.app/v1/General/UpdatePwd');
+      final response = await http.post(uri,
+          headers: {
+            'Content-Type': 'application/json',
+            'Charset': 'utf-8',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $accessToken'
+          },
+          body: jsonUser);
+
+      log("response code:${response.statusCode}");
+      log('newwwwwwwwwwwwwwwwww${response.body}');
       final jsonDecoded = jsonDecode(response.body);
-     // log('updateeeeeeeeeeeeeeeeeeee$jsonDecoded');
+      log('updateeeeeeeeeeeeeeeeeeee$jsonDecoded');
     } catch (e) {
-      log('errorrrrrrrr${e.toString()}');
+      // log('errorrrrrrrr${e.toString()}');
       rethrow;
     }
     return null;
@@ -66,3 +73,5 @@ class RemoteService {
     }
   }
 }
+//old pass nai enter gareko ho
+// tei ni enter old pass bhancha

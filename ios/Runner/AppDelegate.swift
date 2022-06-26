@@ -1,6 +1,6 @@
 import UIKit
 import Flutter
-import Google
+import GoogleMaps
 
 
 @UIApplicationMain

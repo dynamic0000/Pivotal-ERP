@@ -68,8 +68,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       onPressed: () async {
                         var oldPWD = oldPassword.text;
                         var newPWD = newPassword.text;
+                        // var conPWD = newPassword.text;
                         final changeeeeee =
                             RemoteService().updatePassword(oldPWD, newPWD);
+                        // Fluttertoast.showToast(msg: changeeeeee.toString());
+                        // if (changeeeeee == 'Success') {
+                        //   Navigator.pop(context);
+                        // } else {
+                        //   return;
+                        // }
                         log('changeeeeeeeeeee: $changeeeeee');
                         //log('oldpwd::::$oldPWD' 'newpwd:::$newPWD');
                       },

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/view/screens/login_screen.dart';
 
@@ -31,59 +32,62 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             },
             icon: const Icon(Icons.arrow_back_ios)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: Column(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          child: Column(
 
 //          mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Text(
-                  'Update Password',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Text(
+                    'Update Password',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
                 ),
-              ),
-              _extractPassword(
-                  hintText: 'Enter Old Password', controller: oldPassword),
-              _extractPassword(
-                  hintText: 'Enter New Password', controller: newPassword),
-              _extractPassword(
-                  hintText: 'Confirm Password', controller: confirmPassword),
-              const SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: SizedBox(
-                  height: 45,
-                  width: 170,
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 80, 159, 244))),
-                      onPressed: () async {
-                        var oldPWD = oldPassword.text;
-                        var newPWD = newPassword.text;
-                        // var conPWD = newPassword.text;
-                        final changeeeeee =
-                            RemoteService().updatePassword(oldPWD, newPWD);
-                        // Fluttertoast.showToast(msg: changeeeeee.toString());
-                        // if (changeeeeee == 'Success') {
-                        //   Navigator.pop(context);
-                        // } else {
-                        //   return;
-                        // }
-                        log('changeeeeeeeeeee: $changeeeeee');
-                        //log('oldpwd::::$oldPWD' 'newpwd:::$newPWD');
-                      },
-                      child: const Text('Update Password')),
+                _extractPassword(
+                    hintText: 'Enter Old Password', controller: oldPassword),
+                _extractPassword(
+                    hintText: 'Enter New Password', controller: newPassword),
+                _extractPassword(
+                    hintText: 'Confirm Password', controller: confirmPassword),
+                const SizedBox(
+                  height: 20,
                 ),
-              )
-            ]),
+                Center(
+                  child: SizedBox(
+                    height: 45,
+                    width: 170,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color.fromARGB(255, 80, 159, 244))),
+                        onPressed: () async {
+                          var oldPWD = oldPassword.text;
+                          var newPWD = newPassword.text;
+                          var confPWD = confirmPassword.text;
+                          if (newPWD == confPWD) {
+                            final changeeeeee =
+                                RemoteService().updatePassword(oldPWD, newPWD);
+                            Fluttertoast.showToast(msg: 'Sucess');
+                            Navigator.pop(context);
+                          } else {
+                            Fluttertoast.showToast(msg: 'try again');
+                          }
+
+                          // log('changeeeeeeeeeee: $changeeeeee');
+                          log('oldpwd::::$oldPWD' 'newpwd:::$newPWD');
+                        },
+                        child: const Text('Update Password')),
+                  ),
+                )
+              ]),
+        ),
       ),
     );
   }

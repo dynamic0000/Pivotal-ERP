@@ -94,7 +94,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
         title: Text(
           "Sales Invoice",
-          style: TextStyle(fontSize: 25.sp),
+          style: TextStyle(fontSize: 30.sp),
         ),
         leading: IconButton(
             onPressed: () {
@@ -126,7 +126,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                 Icons.verified,
                 color: Colors.green,
                 size: 30.sp,
-              )),
+              ))
         ],
       ),
       body: SingleChildScrollView(
@@ -136,7 +136,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: 220.h,
+                height: 215.h,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 169, 213, 248),
@@ -144,9 +144,10 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
-                        // mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -207,8 +208,9 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           ),
                         ],
                       ),
-                      SizedBox(width: 70.w),
+                      // SizedBox(width: 75.w),
                       Column(
+                        // mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
@@ -254,7 +256,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                   decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                            width: 2.0.w, color: Colors.grey)),
+                                            width: 0.5.h, color: Colors.black)),
                                   ),
                                   child: Text(
                                     formattedTextNepali,
@@ -301,7 +303,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                   decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                            width: 2.h, color: Colors.grey)),
+                                            width: 0.5.h, color: Colors.black)),
                                   ),
                                   child: Text(
                                     formattedDueTextNepali,
@@ -328,12 +330,14 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                 ),
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: 10.h,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "Description",
@@ -342,9 +346,9 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             color: const Color.fromARGB(255, 16, 124, 213),
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        width: 200.w,
-                      ),
+                      // SizedBox(
+                      //   width: 200.w,
+                      // ),
                       Text(
                         "Line Total",
                         style: TextStyle(
@@ -407,294 +411,305 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                   SizedBox(
                     height: 30.h,
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 80.w,
-                      ),
-                      Text(
-                        "Sub Total",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: const Color.fromARGB(255, 143, 142, 142)),
-                      ),
-                      SizedBox(
-                        width: 140.w,
-                      ),
-                      Text(
-                        "000.00",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
 
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 70.w,
-                      ),
-                      Text(
-                        "Discount @ ",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: const Color.fromARGB(255, 143, 142, 142)),
-                      ),
-                      SizedBox(
-                        width: 40.w,
-                        height: 20.h,
-                        child: TextField(
-                          textAlignVertical: TextAlignVertical.bottom,
-
-                          // textAlign: TextAlign.,
-                          decoration: InputDecoration(
-                            hintText: "Rate",
-                            hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 18.sp),
-                            contentPadding: const EdgeInsets.only(top: 28),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            color: Colors.transparent,
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 80.w,
-                      ),
-                      SizedBox(
-                        width: 60.w,
-                        height: 20.h,
-                        child: TextField(
-                          // textAlignVertical: TextAlignVertical.bottom,
-
-                          // textAlign: TextAlign.,
-                          decoration: InputDecoration(
-                            hintText: "000.00",
-                            contentPadding: const EdgeInsets.only(top: 28),
-                            hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 18.sp),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 70.w,
-                      ),
-                      Text(
-                        "Excise @ ",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: const Color.fromARGB(255, 143, 142, 142)),
-                      ),
-                      // SizedBox(
-                      //   width: 60,
-                      // ),
-                      SizedBox(
-                        width: 40.w,
-                        height: 20.h,
-                        child: TextField(
-                          textAlignVertical: TextAlignVertical.bottom,
-
-                          // textAlign: TextAlign.,
-                          decoration: InputDecoration(
-                              hintText: "Rate",
-                              contentPadding: const EdgeInsets.only(top: 28),
-                              hintStyle: TextStyle(
-                                  color: Colors.grey, fontSize: 18.sp)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100.w,
-                      ),
-                      SizedBox(
-                        width: 60.w,
-                        height: 20.h,
-                        child: TextField(
-                          // textAlignVertical: TextAlignVertical.bottom,
-
-                          // textAlign: TextAlign.,
-                          decoration: InputDecoration(
-                              hintText: "000.00",
-                              contentPadding: const EdgeInsets.only(top: 28),
-                              hintStyle: TextStyle(
-                                  color: Colors.grey, fontSize: 18.sp)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 80.w,
-                      ),
-                      Text(
-                        "Tax @ ",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: const Color.fromARGB(255, 143, 142, 142)),
-                      ),
-                      // SizedBox(
-                      //   width: 60,
-                      // ),
-                      SizedBox(
-                        width: 40.w,
-                        height: 20.h,
-                        child: TextField(
-                          textAlignVertical: TextAlignVertical.bottom,
-
-                          // textAlign: TextAlign.,
-                          decoration: InputDecoration(
-                              hintText: "Rate",
-                              contentPadding: const EdgeInsets.only(top: 28),
-                              hintStyle: TextStyle(
-                                color: Colors.grey,
+                          Text(
+                            "Sub Total",
+                            style: TextStyle(
                                 fontSize: 18.sp,
-                              )),
-                        ),
+                                color:
+                                    const Color.fromARGB(255, 143, 142, 142)),
+                          ),
+                          const Spacer(),
+                          Text(
+                            "000.00",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                       SizedBox(
-                        width: 120.w,
+                        height: 15.h,
                       ),
-                      SizedBox(
-                        width: 60.w,
-                        height: 20.h,
-                        child: TextField(
-                          // textAlignVertical: TextAlignVertical.bottom,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            color: Colors.transparent,
+                          ),
+                          Text(
+                            "Discount @ ",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color:
+                                    const Color.fromARGB(255, 143, 142, 142)),
+                          ),
+                          SizedBox(
+                            width: 35.w,
+                            height: 20.h,
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.bottom,
 
-                          // textAlign: TextAlign.,
-                          decoration: InputDecoration(
-                              hintText: "000.00",
-                              contentPadding: const EdgeInsets.only(top: 28),
-                              hintStyle: TextStyle(
-                                  color: Colors.grey, fontSize: 18.sp)),
-                        ),
+                              // textAlign: TextAlign.,
+                              decoration: InputDecoration(
+                                hintText: "Rate",
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 16.sp),
+                                contentPadding: const EdgeInsets.only(top: 28),
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          SizedBox(
+                            width: 50.w,
+                            height: 20.h,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "000.00",
+                                contentPadding: const EdgeInsets.only(top: 28),
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 16.sp),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            color: Colors.transparent,
+                          ),
+                          Text(
+                            "Excise @ ",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color:
+                                    const Color.fromARGB(255, 143, 142, 142)),
+                          ),
+                          SizedBox(
+                            width: 35.w,
+                            height: 20.h,
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.bottom,
+
+                              // textAlign: TextAlign.,
+                              decoration: InputDecoration(
+                                  hintText: "Rate",
+                                  contentPadding:
+                                      const EdgeInsets.only(top: 28),
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 16.sp)),
+                            ),
+                          ),
+                          const Spacer(),
+                          SizedBox(
+                            width: 50.w,
+                            height: 20.h,
+                            child: TextField(
+                              // textAlignVertical: TextAlignVertical.bottom,
+
+                              // textAlign: TextAlign.,
+                              decoration: InputDecoration(
+                                  hintText: "000.00",
+                                  contentPadding:
+                                      const EdgeInsets.only(top: 28),
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 16.sp)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            color: Colors.transparent,
+                          ),
+                          Text(
+                            "Tax @ ",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color:
+                                    const Color.fromARGB(255, 143, 142, 142)),
+                          ),
+                          // SizedBox(
+                          //   width: 60,
+                          // ),
+                          SizedBox(
+                            width: 35.w,
+                            height: 20.h,
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.bottom,
+
+                              // textAlign: TextAlign.,
+                              decoration: InputDecoration(
+                                  hintText: "Rate",
+                                  contentPadding:
+                                      const EdgeInsets.only(top: 28),
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16.sp,
+                                  )),
+                            ),
+                          ),
+                          const Spacer(),
+                          SizedBox(
+                            width: 50.w,
+                            height: 20.h,
+                            child: TextField(
+                              // textAlignVertical: TextAlignVertical.bottom,
+
+                              // textAlign: TextAlign.,
+                              decoration: InputDecoration(
+                                  hintText: "000.00",
+                                  contentPadding:
+                                      const EdgeInsets.only(top: 28),
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 16.sp)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 6.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            color: Colors.transparent,
+                          ),
+                          Checkbox(
+                            value: _checkbox,
+                            onChanged: (value) {
+                              setState(() {
+                                _checkbox = !_checkbox;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Round off',
+                            style:
+                                TextStyle(fontSize: 18.sp, color: Colors.grey),
+                          ),
+                          const Spacer(),
+                          Text(
+                            "0.00",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            color: Colors.transparent,
+                          ),
+                          Text(
+                            'Grand Amount',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const Spacer(),
+                          Text(
+                            '0.00',
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 35.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            color: Colors.transparent,
+                          ),
+                          Text(
+                            'Received Amount',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          const Spacer(),
+                          Text(
+                            '000.00',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.normal),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            color: Colors.transparent,
+                          ),
+                          Text(
+                            'Amount Due',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          const Spacer(),
+                          Text(
+                            '0.00',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 6.h,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 68.w,
-                      ),
-                      Checkbox(
-                        value: _checkbox,
-                        onChanged: (value) {
-                          setState(() {
-                            _checkbox = !_checkbox;
-                          });
-                        },
-                      ),
-                      Text(
-                        'Round off',
-                        style: TextStyle(fontSize: 18.sp, color: Colors.grey),
-                      ),
-                      SizedBox(
-                        width: 120.w,
-                      ),
-                      Text(
-                        "0.00",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 65.w,
-                      ),
-                      Text(
-                        'Grand Amount',
-                        style: TextStyle(
-                            fontSize: 20.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        width: 110.w,
-                      ),
-                      Text(
-                        '0.00',
-                        style: TextStyle(
-                            fontSize: 20.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 35.h,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 65.w,
-                      ),
-                      Text(
-                        'Received Amount',
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.normal),
-                      ),
-                      SizedBox(
-                        width: 86.w,
-                      ),
-                      Text(
-                        '000.00',
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 80.w,
-                      ),
-                      Text(
-                        'Amount Due',
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.normal),
-                      ),
-                      SizedBox(
-                        width: 130.w,
-                      ),
-                      Text(
-                        '0.00',
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+/////////////////////////////Row///////////////////////////////////
                   SizedBox(
                     height: 20.h,
                   ),

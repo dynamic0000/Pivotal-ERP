@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
@@ -22,6 +23,8 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
 
   late String formattedTextNepali = '';
   late String formattedDueTextNepali = '';
+  late String formattedTextEnglish = '';
+  DateTime selectedEnglishDate = DateTime.now();
   NepaliDateTime selectedNepaliDate = NepaliDateTime.now();
   NepaliDateTime selectedDueNepaliDate = NepaliDateTime.now();
 
@@ -37,9 +40,10 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
         NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
     formattedDueTextNepali =
         NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
+    formattedTextEnglish = DateFormat('yyyy-MM-dd').format(DateTime.now());
   }
 
-  //first issue calendar
+  //nepali first issue calendar
   Future<void> _selectedNepaliDate() async {
     NepaliDateTime? pickedNepali = await showMaterialDatePicker(
       context: context,
@@ -56,7 +60,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
     }
   }
 
-  //second due date calendar
+  //nepali second due date calendar
   Future<void> _selectedDueNepaliDate() async {
     NepaliDateTime? pickedDueNepali = await showMaterialDatePicker(
       context: context,
@@ -70,6 +74,24 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
         selectedDueNepaliDate = pickedDueNepali;
         formattedDueTextNepali =
             NepaliDateFormat("yyyy-MM-dd").format(selectedDueNepaliDate);
+      });
+    }
+  }
+
+  ///english first issue calendar
+  Future<void> _selectedEnglishDate() async {
+    DateTime? pickedEnglish = await showDatePicker(
+      context: context,
+      initialDate: selectedEnglishDate,
+      firstDate: DateTime(1980),
+      lastDate: DateTime(2050),
+      // language: Language.english,
+    );
+    if (pickedEnglish != null && pickedEnglish != selectedEnglishDate) {
+      setState(() {
+        selectedEnglishDate = pickedEnglish;
+        formattedTextEnglish =
+            DateFormat("yyyy-MM-dd").format(selectedEnglishDate);
       });
     }
   }
@@ -249,7 +271,8 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: _selectedNepaliDate,
+                                onTap:
+                                    _selectedNepaliDate, //_selectedEnglishDate
                                 child: Container(
                                   height: 20.h,
                                   width: 80.w,
@@ -260,6 +283,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                   ),
                                   child: Text(
                                     formattedTextNepali,
+                                    // formattedTextEnglish
                                     // formattedText,
 
                                     style: TextStyle(fontSize: 15.sp),
@@ -270,6 +294,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                               // ),
                               IconButton(
                                   onPressed: () {
+                                    // _selectedEnglishDate();
                                     _selectedNepaliDate();
                                   },
                                   icon: const Icon(

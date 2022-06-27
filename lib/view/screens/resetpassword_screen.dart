@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
-import 'package:pivotal_erp/view/screens/login_screen.dart';
+import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => const LoginScreen())));
+                      builder: ((context) => const UserHomeScreen())));
             },
             icon: const Icon(Icons.arrow_back_ios)),
       ),

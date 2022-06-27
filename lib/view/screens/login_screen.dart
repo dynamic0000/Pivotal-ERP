@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:pivotal_erp/constant.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
-import 'package:pivotal_erp/view/screens/resetpassword_screen.dart';
 import 'package:pivotal_erp/view/widgets/loading_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -227,11 +226,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(color: Colors.blue),
                               ),
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ResetPasswordScreen()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const ResetPasswordScreen()));
                               },
                             )
                           ],

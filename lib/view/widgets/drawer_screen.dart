@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/organisationdetails_screen.dart';
+import 'package:pivotal_erp/view/screens/resetpassword_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -73,6 +74,27 @@ class DrawerScreen extends StatelessWidget {
             ),
             onTap: () {
               showDateAlertDialog(context);
+            },
+          ),
+          ListTile(
+            title: const Text(
+              'Change Password',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            subtitle: const Text(
+              "Change your password",
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+            trailing: const Icon(
+              Icons.password,
+              color: Colors.black,
+              size: 25,
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ResetPasswordScreen()));
             },
           ),
         ],

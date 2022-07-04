@@ -16,7 +16,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      animatedIcon: AnimatedIcons.search_ellipsis,
+      icon: Icons.add,
       foregroundColor: Colors.black,
       backgroundColor: const Color.fromARGB(255, 136, 236, 140),
       spacing: 12,

@@ -37,7 +37,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
                 );
                 log('result------$result');
               },
-              icon: const Icon(Icons.search))
+              icon: const Icon(Icons.search)),
         ],
       ),
       body: SingleChildScrollView(

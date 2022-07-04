@@ -207,13 +207,13 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
 
   showLogOutAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget NoButton = FlatButton(
+    Widget NoButton = ElevatedButton(
       child: const Text("No"),
       onPressed: () {
         Navigator.pop(context);
       },
     );
-    Widget YesButton = FlatButton(
+    Widget YesButton = ElevatedButton(
       child: const Text("Yes"),
       onPressed: () {
         Navigator.push(context,

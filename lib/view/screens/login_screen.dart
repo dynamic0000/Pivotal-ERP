@@ -221,10 +221,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 20.w,
                             ),
                             GestureDetector(
-                                child: const Text(
-                              'Forgot Password?',
-                              style: TextStyle(color: Colors.blue),
-                            ))
+                              child: const Text(
+                                'Forgot Password?',
+                                style: TextStyle(color: Colors.blue),
+                              ),
+                              onTap: () {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const ResetPasswordScreen()));
+                              },
+                            )
                           ],
                         ),
                       ),

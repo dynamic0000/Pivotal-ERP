@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
-import 'package:pivotal_erp/models/autocompleteledgerlist_model.dart';
+import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
@@ -104,7 +104,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrderData> {
   @override
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
-   // return 
+    // return
     //hasData(context, indexGetter);
     // return FutureBuilder(
     //     future: RemoteService().getAutoCompleteLedgerList(),
@@ -122,9 +122,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrderData> {
     //         return hasData(context, indexGetter);
     //       // }
     //     });
- // }
+    // }
 
- // Scaffold hasData(BuildContext context, AutoCompleteLedgerList? indexGetter) {
+    // Scaffold hasData(BuildContext context, AutoCompleteLedgerList? indexGetter) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
@@ -763,7 +763,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrderData> {
     );
   }
 
-  Column yesData_addCustomer(BuildContext context, AutoCompleteLedgerList? a,) {
+  Column yesData_addCustomer(
+    BuildContext context,
+    AutoCompleteLedgerList? a,
+  ) {
     log('aaaaaaaaaaaaaaaaaaaaa----------$a');
     return Column(
       // mainAxisAlignment: MainAxisAlignment.start,

@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\src\flutter_windows_1.22.6-stable\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\Acer\Desktop\6_22_erp\Pivotal-ERP"
+export "FLUTTER_ROOT=/Users/dipika/Developer/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/dipika/Documents/Flutter Projects/Pivotal-ERP"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"

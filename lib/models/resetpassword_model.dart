@@ -42,20 +42,20 @@ class User {
       };
 }
 
-class AutoCompleteLedgerListToJSON {
-  int searchBy;
-  String searchValue;
-  int ledgerType;
+// class AutoCompleteLedgerListToJSON {
+//   int searchBy;
+//   String searchValue;
+//   int ledgerType;
 
-  AutoCompleteLedgerListToJSON(
-    this.searchBy,
-    this.searchValue,
-    this.ledgerType,
-  );
+//   AutoCompleteLedgerListToJSON(
+//     this.searchBy,
+//     this.searchValue,
+//     this.ledgerType,
+//   );
 
-  Map toJson() => {
-        'searchBy': searchBy,
-        'searchValue': searchValue,
-        'ledgerType': ledgerType
-      };
-}
+//   Map toJson() => {
+//         'searchBy': searchBy,
+//         'searchValue': searchValue,
+//         'ledgerType': ledgerType
+//       };
+// }

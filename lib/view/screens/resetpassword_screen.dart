@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
+import '';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({Key? key}) : super(key: key);
@@ -63,6 +66,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             RemoteService().updatePassword(oldPWD, newPWD);
                         log('changeeeeeeeeeee: $changeeeeee');
                         //log('oldpwd::::$oldPWD' 'newpwd:::$newPWD');
+                        if(changeeeeee!=null){
+                          
+                        }
+                        Fluttertoast.showToast(msg: 'sdas');
                       },
                       child: const Text('Update Password')),
                 ),

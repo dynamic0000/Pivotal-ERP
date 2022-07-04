@@ -11,19 +11,18 @@ class MySearchDelegate extends SearchDelegate {
                 query = '';
               }
             },
-            icon: Icon(Icons.clear))
+            icon: const Icon(Icons.clear))
       ];
 
   @override
   Widget? buildLeading(BuildContext context) => IconButton(
-      onPressed: () => close(context, null), icon: Icon(Icons.arrow_back_ios));
+      onPressed: () => close(context, null),
+      icon: const Icon(Icons.arrow_back_ios));
 
   @override
   Widget buildResults(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.blue
-          // borderRadius: BorderRadius.circular(25)
-          ),
+      decoration: const BoxDecoration(color: Colors.blue),
     );
   }
 

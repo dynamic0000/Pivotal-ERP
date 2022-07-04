@@ -110,47 +110,8 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 29, 117, 189),
-        title: Text(
-          "Sales Invoice",
-          style: TextStyle(fontSize: 30.sp),
-        ),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen()));
-            },
-            icon: const Icon(Icons.arrow_back)),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20.r),
-                            topRight: Radius.circular(20.r))),
-                    context: context,
-                    builder: (context) => buildSheet());
-              },
-              icon: Icon(
-                // Icons.assignment_turned_in,
-                Icons.difference_outlined,
-                size: 30.sp,
-              )),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.verified,
-                color: Colors.green,
-                size: 30.sp,
-              ))
-        ],
-      ),
+      appBar: customAppBar(context),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(15),
@@ -182,52 +143,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           const SizedBox(
                             height: 5,
                           ),
-                          GestureDetector(
-                            child: DottedBorder(
-                              color: const Color.fromARGB(255, 155, 154, 154),
-                              strokeWidth: 1,
-                              radius: const Radius.circular(5),
-                              borderType: BorderType.RRect,
-                              child: Container(
-                                  height: 80.h,
-                                  width: 120.w,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 205, 231, 252),
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Center(
-                                    child: Row(
-                                      // mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        const Icon(
-                                          Icons.add_circle_rounded,
-                                          color: Colors.green,
-                                          size: 23,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          "Customer",
-                                          style: TextStyle(
-                                              fontSize: 15.sp,
-                                              color: Colors.green),
-                                        )
-                                      ],
-                                    ),
-                                  )),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SelectCustomer()));
-                            },
-                          ),
+                          customerGestureDetector(context),
                         ],
                       ),
                       // SizedBox(width: 75.w),
@@ -371,9 +287,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             color: const Color.fromARGB(255, 16, 124, 213),
                             fontWeight: FontWeight.bold),
                       ),
-                      // SizedBox(
-                      //   width: 200.w,
-                      // ),
                       Text(
                         "Line Total",
                         style: TextStyle(
@@ -442,7 +355,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                             width: 90.w,
@@ -487,8 +399,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             height: 20.h,
                             child: TextField(
                               textAlignVertical: TextAlignVertical.bottom,
-
-                              // textAlign: TextAlign.,
                               decoration: InputDecoration(
                                 hintText: "Rate",
                                 hintStyle: TextStyle(
@@ -579,16 +489,11 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                 color:
                                     const Color.fromARGB(255, 143, 142, 142)),
                           ),
-                          // SizedBox(
-                          //   width: 60,
-                          // ),
                           SizedBox(
                             width: 35.w,
                             height: 20.h,
                             child: TextField(
                               textAlignVertical: TextAlignVertical.bottom,
-
-                              // textAlign: TextAlign.,
                               decoration: InputDecoration(
                                   hintText: "Rate",
                                   contentPadding:
@@ -604,9 +509,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             width: 50.w,
                             height: 20.h,
                             child: TextField(
-                              // textAlignVertical: TextAlignVertical.bottom,
-
-                              // textAlign: TextAlign.,
                               decoration: InputDecoration(
                                   hintText: "000.00",
                                   contentPadding:
@@ -709,7 +611,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                             width: 90.w,
@@ -739,9 +640,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                     height: 20.h,
                   ),
                   TextField(
-                    // textAlignVertical: TextAlignVertical.bottom,
-
-                    // textAlign: TextAlign.,
                     decoration: InputDecoration(
                         hintText: "Narration",
                         contentPadding: const EdgeInsets.only(top: 28),
@@ -754,6 +652,90 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
           ),
         ),
       ),
+    );
+  }
+
+  GestureDetector customerGestureDetector(BuildContext context) {
+    return GestureDetector(
+      child: DottedBorder(
+        color: const Color.fromARGB(255, 155, 154, 154),
+        strokeWidth: 1,
+        radius: const Radius.circular(5),
+        borderType: BorderType.RRect,
+        child: Container(
+            height: 80.h,
+            width: 120.w,
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 205, 231, 252),
+                borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  const Icon(
+                    Icons.add_circle_rounded,
+                    color: Colors.green,
+                    size: 23,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(
+                    "Customer",
+                    style: TextStyle(fontSize: 15.sp, color: Colors.green),
+                  )
+                ],
+              ),
+            )),
+      ),
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const SelectCustomer()));
+      },
+    );
+  }
+
+  AppBar customAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: const Color.fromARGB(255, 29, 117, 189),
+      title: Text(
+        "Sales Invoice",
+        style: TextStyle(fontSize: 25.sp),
+      ),
+      leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const UserHomeScreen()));
+          },
+          icon: const Icon(Icons.arrow_back)),
+      actions: [
+        IconButton(
+            onPressed: () {
+              showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r))),
+                  context: context,
+                  builder: (context) => buildSheet());
+            },
+            icon: Icon(
+              // Icons.assignment_turned_in,
+              Icons.difference_outlined,
+              size: 30.sp,
+            )),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.verified,
+              color: Colors.green,
+              size: 30.sp,
+            ))
+      ],
     );
   }
 

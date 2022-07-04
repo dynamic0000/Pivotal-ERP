@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
-import 'package:pivotal_erp/models/autocompleteledgerlist_model.dart';
-import 'package:pivotal_erp/view/screens/new_sales_order_havingdata.dart';
+import 'package:pivotal_erp/models/autocompleteledger_model.dart';
+import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class MySearchDelegate extends SearchDelegate {
   final List<String> names;

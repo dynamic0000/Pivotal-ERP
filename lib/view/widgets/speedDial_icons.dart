@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pivotal_erp/view/screens/live_customer.dart';
 import 'package:pivotal_erp/view/screens/new_customer_screen.dart';
-import 'package:pivotal_erp/view/screens/new_sales_order_havingdata.dart';
+import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class SpeedDialIcon extends StatefulWidget {
   const SpeedDialIcon({Key? key}) : super(key: key);
@@ -90,7 +90,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
             label: "Live Colleagues",
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MapSample()));
+                  MaterialPageRoute(builder: (context) => const MapSample()));
             }),
       ],
     );

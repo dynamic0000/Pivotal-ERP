@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/new_sales_order_havingdata.dart';
+import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
 
 class SelectCustomer extends StatefulWidget {

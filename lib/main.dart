@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/new_sales_order.dart';
+
+import 'package:pivotal_erp/view/screens/select_customer.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
             // home: const blankScreen(),
             // home: const TryScreen(),
 
-            home: const NewSalesOrder(),
+            // home: const AnimatedSearch(),
+            home: const SelectCustomer(),
           );
         });
   }

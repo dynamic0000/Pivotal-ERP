@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/new_sales_order_havingdata.dart';
+import 'package:pivotal_erp/controller/remote_services.dart';
+import 'package:pivotal_erp/models/autocompleteledger_model.dart';
+import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
 
 class SelectCustomer extends StatefulWidget {
@@ -13,6 +15,7 @@ class SelectCustomer extends StatefulWidget {
 }
 
 class _SelectCustomerState extends State<SelectCustomer> {
+  String query = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +26,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const NewSalesOrderData(
+                      builder: (context) => const NewSalesOrder(
                             indexGetter: null,
                           )));
             },
@@ -33,164 +36,84 @@ class _SelectCustomerState extends State<SelectCustomer> {
               onPressed: () async {
                 final result = await showSearch(
                   context: context,
-                  delegate: MySearchDelegate(names),
+                  delegate: MySearchDelegate(),
                 );
                 log('result------$result');
               },
               icon: const Icon(Icons.search)),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              color: const Color.fromARGB(255, 161, 212, 254),
-              child: ExpansionTile(
-                // backgroundColor: Color.fromARGB(255, 157, 207, 247),
-                title: Text(
-                  "Cash-in-hand",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                      color: Colors.black
-                      // backgroundColor: Color.fromARGB(255, 154, 203, 242)
-                      ),
-                ),
-                children: [
-                  Container(
-                    color: Colors.white,
-                    child: const ListTile(
-                      title: Text("CASH"),
+      body: FutureBuilder<List<AutoCompleteLedgerList?>>(
+          future: RemoteService().getAutoCompleteLedgerList(query: query),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            List<AutoCompleteLedgerList?>? data = snapshot.data;
+            // log('fffffffffffsssssfffffffffff${data![0]?.ledgerGroup}');
+            List<Map<String, dynamic>> result = [];
+            List<String> keys = [];
+
+            for (var f in data!) {
+              keys.add(f!.ledgerGroup!);
+            }
+            for (var k in [...keys.toSet()]) {
+              List datas = [...data.where((e) => e?.ledgerGroup == k)];
+              result.add({k: datas});
+            }
+            // var indItem = (ind) => result[ind].map(((key, value) => value));
+            // log('message${indItem(1)}');
+
+            if (result.isEmpty) {
+              log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');
+
+              return const Center(child: Text('No data'));
+            }
+            // log('message${(result[0])}');
+            //////////////
+            return ListView.builder(
+                itemCount: result.length,
+                itemBuilder: (context, index) {
+                  return ExpansionTile(
+                    initiallyExpanded: true,
+                    backgroundColor: const Color.fromARGB(255, 157, 207, 247),
+                    title: Text(
+                      result[index].keys.join(', '),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          color: Colors.black
+                          // backgroundColor: Color.fromARGB(255, 154, 203, 242)
+                          ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              color: const Color.fromARGB(255, 161, 212, 254),
-              child: ExpansionTile(
-                // backgroundColor: Color.fromARGB(255, 157, 207, 247),
-                title: Text(
-                  "Primary",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                      color: Colors.black
-                      // backgroundColor: Color.fromARGB(255, 154, 203, 242)
-                      ),
-                ),
-                children: [
-                  Container(
-                    color: Colors.white,
-                    child: const ListTile(
-                      title: Text("PROFIT & LOSS ACCOUNT "),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              color: const Color.fromARGB(255, 161, 212, 254),
-              child: ExpansionTile(
-                // backgroundColor: Color.fromARGB(255, 157, 207, 247),
-                title: Text(
-                  "Purchase Account",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                      color: Colors.black
-                      // backgroundColor: Color.fromARGB(255, 154, 203, 242)
-                      ),
-                ),
-                children: [
-                  Container(
-                    color: Colors.white,
-                    child: const ListTile(
-                      title: Text("PURCHASE A/C"),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              color: const Color.fromARGB(255, 161, 212, 254),
-              child: ExpansionTile(
-                // backgroundColor: Color.fromARGB(255, 157, 207, 247),
-                title: Text(
-                  "Sales Account",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                      color: Colors.black
-                      // backgroundColor: Color.fromARGB(255, 154, 203, 242)
-                      ),
-                ),
-                children: [
-                  Container(
-                    color: Colors.white,
-                    child: const ListTile(
-                      title: Text("SALES A/C"),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              color: const Color.fromARGB(255, 161, 212, 254),
-              child: ExpansionTile(
-                // backgroundColor: Color.fromARGB(255, 157, 207, 247),
-                title: Text(
-                  "Duties & Taxes",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                      color: Colors.black
-                      // backgroundColor: Color.fromARGB(255, 154, 203, 242)
-                      ),
-                ),
-                children: [
-                  Container(
-                    color: Colors.white,
-                    child: const ListTile(
-                      title: Text("VAT"),
-                    ),
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: const ListTile(
-                      title: Text("EXCISE DUTY"),
-                    ),
-                  ),
-                  Container(
-                    color: Colors.white,
-                    child: const ListTile(
-                      title: Text("TDS"),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+                    children: [
+                      ...result[index].values.first.map((lst) {
+                        log('index$lst');
+                        return Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          NewSalesOrder(indexGetter: lst)));
+                            },
+                            title: Text(
+                              lst.name,
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 18.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ],
+                  );
+                });
+          }),
     );
   }
 }
-
-const names = [
-  "aa",
-  "bb",
-  "cc",
-  "da",
-  "fb",
-  "gc",
-  "ha",
-  "jb",
-  "kc",
-  "qa",
-  "wba",
-  "ecf",
-  "aad",
-  "bba",
-  "ccasd"
-];

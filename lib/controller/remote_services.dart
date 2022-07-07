@@ -92,8 +92,8 @@ class RemoteService {
       AutoCompleteLedgerListToJSON autoCompleteLedgerListToJSON =
           AutoCompleteLedgerListToJSON(
         1,
-     //'sandesh',
-        query??'',
+        //'sandesh',
+        query ?? '',
         1,
       );
       String jsonAutoCopleteLedgerList =
@@ -124,103 +124,6 @@ class RemoteService {
     }
     return results;
   }
-
-  // Future<List<AutoCompleteLedgerList>> getAutoCompleteLedgerList() async {
-  //   // Future<AutoCompleteLedgerList> getAutoCompleteLedgerList() async {
-  //   try {
-  //     AutoCompleteLedgerListToJSON autoCompleteLedgerListToJSON =
-  //         AutoCompleteLedgerListToJSON(
-  //       1,
-  //       's',
-  //       1,
-  //     );
-  //     String jsonAutoCopleteLedgerList =
-  //         jsonEncode(autoCompleteLedgerListToJSON);
-  //     var uri = Uri.parse(
-  //         'https://demo.pivotalerp.app/v1/account/AutoCompleteLedgerList');
-  //     final response = await http.post(
-  //       uri,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Charset': 'utf-8',
-  //         'Accept': 'application/json',
-  //         // 'Content-Type': 'application/x-www-form-urlencoded',
-  //         'Authorization': 'Bearer $accessToken'
-  //       },
-  //       //body lai json format ma change gareko
-  //       body: jsonAutoCopleteLedgerList,
-  //     );
-  //     ////////////////////////////////actual////////////////
-  //     // List jsonDecoded = jsonDecode(response.body);
-  //     // //final ledgerModel = AutoCompleteLedgerList.fromJson(jsonDecoded)  ;
-  //     // final ledgerModel = jsonDecoded
-  //     //     .map((job) => AutoCompleteLedgerList.fromJson(job))
-  //     //     .toList();
-  //     // return ledgerModel;
-  //     ////////////////////////////////actual////////////////
-
-  //     String arrayObjsText = '{"tags":${response.body} }';
-  //     var tagObjsJson = jsonDecode(arrayObjsText)['tags'] as List;
-  //     log('taggJsonnn$tagObjsJson');
-
-  //     List<AutoCompleteLedgerList> tagObjs = tagObjsJson
-  //         .map((tagJson) => AutoCompleteLedgerList.fromJson(tagJson))
-  //         .toList();
-  //     return tagObjs;
-  //   } catch (e) {
-  //     log('ERORRRRRRRRRR$e');
-  //     rethrow;
-  //   }
-  // }
-
-  // Future<List<AutoCompleteLedgerList>> getAutoCompleteLedgerListKey(
-  //     String keyword) async {
-  //   // Future<AutoCompleteLedgerList> getAutoCompleteLedgerList() async {
-  //   try {
-  //     AutoCompleteLedgerListToJSON autoCompleteLedgerListToJSON =
-  //         AutoCompleteLedgerListToJSON(
-  //       1,
-  //       keyword,
-  //       1,
-  //     );
-  //     String jsonAutoCopleteLedgerList =
-  //         jsonEncode(autoCompleteLedgerListToJSON);
-  //     var uri = Uri.parse(
-  //         'https://demo.pivotalerp.app/v1/account/AutoCompleteLedgerList');
-  //     final response = await http.post(
-  //       uri,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Charset': 'utf-8',
-  //         'Accept': 'application/json',
-  //         // 'Content-Type': 'application/x-www-form-urlencoded',
-  //         'Authorization': 'Bearer $accessToken'
-  //       },
-  //       //body lai json format ma change gareko
-  //       body: jsonAutoCopleteLedgerList,
-  //     );
-  //     ////////////////////////////////actual////////////////
-  //     // List jsonDecoded = jsonDecode(response.body);
-  //     // //final ledgerModel = AutoCompleteLedgerList.fromJson(jsonDecoded)  ;
-  //     // final ledgerModel = jsonDecoded
-  //     //     .map((job) => AutoCompleteLedgerList.fromJson(job))
-  //     //     .toList();
-  //     // return ledgerModel;
-  //     ////////////////////////////////actual////////////////
-
-  //     String arrayObjsText = '{"tags":${response.body} }';
-  //     var tagObjsJson = jsonDecode(arrayObjsText)['tags'] as List;
-  //     log('taggJsonnn$tagObjsJson');
-
-  //     List<AutoCompleteLedgerList> tagObjs = tagObjsJson
-  //         .map((tagJson) => AutoCompleteLedgerList.fromJson(tagJson))
-  //         .toList();
-  //     return tagObjs;
-  //   } catch (e) {
-  //     log('ERORRRRRRRRRR$e');
-  //     rethrow;
-  //   }
-  // }
 
   Future<ledgerDetail?> getLedgerDetails() async {
     try {

@@ -40,12 +40,6 @@ class MapSampleState extends State<MapSample> {
           markerId: const MarkerId('1'),
           position: const LatLng(27.6868283, 85.3357083),
           infoWindow: const InfoWindow(title: 'My Position')),
-      // Marker(
-      //     icon:
-      //         BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
-      //     markerId: const MarkerId('2'),
-      //     position: LatLng(latt, longg),
-      //     infoWindow: const InfoWindow(title: 'Kalanki')),
       Marker(
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
           markerId: const MarkerId('2'),
@@ -88,11 +82,6 @@ class MapSampleState extends State<MapSample> {
         myLocationEnabled: true,
         compassEnabled: true,
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: const Text('To the lake!'),
-      //   icon: const Icon(Icons.directions_boat),
-      // ),
     );
   }
 

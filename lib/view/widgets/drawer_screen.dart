@@ -120,83 +120,48 @@ class DrawerScreen extends StatelessWidget {
                 ),
               ]),
           // padding: const EdgeInsets.only(top: 10),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
-                // IconButton(
-                //     onPressed: (() {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) =>
-                //                   const OrganisationDetials()));
-                //     }),
-                //     icon: const Icon(Icons.edit)),
-              ],
-            ),
-
-            const CircleAvatar(
+          child: Column(children: const [
+            CircleAvatar(
               radius: 60,
               backgroundImage: NetworkImage(
                   "https://cdn.dribbble.com/users/2364329/screenshots/10481283/050.jpg"),
             ),
-            const SizedBox(
+            SizedBox(
               height: 10,
             ),
-            const Text(
+            Text(
               "Admin",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 8,
             ),
-            const Text(
+            Text(
               "admin@gmail.com",
               style: TextStyle(
                   fontSize: 16,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.normal),
             ),
-            const SizedBox(
+            SizedBox(
               height: 8,
             ),
-            // const Text(
-            //   "9876543210",
-            //   style: TextStyle(
-            //       fontSize: 16,
-            //       fontStyle: FontStyle.italic,
-            //       fontWeight: FontWeight.normal),
-            // ),
-            // const SizedBox(
-            //   height: 8,
-            // ),
-            // const Text(
-            //   "Company Name: Dynamic Technosoft",
-            //   style: TextStyle(
-            //       fontSize: 16,
-            //       // fontStyle: FontStyle.italic,
-            //       fontWeight: FontWeight.normal),
-            // ),
-            // SizedBox(
-            //   height: 8,
-            // ),
           ]),
         ),
       );
 
   showDateAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget ADButton = FlatButton(
+    Widget ADButton = ElevatedButton(
       child: const Text("AD"),
       onPressed: () {
         Navigator.pop(context);
       },
     );
-    Widget BSButton = FlatButton(
+    Widget BSButton = ElevatedButton(
       child: const Text("BS"),
       onPressed: () {
         Navigator.pop(context);

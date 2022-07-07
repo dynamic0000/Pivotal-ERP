@@ -39,49 +39,45 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         ),
         drawer: const DrawerScreen(),
         body: SingleChildScrollView(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: 60.w,
-                  ),
-                  const Text(
-                    "Sales Order",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  salesRow(context, 'images/today.png', 'Today', '4 orders',
-                      'Yesterday', '0 order'),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  salesRow(context, 'images/week.png', 'This Week', '5 orders',
-                      'Last Week', '1 order'),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  salesRow(context, 'images/month.png', 'This Month',
-                      '4 orders', 'Last Month', '0 order'),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  salesRow(context, 'images/year.png', 'This Year', '8 orders',
-                      'Last Order', '0 order'),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 60.w,
+                ),
+                const Text(
+                  "Sales Order",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                salesRow(context, 'images/today.png', 'Today', '4 orders',
+                    'Yesterday', '0 order'),
+                SizedBox(
+                  height: 15.h,
+                ),
+                salesRow(context, 'images/week.png', 'This Week', '5 orders',
+                    'Last Week', '1 order'),
+                SizedBox(
+                  height: 15.h,
+                ),
+                salesRow(context, 'images/month.png', 'This Month', '4 orders',
+                    'Last Month', '0 order'),
+                SizedBox(
+                  height: 15.h,
+                ),
+                salesRow(context, 'images/year.png', 'This Year', '8 orders',
+                    'Last Order', '0 order'),
 
-                  /////////second
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                ],
-              ),
+                /////////second
+                SizedBox(
+                  height: 15.h,
+                ),
+              ],
             ),
           ),
         ),
@@ -109,97 +105,95 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           ]),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
-        child: Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              //images
-              Row(
-                children: [
-                  Container(
-                    height: 80.h,
-                    width: 110.w,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(photo), fit: BoxFit.fill)),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          latestTime,
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 35.h,
-                        ),
-                        Text(
-                          latestOrder,
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              //today
-
-              //yesterday
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            //images
+            Row(
+              children: [
+                Container(
+                  height: 80.h,
+                  width: 110.w,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(photo), fit: BoxFit.fill)),
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        previousTime,
+                        latestTime,
                         style: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
+                            fontSize: 20.sp, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        height: 4.h,
+                        height: 35.h,
                       ),
                       Text(
-                        previousOrder,
+                        latestOrder,
                         style: TextStyle(
-                            fontSize: 13.sp,
-                            color: Colors.black,
+                            fontSize: 18.sp,
+                            color: Colors.grey,
                             fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 1,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.arrow_upward,
-                        size: 40.sp,
-                        color: Colors.green,
                       )
                     ],
-                  )
-                ],
-              ),
-              //arrowwwww
-            ],
-          ),
+                  ),
+                ),
+              ],
+            ),
+            //today
+
+            //yesterday
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      previousTime,
+                      style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    Text(
+                      previousOrder,
+                      style: TextStyle(
+                          fontSize: 13.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 1,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.arrow_upward,
+                      size: 40.sp,
+                      color: Colors.green,
+                    )
+                  ],
+                )
+              ],
+            ),
+            //arrowwwww
+          ],
         ),
       ),
     );
@@ -207,13 +201,13 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
 
   showLogOutAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget NoButton = ElevatedButton(
+    Widget noButton = ElevatedButton(
       child: const Text("No"),
       onPressed: () {
         Navigator.pop(context);
       },
     );
-    Widget YesButton = ElevatedButton(
+    Widget yesButton = ElevatedButton(
       child: const Text("Yes"),
       onPressed: () {
         Navigator.push(context,
@@ -226,8 +220,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       // content: Text(
       //     "Would you like to continue learning how to use Flutter alerts?"),
       actions: [
-        YesButton,
-        NoButton,
+        yesButton,
+        noButton,
       ],
     );
     // show the dialog

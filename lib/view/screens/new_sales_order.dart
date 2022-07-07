@@ -12,6 +12,7 @@ import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
 import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NewSalesOrder extends StatefulWidget {
   const NewSalesOrder({
@@ -159,7 +160,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               onPressed: () async {
                 final result = await showSearch(
                   context: context,
-                  delegate: MySearchDelegate(names),
+                  delegate: MySearchDelegate(),
                 );
                 log('result------$result');
               },
@@ -187,132 +188,149 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              height: 210.h,
+              height: 230.h,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 169, 213, 248),
+                  color: const Color.fromARGB(255, 205, 227, 245),
                   borderRadius: BorderRadius.circular(8)),
               child: Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    customerData,
-                    SizedBox(width: 20.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Invoice No.",
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: const Color.fromARGB(255, 16, 124, 213),
-                              fontWeight: FontWeight.normal),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        SizedBox(
-                          width: 60.w,
-                          height: 16.h,
-                          child: TextField(
-                            focusNode: node1,
-                            style: TextStyle(fontSize: 10.sp),
-                            enabled: isEnabled,
-                            readOnly: !isEnabled,
+                    SingleChildScrollView(
+                      child: SizedBox(
+                          //color: Colors.white,
+                          height: 220,
+                          width: 160,
+                          child: customerData),
+                    ),
+                    const VerticalDivider(
+                      width: 2,
+                      indent: 5,
+                      endIndent: 5,
+                      thickness: 2,
+                      color: Colors.grey,
+                    ),
+                    // Container(color: Colors.blue, width: 20.w),
+                    Container(
+                      // color: Colors.grey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Invoice No.",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                color: const Color.fromARGB(255, 16, 124, 213),
+                                fontWeight: FontWeight.normal),
                           ),
-                        ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          SizedBox(
+                            width: 60.w,
+                            height: 16.h,
+                            child: TextField(
+                              focusNode: node1,
+                              style: TextStyle(fontSize: 10.sp),
+                              enabled: isEnabled,
+                              readOnly: !isEnabled,
+                            ),
+                          ),
 
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Text(
-                          "Date of Issue",
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: const Color.fromARGB(255, 16, 124, 213),
-                              fontWeight: FontWeight.normal),
-                        ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Text(
+                            "Date of Issue",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                color: const Color.fromARGB(255, 16, 124, 213),
+                                fontWeight: FontWeight.normal),
+                          ),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: _selectedNepaliDate,
-                              child: Container(
-                                height: 20.h,
-                                width: 80.w,
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 2.0.w, color: Colors.grey)),
-                                ),
-                                child: Text(
-                                  formattedTextNepali,
-                                  // formattedText,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: _selectedNepaliDate,
+                                child: Container(
+                                  height: 20.h,
+                                  width: 80.w,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 2.0.w, color: Colors.grey)),
+                                  ),
+                                  child: Text(
+                                    formattedTextNepali,
+                                    // formattedText,
 
-                                  style: TextStyle(fontSize: 15.sp),
+                                    style: TextStyle(fontSize: 15.sp),
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            // ),
-                            IconButton(
-                                onPressed: () {
-                                  _selectedNepaliDate();
-                                },
-                                icon: const Icon(
-                                  Icons.calendar_today,
-                                  size: 18,
-                                ))
-                          ],
-                        ),
+                              // ),
+                              IconButton(
+                                  onPressed: () {
+                                    _selectedNepaliDate();
+                                  },
+                                  icon: const Icon(
+                                    Icons.calendar_today,
+                                    size: 18,
+                                  ))
+                            ],
+                          ),
 
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        Text(
-                          "Due Date",
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: const Color.fromARGB(255, 16, 124, 213),
-                              fontWeight: FontWeight.normal),
-                        ),
-                        // SizedBox(
-                        //   height: 5,
-                        // ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: _selectedDueNepaliDate,
-                              child: Container(
-                                height: 20.h,
-                                width: 80.w,
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 2.h, color: Colors.grey)),
-                                ),
-                                child: Text(
-                                  formattedDueTextNepali,
-                                  // formattedDueText,
+                          SizedBox(
+                            height: 4.h,
+                          ),
+                          Text(
+                            "Due Date",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                color: const Color.fromARGB(255, 16, 124, 213),
+                                fontWeight: FontWeight.normal),
+                          ),
+                          // SizedBox(
+                          //   height: 5,
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: _selectedDueNepaliDate,
+                                child: Container(
+                                  height: 20.h,
+                                  width: 80.w,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 2.h, color: Colors.grey)),
+                                  ),
+                                  child: Text(
+                                    formattedDueTextNepali,
+                                    // formattedDueText,
 
-                                  style: TextStyle(fontSize: 15.sp),
+                                    style: TextStyle(fontSize: 15.sp),
+                                  ),
                                 ),
                               ),
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  _selectedDueNepaliDate();
-                                },
-                                icon: const Icon(
-                                  Icons.calendar_today,
-                                  size: 18,
-                                ))
-                          ],
-                        ),
-                      ],
+                              IconButton(
+                                  onPressed: () {
+                                    _selectedDueNepaliDate();
+                                  },
+                                  icon: const Icon(
+                                    Icons.calendar_today,
+                                    size: 18,
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -395,9 +413,16 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                   },
                 ),
                 SizedBox(
-                  height: 30.h,
+                  height: 15.h,
                 ),
-
+                Divider(
+                  indent: 45,
+                  color: Colors.grey.withOpacity(.8),
+                  thickness: 1,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -583,7 +608,15 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                       ],
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 20.h,
+                    ),
+                    Divider(
+                      indent: 45,
+                      color: Colors.grey.withOpacity(.8),
+                      thickness: 1,
+                    ),
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Row(
                       children: [
@@ -629,7 +662,15 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                       ],
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 20.h,
+                    ),
+                    Divider(
+                      indent: 45,
+                      color: Colors.grey.withOpacity(.8),
+                      thickness: 1,
+                    ),
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Row(
                       children: [
@@ -752,29 +793,81 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               fontWeight: FontWeight.bold),
         ),
         const SizedBox(
-          height: 5,
+          height: 8,
         ),
-        Row(
-          children: [const Text('Name ::'), Text(a!.name.toString())],
+        Text(a!.name.toString(),
+            style: GoogleFonts.mavenPro(
+              textStyle: TextStyle(
+                fontSize: 16.sp,
+                color: Colors.black.withOpacity(0.8),
+              ),
+            )),
+        const SizedBox(
+          height: 9,
         ),
-        Row(
-          children: [const Text('Address ::'), Text(a.address.toString())],
+        Text(a.address.toString(),
+            style: GoogleFonts.alegreyaSans(
+              textStyle: TextStyle(
+                fontSize: 15.sp,
+                color: Colors.grey.shade800.withOpacity(1),
+              ),
+            )),
+        const SizedBox(
+          height: 9,
         ),
-        Row(
-          children: [const Text('Pan No. ::'), Text(a.panVatNo.toString())],
+        _rowData(title: 'Pan no   -', titleData: a.panVatNo.toString()),
+        const SizedBox(
+          height: 9,
         ),
-        Row(
-          children: [
-            const Text('Credit Limit ::'),
-            Text(a.creditLimitAmount.toString())
-          ],
+        _rowData(
+            title: 'Credit Limit   -',
+            titleData: a.creditLimitAmount.toString()),
+        // Text(
+        //   a.creditLimitDays.toString(),
+        //   style: GoogleFonts.cantarell(
+        //     textStyle: TextStyle(
+        //       fontSize: 15.sp,
+        //       color: Colors.grey.shade800.withOpacity(1),
+        //     ),
+        //   ),
+        // ),
+        const SizedBox(
+          height: 8,
         ),
-        Row(
-          children: [
-            const Text('OUTSTANDING AMOUNT ::'),
-            Text(a.creditLimitDays.toString())
-          ],
+        _rowData(
+            title: 'Credit Days   -', titleData: a.creditLimitDays.toString()),
+        // Text(
+        //   a.creditLimitAmount.toString(),
+        //   style: GoogleFonts.cantarell(
+        //     textStyle: TextStyle(
+        //       fontSize: 15.sp,
+        //       color: Colors.grey.shade800.withOpacity(1),
+        //     ),
+        //   ),
+        // )
+      ],
+    );
+  }
+
+  Row _rowData({AutoCompleteLedgerList? a, String? title, String? titleData}) {
+    return Row(
+      children: [
+        Text(
+          title!,
+          style: GoogleFonts.alegreyaSans(
+            textStyle: TextStyle(
+              fontSize: 15.sp,
+              color: Colors.grey.shade800.withOpacity(1),
+            ),
+          ),
         ),
+        Text(titleData!,
+            style: GoogleFonts.cantarell(
+              textStyle: TextStyle(
+                fontSize: 15.sp,
+                color: Colors.grey.shade800.withOpacity(1),
+              ),
+            )),
       ],
     );
   }
@@ -847,25 +940,3 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         ),
       );
 }
-
-const names = [
-  "Sandesh",
-  "Aakash",
-  "ram",
-  "sita"
-      "aa",
-  "bb",
-  "cc",
-  "da",
-  "fb",
-  "gc",
-  "ha",
-  "jb",
-  "kc",
-  "qa",
-  "wba",
-  "ecf",
-  "aad",
-  "bba",
-  "ccasd"
-];

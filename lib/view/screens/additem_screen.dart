@@ -139,7 +139,10 @@ class _AddItemState extends State<AddItem> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
               child: Container(
-                color: Colors.grey[300],
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.grey[300],
+                ),
                 child: Column(
                   children: [
                     SizedBox(

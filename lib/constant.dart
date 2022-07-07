@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ColorConst {
   static Color iconColor = Colors.black.withOpacity(.6);
@@ -7,24 +9,13 @@ class ColorConst {
 const String urlERP = 'https://demo.pivotalerp.app/';
 
 const String accessToken =
-    'a-8wM0wyIP1t4guI7GDjTt5thvBNuE4CkbrS3uNozVrSuOVxj1yQ8vQw3ku2R0ZQEO_9FllAP_HwKHSmP3SwIMCf0kExy_2QxzBdziV9vOcUsGwo4NM1bv8p1ZAG3l-ypr2Fvb5KB60X-fGgTvEIDv9GOgf4KzJHigYAyiS67trt_VPaXz6N24XOmYw99Aj0eog5_zgJ7n1SxYYYPq_B3Lfi_jdE21cmF5mqhP--_QsYOG6vcQDQGreW-UJqwfYsmWvt4vHoVcEh23yKIb6OsXQxypLf5XqpL4pF6is470d7qdvFe4udcH-2SV76pN7e7AcdwirsLPYoBhxjrXHuA4AfYynKbDWos3f5J-Tp8HUINybDw1qGLrWod2tadhakXKASiIlJ-1BQ93_uqwL6Pstt408SS-sm2g4yuN5PEFI';
+    'Fu4Y5mDEWIwNEgIgFVVKfC6FbQ06Q80ViwMce66pvMcW-4bQgawU2cdfGaVWTVAwxuahSpZRhod7gIrcGEtDnchcDFu2IN-F0w-6cE2RO2Uo9DoGmA6h489UNpYQKLDK1REUypWV9-8zNOB6qrhZOnb-XW70jyjatA1VmVx-VNzxFy2rEanBeALcwCBp50KS_wXTVkU_87sMoq8v0AzxGqub9XUArw67oNQGLg6opGQJVo2l8uQGPn4_Bgsn7UbqCKdCjtX3LYQT_-OiXsbE1j61t3p7PRJQF8XLnvotQ0ZtxIzTL08lPvC2lwAILcHNbrLIhmka2jJScV-8fFEP_rpdnhHnu6Ni15AFxsn6uLoselQavXXCirBWmqqsY2PtknpwnnuX2qwI-z3BhJ2FL4QiCZkxv1UzYyYjblYblBs';
 //body lai json format ma convert garne link
 //https://www.bezkoder.com/dart-flutter-convert-object-to-json-string/
 
-const names = [
-  "aa",
-  "bb",
-  "cc",
-  "da",
-  "fb",
-  "gc",
-  "ha",
-  "jb",
-  "kc",
-  "qa",
-  "wba",
-  "ecf",
-  "aad",
-  "bba",
-  "ccasd"
-];
+TextStyle? googleStyle = GoogleFonts.alegreyaSans(
+  textStyle: TextStyle(
+    fontSize: 15.sp,
+    color: Colors.grey.shade800.withOpacity(1),
+  ),
+);

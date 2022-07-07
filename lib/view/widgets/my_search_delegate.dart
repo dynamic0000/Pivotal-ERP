@@ -7,11 +7,9 @@ import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class MySearchDelegate extends SearchDelegate {
-  final List<String> names;
+  
   String result = '';
-  MySearchDelegate(
-    this.names,
-  );
+  
   @override
   List<Widget>? buildActions(BuildContext context) => [
         IconButton(
@@ -32,22 +30,6 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // final suggestions = names.where(
-    //     (element) => element.toLowerCase().contains(query.toLowerCase()));
-    // return ListView.builder(
-    //   itemCount: suggestions.length,
-    //   itemBuilder: (BuildContext context, int index) {
-    //     return ListTile(
-    //       title: Text(suggestions.elementAt(index)),
-    //       onTap: () {
-    //         result = suggestions.elementAt(index);
-    //         close(context, result);
-    //       },
-    //     );
-    //   },
-    // );
-    /////////////////////////////////////////////////////////////////////////////////////////
-
     // final data = names.where(
     //    (element) => element.toLowerCase().contains(query.toLowerCase()));
     return FutureBuilder<List<AutoCompleteLedgerList?>>(
@@ -59,24 +41,6 @@ class MySearchDelegate extends SearchDelegate {
             return const CircularProgressIndicator();
           }
           List<AutoCompleteLedgerList?>? data = snapshot.data;
-
-          // List<Map<String, dynamic>> result = [];
-          // List<String> keys = [];
-
-          // data?.forEach((f) => keys.add(f!.ledgerGroup!));
-
-          // for (var k in [...keys.toSet()]) {
-          //   List datas = [...data!.where((e) => e?.ledgerGroup == k)];
-          //   result.add({k: datas});
-          // }
-
-          // log('message$result');
-
-          // log('dataaaaaaaaa---------$data');
-          //var newMap = data.reduce((value, element) => {});
-
-// ignore: unused_local_variable
-// var newMap = groupBy( data, (Map obj) => obj['release_date']);
 
           return ListView.builder(
               itemCount: data?.length,
@@ -97,14 +61,14 @@ class MySearchDelegate extends SearchDelegate {
         future: RemoteService().getAutoCompleteLedgerList(query: query),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
           List<AutoCompleteLedgerList?>? data = snapshot.data;
-          log('fffffffffffsssssfffffffffff${data![0]?.ledgerGroup}');
+          // log('fffffffffffsssssfffffffffff${data![0]?.ledgerGroup}');
           List<Map<String, dynamic>> result = [];
           List<String> keys = [];
 
-          for (var f in data) {
+          for (var f in data!) {
             keys.add(f!.ledgerGroup!);
           }
           for (var k in [...keys.toSet()]) {
@@ -113,6 +77,12 @@ class MySearchDelegate extends SearchDelegate {
           }
           // var indItem = (ind) => result[ind].map(((key, value) => value));
           // log('message${indItem(1)}');
+
+          if (result.isEmpty) {
+            log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');
+
+            return const Center(child: Text('No data'));
+          }
           // log('message${(result[0])}');
           //////////////
           return ListView.builder(
@@ -131,55 +101,32 @@ class MySearchDelegate extends SearchDelegate {
                         ),
                   ),
                   children: [
-                    Container(
-                      color: Colors.white,
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      NewSalesOrder(indexGetter: data[index])));
-                          log('zzzzzzz----$index');
-                          log('ddddddddddddddddd${result[index].values}');
-                        },
-                        title:
-                            // ListView.builder(
-                            //     itemBuilder: ((context, index) =>
-                            //         Text('${result[index].values}')))
-                            Text(
-                          '${result[index].values.first[0].name}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                    ...result[index].values.first.map((lst) {
+                      log('index$lst');
+                      return Container(
+                        color: Colors.white,
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NewSalesOrder(indexGetter: lst)));
+                          },
+                          title: Text(
+                            lst.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
                               fontSize: 18.sp,
                               color: Colors.black,
-                              backgroundColor:
-                                  const Color.fromARGB(255, 154, 203, 242)),
+                            ),
+                          ),
                         ),
-                      ),
-                    )
+                      );
+                    }).toList(),
                   ],
                 );
               });
         });
-    ////////////////
   }
 }
-
-const names = [
-  "aa",
-  "bb",
-  "cc",
-  "da",
-  "fb",
-  "gc",
-  "ha",
-  "jb",
-  "kc",
-  "qa",
-  "wba",
-  "ecf",
-  "aad",
-  "bba",
-  "ccasd"
-];

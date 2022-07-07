@@ -3,7 +3,10 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pivotal_erp/view/screens/live_customer.dart';
 import 'package:pivotal_erp/view/screens/new_customer_screen.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 35e284f0d8969cd9afa49678b06b8e37d20bcc5b
 
 class SpeedDialIcon extends StatefulWidget {
   const SpeedDialIcon({Key? key}) : super(key: key);

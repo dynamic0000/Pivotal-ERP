@@ -6,12 +6,9 @@ import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
-
-
 class MySearchDelegate extends SearchDelegate {
-  
   String result = '';
-  
+
   @override
   List<Widget>? buildActions(BuildContext context) => [
         IconButton(

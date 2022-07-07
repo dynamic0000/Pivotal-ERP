@@ -821,3 +821,4 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
         ),
       );
 }
+

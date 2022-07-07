@@ -15,6 +15,8 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   bool _showpassword = false;
+  bool _showpassword2 = false;
+  bool _showpassword3 = false;
   final oldPassword = TextEditingController();
   final newPassword = TextEditingController();
   final confirmPassword = TextEditingController();
@@ -52,11 +54,44 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
                 ),
                 _extractPassword(
-                    hintText: 'Enter Old Password', controller: oldPassword),
+                    obscureText: !_showpassword,
+                    hintText: 'Enter Old Password',
+                    controller: oldPassword,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _showpassword = !_showpassword;
+                          });
+                        },
+                        icon: Icon(_showpassword
+                            ? Icons.visibility
+                            : Icons.visibility_off))),
                 _extractPassword(
-                    hintText: 'Enter New Password', controller: newPassword),
+                    hintText: 'Enter New Password',
+                    controller: newPassword,
+                    obscureText: !_showpassword2,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _showpassword2 = !_showpassword2;
+                          });
+                        },
+                        icon: Icon(_showpassword2
+                            ? Icons.visibility
+                            : Icons.visibility_off))),
                 _extractPassword(
-                    hintText: 'Confirm Password', controller: confirmPassword),
+                    hintText: 'Confirm Password',
+                    controller: confirmPassword,
+                    obscureText: !_showpassword3,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _showpassword3 = !_showpassword3;
+                          });
+                        },
+                        icon: Icon(_showpassword3
+                            ? Icons.visibility
+                            : Icons.visibility_off))),
                 const SizedBox(
                   height: 20,
                 ),
@@ -96,23 +131,26 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Padding _extractPassword({
     String? hintText,
     TextEditingController? controller,
+    Widget? suffixIcon,
+    required bool obscureText,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: TextFormField(
-        controller: controller,
-        obscureText: !_showpassword,
-        decoration: InputDecoration(
-            hintText: hintText,
-            suffixIcon: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _showpassword = !_showpassword;
-                  });
-                },
-                child: Icon(
-                    _showpassword ? Icons.visibility : Icons.visibility_off))),
-      ),
+          controller: controller,
+          obscureText: obscureText,
+          decoration:
+              InputDecoration(hintText: hintText, suffixIcon: suffixIcon)
+          // GestureDetector(
+          //     onTap: () {
+          //       setState(() {
+          //         _showpassword = !_showpassword;
+          //       });
+          //     },
+          //     child: Icon(
+          //         _showpassword ? Icons.visibility : Icons.visibility_off))),
+
+          ),
     );
   }
 }

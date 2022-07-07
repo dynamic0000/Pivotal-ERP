@@ -108,97 +108,95 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           ]),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
-        child: Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              //images
-              Row(
-                children: [
-                  Container(
-                    height: 80.h,
-                    width: 110.w,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(photo), fit: BoxFit.fill)),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          latestTime,
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 35.h,
-                        ),
-                        Text(
-                          latestOrder,
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              //today
-
-              //yesterday
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            //images
+            Row(
+              children: [
+                Container(
+                  height: 80.h,
+                  width: 110.w,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(photo), fit: BoxFit.fill)),
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        previousTime,
+                        latestTime,
                         style: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black),
+                            fontSize: 20.sp, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        height: 4.h,
+                        height: 35.h,
                       ),
                       Text(
-                        previousOrder,
+                        latestOrder,
                         style: TextStyle(
-                            fontSize: 13.sp,
-                            color: Colors.black,
+                            fontSize: 18.sp,
+                            color: Colors.grey,
                             fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 1,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.arrow_upward,
-                        size: 40.sp,
-                        color: Colors.green,
                       )
                     ],
-                  )
-                ],
-              ),
-              //arrowwwww
-            ],
-          ),
+                  ),
+                ),
+              ],
+            ),
+            //today
+
+            //yesterday
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      previousTime,
+                      style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    Text(
+                      previousOrder,
+                      style: TextStyle(
+                          fontSize: 13.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 1,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.arrow_upward,
+                      size: 40.sp,
+                      color: Colors.green,
+                    )
+                  ],
+                )
+              ],
+            ),
+            //arrowwwww
+          ],
         ),
       ),
     );

@@ -1,9 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
-import 'package:pivotal_erp/view/widgets/expansion_tile.dart';
+import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class MySearchDelegate extends SearchDelegate {
   final List<String> names;
@@ -31,32 +32,15 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // final suggestions = names.where(
-    //     (element) => element.toLowerCase().contains(query.toLowerCase()));
-    // return ListView.builder(
-    //   itemCount: suggestions.length,
-    //   itemBuilder: (BuildContext context, int index) {
-    //     return ListTile(
-    //       title: Text(suggestions.elementAt(index)),
-    //       onTap: () {
-    //         result = suggestions.elementAt(index);
-    //         close(context, result);
-    //       },
-    //     );
-    //   },
-    // );
-    /////////////////////////////////////////////////////////////////////////////////////////
-
-    // final data = names.where(
-    //    (element) => element.toLowerCase().contains(query.toLowerCase()));
     return FutureBuilder<List<AutoCompleteLedgerList?>>(
         future: RemoteService().getAutoCompleteLedgerList(query: query),
         builder: (context, snapshot) {
+          log('dataaaaaaaaa---------');
+
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
           }
           List<AutoCompleteLedgerList?>? data = snapshot.data;
-          log('dataaaaaaaaa---------$data');
 
           return ListView.builder(
               itemCount: data?.length,
@@ -73,49 +57,75 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return const ExpansionTileScreen();
+    return FutureBuilder<List<AutoCompleteLedgerList?>>(
+        future: RemoteService().getAutoCompleteLedgerList(query: query),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          List<AutoCompleteLedgerList?>? data = snapshot.data;
+          log('fffffffffffsssssfffffffffff${data![4]?.ledgerGroup}');
+          List<Map<String, dynamic>> result = [];
+          List<String> keys = [];
+          // data.toString.groupBy((m) => m['LedgerGroupId']);
 
-//     FutureBuilder<List<AutoCompleteLedgerList?>>(
-//         future: RemoteService().getAutoCompleteLedgerList(query: query),
-//         builder: (context, snapshot) {
-//           if (!snapshot.hasData) {
-//             return const CircularProgressIndicator();
-//           }
-//           List<AutoCompleteLedgerList?>? data = snapshot.data;
-//           return ListView.builder(
-//               itemCount: data?.length,
-//               itemBuilder: (context, index) {
-//                 return ListTile(
-//                   onTap: () {
-//                     Navigator.push(
-//                         context,
-//                         MaterialPageRoute(
-//                             builder: (context) =>
-//                                 NewSalesOrderData(indexGetter: data?[index])));
-//                     log('zzzzzzz----$index');
-//                   },
-//                   title: Text(data?[index]!.name ?? ""),
-// //title: Text(data![0]?.name??''),
-//                 );
-//               });
-//         });
+          for (var f in data) {
+            keys.add(f!.ledgerGroup!);
+          }
+          for (var k in [...keys.toSet()]) {
+            List datas = [...data.where((e) => e?.ledgerGroup == k)];
+            result.add({k: datas});
+          }
+
+          return ListView.builder(
+              itemCount: result.length,
+              itemBuilder: (context, index) {
+                return ExpansionTile(
+                  initiallyExpanded: true,
+                  backgroundColor: const Color.fromARGB(255, 157, 207, 247),
+                  title: Text(
+                    result[index].keys.join(', '),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                        color: Colors.black
+                        // backgroundColor: Color.fromARGB(255, 154, 203, 242)
+                        ),
+                  ),
+                  children: [
+                    ...result[index].values.first.map(
+                      (e) {
+                        // log("result--------------$result[index]");
+                        return Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          NewSalesOrder(indexGetter: e)));
+                              // log('zzzzzzz----$index');
+                              // log('ddddddddddddddddd${result[index].values}');
+                              // log('----------------------$e.first.name');
+                            },
+                            title: Text(
+                              //'',
+                              e.name,
+
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 18.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ).toList()
+                  ],
+                );
+              });
+        });
   }
 }
-
-const names = [
-  "aa",
-  "bb",
-  "cc",
-  "da",
-  "fb",
-  "gc",
-  "ha",
-  "jb",
-  "kc",
-  "qa",
-  "wba",
-  "ecf",
-  "aad",
-  "bba",
-  "ccasd"
-];

@@ -35,6 +35,8 @@ dependencies:
   http: ^0.13.4
   form_field_validator: ^1.1.0
   json_annotation: ^4.5.0
+  anim_search_bar: ^2.0.2
+  collection: ^1.16.0
 
 
   # The following adds the Cupertino Icons font to your application.

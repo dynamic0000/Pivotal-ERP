@@ -13,19 +13,18 @@ import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
 import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
 
-class NewSalesOrderData extends StatefulWidget {
-  const NewSalesOrderData({
+class NewSalesOrder extends StatefulWidget {
+  const NewSalesOrder({
     Key? key,
     required this.indexGetter,
   }) : super(key: key);
   final AutoCompleteLedgerList? indexGetter;
   @override
   // ignore: no_logic_in_create_state
-  State<NewSalesOrderData> createState() =>
-      _NewSalesOrderDataState(indexGetter);
+  State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter);
 }
 
-class _NewSalesOrderDataState extends State<NewSalesOrderData> {
+class _NewSalesOrderDataState extends State<NewSalesOrder> {
   AutoCompleteLedgerList? indexGetter;
 
   //AutoCompleteLedgerList? aCLL;

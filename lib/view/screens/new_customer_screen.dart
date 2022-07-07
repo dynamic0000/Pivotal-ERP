@@ -1,3 +1,4 @@
+import 'package:dropdown_search2/dropdown_search2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
@@ -119,11 +120,19 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
 
                 // ),
 
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                  ),
+                // TextFormField(
+                //   decoration: const InputDecoration(
+                //     border: UnderlineInputBorder(),
+                //   ),
+                // ),
+                DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  items: province,
+                  dropdownSearchDecoration:
+                      const InputDecoration(hintText: "Select provinces"),
                 ),
+
                 SizedBox(
                   height: 5.h,
                 ),

@@ -170,8 +170,7 @@ class DrawerScreen extends StatelessWidget {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text("Date Format"),
-      // content: Text(
-      //     "Would you like to continue learning how to use Flutter alerts?"),
+    
       actions: [
         ADButton,
         BSButton,

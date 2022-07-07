@@ -32,6 +32,8 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    // final data = names.where(
+    //    (element) => element.toLowerCase().contains(query.toLowerCase()));
     return FutureBuilder<List<AutoCompleteLedgerList?>>(
         future: RemoteService().getAutoCompleteLedgerList(query: query),
         builder: (context, snapshot) {
@@ -64,19 +66,27 @@ class MySearchDelegate extends SearchDelegate {
             return const Center(child: CircularProgressIndicator());
           }
           List<AutoCompleteLedgerList?>? data = snapshot.data;
-          log('fffffffffffsssssfffffffffff${data![4]?.ledgerGroup}');
+          // log('fffffffffffsssssfffffffffff${data![0]?.ledgerGroup}');
           List<Map<String, dynamic>> result = [];
           List<String> keys = [];
-          // data.toString.groupBy((m) => m['LedgerGroupId']);
 
-          for (var f in data) {
+          for (var f in data!) {
             keys.add(f!.ledgerGroup!);
           }
           for (var k in [...keys.toSet()]) {
             List datas = [...data.where((e) => e?.ledgerGroup == k)];
             result.add({k: datas});
           }
+          // var indItem = (ind) => result[ind].map(((key, value) => value));
+          // log('message${indItem(1)}');
 
+          if (result.isEmpty) {
+            log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');
+
+            return const Center(child: Text('No data'));
+          }
+          // log('message${(result[0])}');
+          //////////////
           return ListView.builder(
               itemCount: result.length,
               itemBuilder: (context, index) {
@@ -93,36 +103,29 @@ class MySearchDelegate extends SearchDelegate {
                         ),
                   ),
                   children: [
-                    ...result[index].values.first.map(
-                      (e) {
-                        // log("result--------------$result[index]");
-                        return Container(
-                          color: Colors.white,
-                          child: ListTile(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          NewSalesOrder(indexGetter: e)));
-                              // log('zzzzzzz----$index');
-                              // log('ddddddddddddddddd${result[index].values}');
-                              // log('----------------------$e.first.name');
-                            },
-                            title: Text(
-                              //'',
-                              e.name,
-
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 18.sp,
-                                color: Colors.black,
-                              ),
+                    ...result[index].values.first.map((lst) {
+                      log('index$lst');
+                      return Container(
+                        color: Colors.white,
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NewSalesOrder(indexGetter: lst)));
+                          },
+                          title: Text(
+                            lst.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 18.sp,
+                              color: Colors.black,
                             ),
                           ),
-                        );
-                      },
-                    ).toList()
+                        ),
+                      );
+                    }).toList(),
                   ],
                 );
               });

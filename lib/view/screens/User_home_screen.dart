@@ -46,7 +46,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
                     width: 60.w,

@@ -1,3 +1,4 @@
+import 'package:dropdown_search2/dropdown_search2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
@@ -47,14 +48,35 @@ class _AddItemState extends State<AddItem> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: TextFormField(
-                        decoration: InputDecoration(
-                            label: Text(
-                      'Product/Item *',
-                      style: textStyle,
-                    ))),
-                  ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Product/Item*",
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromARGB(255, 52, 158, 244)),
+                          ),
+                          DropdownSearch<String>(
+                            mode: Mode.MENU,
+                            showSelectedItems: true,
+                            items: const ['cash', 'books', 'chicken', 'coke'],
+                            dropdownSearchDecoration: const InputDecoration(
+                                hintText: "Select products"),
+                          ),
+                        ],
+                      )
+                      // child: TextFormField(
+                      //     decoration: InputDecoration(
+                      //         label: Text(
+                      //   'Product/Item *',
+                      //   style: textStyle,
+                      // ))
+                      // )
+                      // ,
+                      ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

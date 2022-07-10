@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:dropdown_search2/dropdown_search2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pivotal_erp/controller/remote_services.dart';
+import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class AddItem extends StatefulWidget {
@@ -39,157 +43,169 @@ class _AddItemState extends State<AddItem> {
                 ))
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(children: [
-            SizedBox(
-              //  color: Colors.grey,
-              width: double.infinity,
-              height: 230.h,
-              child: Column(
-                children: [
+        body: FutureBuilder<List<AutoCompleteProductList?>>(
+            future: RemoteService().getAutoCompleteProductList(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              }
+              List<AutoCompleteProductList?>? data = snapshot.data;
+              log('productttttt-------$data');
+              return SingleChildScrollView(
+                child: Column(children: [
+                  SizedBox(
+                    //  color: Colors.grey,
+                    width: double.infinity,
+                    height: 230.h,
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Product/Item*",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color.fromARGB(255, 52, 158, 244)),
+                                ),
+                                DropdownSearch<String>(
+                                  mode: Mode.MENU,
+                                  showSelectedItems: true,
+                                  items: const ['z'],
+                                  dropdownSearchDecoration:
+                                      const InputDecoration(
+                                          hintText: "Select products"),
+                                ),
+                              ],
+                            )
+                            // child: TextFormField(
+                            //     decoration: InputDecoration(
+                            //         label: Text(
+                            //   'Product/Item *',
+                            //   style: textStyle,
+                            // ))
+                            // )
+                            // ,
+                            ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              width: 90.w,
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    label: Text(
+                                  'Quantity *',
+                                  style: textStyle,
+                                )),
+                              ),
+                            ),
+                            SizedBox(
+                              //  height: 50,
+                              width: 90.w,
+                              child: TextFormField(
+                                initialValue: 'N/A',
+                                decoration: InputDecoration(
+                                  label: Text(
+                                    'Unit',
+                                    style: textStyle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 90.w,
+                              child: TextFormField(
+                                initialValue: '0',
+                                decoration: InputDecoration(
+                                    label: Text(
+                                  'Rate *',
+                                  style: textStyle,
+                                )),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              width: 90.w,
+                              child: TextFormField(
+                                initialValue: '0',
+                                decoration: InputDecoration(
+                                    label: Text(
+                                  'Discount %',
+                                  style: textStyle,
+                                )),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 90.w,
+                              child: TextFormField(
+                                initialValue: 'N/A',
+                                decoration: InputDecoration(
+                                  label: Text(
+                                    'Unit',
+                                    style: textStyle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 90.w,
+                              child: TextFormField(
+                                initialValue: '0',
+                                decoration: InputDecoration(
+                                    label: Text(
+                                  'Amount *',
+                                  style: textStyle,
+                                )),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.grey[300],
+                      ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Product/Item*",
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: Color.fromARGB(255, 52, 158, 244)),
+                          SizedBox(
+                            height: 10.h,
                           ),
-                          DropdownSearch<String>(
-                            mode: Mode.MENU,
-                            showSelectedItems: true,
-                            items: const ['cash', 'books', 'chicken', 'coke'],
-                            dropdownSearchDecoration: const InputDecoration(
-                                hintText: "Select products"),
+                          _rowData('Closing Stock', 0),
+                          _rowData('Alternative Unit', 0),
+                          _rowData('Last Sale Rate', 0),
+                          _rowData('Last Sale Quantity', 0),
+                          _rowData('Alias', 0),
+                          _rowData('Code', 0),
+                          _rowData('Product Group', 0),
+                          _rowData('Product Category', 0),
+                          _rowData('Product Type', 0),
+                          _rowData('Vat Rate', 0),
+                          _rowData('EXDutyRate', 0),
+                          SizedBox(
+                            height: 10.h,
                           ),
                         ],
-                      )
-                      // child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         label: Text(
-                      //   'Product/Item *',
-                      //   style: textStyle,
-                      // ))
-                      // )
-                      // ,
                       ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: 90.w,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              label: Text(
-                            'Quantity *',
-                            style: textStyle,
-                          )),
-                        ),
-                      ),
-                      SizedBox(
-                        //  height: 50,
-                        width: 90.w,
-                        child: TextFormField(
-                          initialValue: 'N/A',
-                          decoration: InputDecoration(
-                            label: Text(
-                              'Unit',
-                              style: textStyle,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 90.w,
-                        child: TextFormField(
-                          initialValue: '0',
-                          decoration: InputDecoration(
-                              label: Text(
-                            'Rate *',
-                            style: textStyle,
-                          )),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: 90.w,
-                        child: TextFormField(
-                          initialValue: '0',
-                          decoration: InputDecoration(
-                              label: Text(
-                            'Discount %',
-                            style: textStyle,
-                          )),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 90.w,
-                        child: TextFormField(
-                          initialValue: 'N/A',
-                          decoration: InputDecoration(
-                            label: Text(
-                              'Unit',
-                              style: textStyle,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 90.w,
-                        child: TextFormField(
-                          initialValue: '0',
-                          decoration: InputDecoration(
-                              label: Text(
-                            'Amount *',
-                            style: textStyle,
-                          )),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.grey[300],
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10.h,
                     ),
-                    _rowData('Closing Stock', 0),
-                    _rowData('Alternative Unit', 0),
-                    _rowData('Last Sale Rate', 0),
-                    _rowData('Last Sale Quantity', 0),
-                    _rowData('Alias', 0),
-                    _rowData('Code', 0),
-                    _rowData('Product Group', 0),
-                    _rowData('Product Category', 0),
-                    _rowData('Product Type', 0),
-                    _rowData('Vat Rate', 0),
-                    _rowData('EXDutyRate', 0),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ]),
-        ));
+                  )
+                ]),
+              );
+            }));
   }
 
   TextStyle textStyle = const TextStyle(color: Colors.blue);

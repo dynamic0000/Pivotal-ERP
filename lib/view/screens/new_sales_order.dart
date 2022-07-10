@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
+import 'package:pivotal_erp/controller/remote_services.dart';
 
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
@@ -105,6 +108,13 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
             },
             icon: const Icon(Icons.arrow_back)),
         actions: [
+          IconButton(
+              onPressed: () async {
+                var heram=
+                await RemoteService().getAutoCompleteProductList();
+                log('herammmmmmmmmm$heram');
+              },
+              icon: const Icon(Icons.abc)),
           IconButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -821,4 +831,3 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
         ),
       );
 }
-

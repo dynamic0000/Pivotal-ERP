@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
-import 'package:pivotal_erp/models/autoCompleteProductList_model.dart';
+
 
 
 

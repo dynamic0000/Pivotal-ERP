@@ -133,7 +133,7 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 SearchField(
-                  hint: "Select Province",
+                  hint: "Select District",
                   suggestions:
                       province.map((e) => SearchFieldListItem(e)).toList(),
                 ),

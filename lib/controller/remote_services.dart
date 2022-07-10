@@ -4,11 +4,6 @@ import 'dart:developer';
 import 'package:pivotal_erp/constant.dart';
 import 'package:pivotal_erp/models/autoCompleteProductList_model.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
-<<<<<<< HEAD
-import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
-import 'package:pivotal_erp/models/ledgerDetail.dart';
-=======
->>>>>>> b616354138dff4c7f7412b88668fd997ed7b9d6b
 //import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -223,46 +218,46 @@ class RemoteService {
   //   }
   //   return results1;
   // }
-  Future<List<AutoCompleteProductList>> getAutoCompleteProductList() async {
-    //Future<void> getAutoCompleteProductList() async {
-    List<AutoCompleteProductList> results9 = [];
-    //var data9 = [];
-    var url9 = Uri.parse(
-        'https://demo.pivotalerp.app/v1/inventory/AutoCompleteProductList');
-    try {
-      AutoCompleteProductListToJSON autoCompleteProductListToJSON =
-          AutoCompleteProductListToJSON(
-        1,
-        //'sandesh',
-        '',
-        1,
-      );
-      String jsonAutoCopleteProductList =
-          jsonEncode(autoCompleteProductListToJSON);
-      var response9 = await http.post(
-        url9,
-        headers: {
-          'Content-Type': 'application/json',
-          'Charset': 'utf-8',
-          'Accept': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer $accessToken'
-        },
-        //body lai json format ma change gareko
-        body: jsonAutoCopleteProductList,
-      );
-      log('koi$response9');
-      if (response9.statusCode == 200) {
-        var data9 = jsonDecode(response9.body);
-        log('letsseeee-------${response9.body}');
-        var results9 = data9.map((e) => AutoCompleteProductList.fromJson(e));
-        return results9;
-      } else {
-        log("No data---fetch error");
-      }
-    } on Exception catch (e) {
-      log('2222222error: $e');
-    }
-    return results9;
-  }
+  // Future<List<AutoCompleteProductList>> getAutoCompleteProductList() async {
+  //   //Future<void> getAutoCompleteProductList() async {
+  //   List<AutoCompleteProductList> results9 = [];
+  //   //var data9 = [];
+  //   var url9 = Uri.parse(
+  //       'https://demo.pivotalerp.app/v1/inventory/AutoCompleteProductList');
+  //   try {
+  //     AutoCompleteProductListToJSON autoCompleteProductListToJSON =
+  //         AutoCompleteProductListToJSON(
+  //       1,
+  //       //'sandesh',
+  //       '',
+  //       1,
+  //     );
+  //     String jsonAutoCopleteProductList =
+  //         jsonEncode(autoCompleteProductListToJSON);
+  //     var response9 = await http.post(
+  //       url9,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Charset': 'utf-8',
+  //         'Accept': 'application/json',
+  //         // 'Content-Type': 'application/x-www-form-urlencoded',
+  //         'Authorization': 'Bearer $accessToken'
+  //       },
+  //       //body lai json format ma change gareko
+  //       body: jsonAutoCopleteProductList,
+  //     );
+  //     log('koi$response9');
+  //     if (response9.statusCode == 200) {
+  //       var data9 = jsonDecode(response9.body);
+  //       log('letsseeee-------${response9.body}');
+  //       var results9 = data9.map((e) => AutoCompleteProductList.fromJson(e));
+  //       return results9;
+  //     } else {
+  //       log("No data---fetch error");
+  //     }
+  //   } on Exception catch (e) {
+  //     log('2222222error: $e');
+  //   }
+  //   return results9;
+  // }
 }

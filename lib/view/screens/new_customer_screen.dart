@@ -20,6 +20,13 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
     'Province No. 6',
     'Province No. 7'
   ];
+  final district = [
+    'kathmandu',
+    'lalitpur',
+    'Bhaktapur',
+    'janakpur',
+    'Solukhumbu'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +142,7 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                 SearchField(
                   hint: "Select District",
                   suggestions:
-                      province.map((e) => SearchFieldListItem(e)).toList(),
+                      district.map((e) => SearchFieldListItem(e)).toList(),
                 ),
                 // TextFormField(
                 //   decoration: const InputDecoration(

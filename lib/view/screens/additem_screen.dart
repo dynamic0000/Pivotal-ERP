@@ -62,10 +62,6 @@ class _AddItemState extends State<AddItem> {
                           ),
                           SearchField(
                             hint: "Select Products",
-                            // searchInputDecoration: const InputDecoration(
-                            //     enabledBorder: OutlineInputBorder(
-                            //         borderSide:
-                            //             BorderSide(color: Colors.blueGrey))),
                             suggestions: items
                                 .map((e) => SearchFieldListItem(e))
                                 .toList(),

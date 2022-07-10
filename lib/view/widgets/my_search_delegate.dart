@@ -74,8 +74,6 @@ class MySearchDelegate extends SearchDelegate {
             List datas = [...data.where((e) => e?.ledgerGroup == k)];
             result.add({k: datas});
           }
-          // var indItem = (ind) => result[ind].map(((key, value) => value));
-          // log('message${indItem(1)}');
 
           if (result.isEmpty) {
             log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');

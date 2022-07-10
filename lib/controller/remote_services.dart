@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:pivotal_erp/constant.dart';
 import 'package:pivotal_erp/models/autoCompleteProductList_model.dart';
-import 'package:pivotal_erp/models/autocompleteledger_model.dart';
+import 'package:pivotal_erp/models/autoCompleteledger_model.dart';
 
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -147,7 +147,7 @@ class RemoteService {
   //   }
   // }
 
-  Future<List<AutoCompleteProductList>> getAutoCompleteProductList() async {
+  Future<List<AutoCompleteProductList?>> getAutoCompleteProductList() async {
     //Future<void> getAutoCompleteProductList() async {
     List<AutoCompleteProductList> results9 = [];
     //var data9 = [];
@@ -156,7 +156,6 @@ class RemoteService {
       AutoCompleteProductListToJSON autoCompleteProductListToJSON =
           AutoCompleteProductListToJSON(
         1,
-        //'sandesh',
         '',
         1,
       );

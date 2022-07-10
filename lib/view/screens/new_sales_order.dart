@@ -8,18 +8,29 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
 
+import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
+import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NewSalesOrder extends StatefulWidget {
-  const NewSalesOrder({Key? key, required indexGetter}) : super(key: key);
-
+  const NewSalesOrder({
+    Key? key,
+    required this.indexGetter,
+  }) : super(key: key);
+  final AutoCompleteLedgerList? indexGetter;
   @override
-  State<NewSalesOrder> createState() => _NewSalesOrderState();
+  // ignore: no_logic_in_create_state
+  State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter);
 }
 
-class _NewSalesOrderState extends State<NewSalesOrder> {
+class _NewSalesOrderDataState extends State<NewSalesOrder> {
+  AutoCompleteLedgerList? indexGetter;
+
+  //AutoCompleteLedgerList? aCLL;
+
   // Size size = MediaQuery.of(context).size;
   bool _checkbox = false;
 
@@ -31,6 +42,8 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
   bool isEnabled = true;
   final node1 = FocusNode();
   final node2 = FocusNode();
+
+  _NewSalesOrderDataState(this.indexGetter);
 
   @override
   void initState() {
@@ -92,6 +105,27 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
   @override
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
+    // return
+    //hasData(context, indexGetter);
+    // return FutureBuilder(
+    //     future: RemoteService().getAutoCompleteLedgerList(),
+    //     builder: (
+    //       context,
+    //       AsyncSnapshot<List<AutoCompleteLedgerList?>> snapshot,
+    //     ) {
+    //       // final aCLL = snapshot.data;
+
+    //       // log('indexxxxxxxxxxxxx-----$indexGetter');
+
+    //       // if (indexGetter == null) {
+    //       //   return const Center(child: Text('NOooooo'));
+    //       // } else {
+    //         return hasData(context, indexGetter);
+    //       // }
+    //     });
+    // }
+
+    // Scaffold hasData(BuildContext context, AutoCompleteLedgerList? indexGetter) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
@@ -131,21 +165,30 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                 size: 30.sp,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                final result = await showSearch(
+                  context: context,
+                  delegate: MySearchDelegate(),
+                );
+                log('result------$result');
+              },
               icon: Icon(
-                Icons.verified,
+                Icons.search,
                 color: Colors.green,
                 size: 30.sp,
               ))
         ],
       ),
-      body: data_or_not(context),
+      body: data_or_not(context, indexGetter),
     );
   }
 
   SingleChildScrollView data_or_not(
-    BuildContext context,
-  ) {
+      BuildContext context, AutoCompleteLedgerList? indexGetter) {
+    var customerData = indexGetter == null
+        ? noData_addCustomer(context)
+        : yesData_addCustomer(context, indexGetter);
+    log('testrfgggggggggggggggggggggggggggg');
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(15),
@@ -153,143 +196,163 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              height: 210.h,
+              height: 230.h,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 169, 213, 248),
+                  color: const Color.fromARGB(255, 205, 227, 245),
                   borderRadius: BorderRadius.circular(8)),
               child: Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    noData_addCustomer(context),
-                    SizedBox(width: 70.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Invoice No.",
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: const Color.fromARGB(255, 16, 124, 213),
-                              fontWeight: FontWeight.normal),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        SizedBox(
-                          width: 60.w,
-                          height: 16.h,
-                          child: TextField(
-                            focusNode: node1,
-                            style: TextStyle(fontSize: 10.sp),
-                            enabled: isEnabled,
-                            readOnly: !isEnabled,
+                    SingleChildScrollView(
+                      child: SizedBox(
+                          //color: Colors.white,
+                          height: 220,
+                          width: 160,
+                          child: customerData),
+                    ),
+                    const VerticalDivider(
+                      width: 2,
+                      indent: 5,
+                      endIndent: 5,
+                      thickness: 2,
+                      color: Colors.grey,
+                    ),
+                    // Container(color: Colors.blue, width: 20.w),
+                    Container(
+                      // color: Colors.grey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Invoice No.",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                color: const Color.fromARGB(255, 16, 124, 213),
+                                fontWeight: FontWeight.normal),
                           ),
-                        ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          SizedBox(
+                            width: 60.w,
+                            height: 16.h,
+                            child: TextField(
+                              focusNode: node1,
+                              style: TextStyle(fontSize: 10.sp),
+                              enabled: isEnabled,
+                              readOnly: !isEnabled,
+                            ),
+                          ),
 
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Text(
-                          "Date of Issue",
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: const Color.fromARGB(255, 16, 124, 213),
-                              fontWeight: FontWeight.normal),
-                        ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Text(
+                            "Date of Issue",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                color: const Color.fromARGB(255, 16, 124, 213),
+                                fontWeight: FontWeight.normal),
+                          ),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: _selectedNepaliDate,
-                              child: Container(
-                                height: 20.h,
-                                width: 80.w,
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 2.0.w, color: Colors.grey)),
-                                ),
-                                child: Text(
-                                  formattedTextNepali,
-                                  // formattedText,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: _selectedNepaliDate,
+                                child: Container(
+                                  height: 20.h,
+                                  width: 80.w,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 2.0.w, color: Colors.grey)),
+                                  ),
+                                  child: Text(
+                                    formattedTextNepali,
+                                    // formattedText,
 
-                                  style: TextStyle(fontSize: 15.sp),
+                                    style: TextStyle(fontSize: 15.sp),
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            // ),
-                            IconButton(
-                                onPressed: () {
-                                  _selectedNepaliDate();
-                                },
-                                icon: const Icon(
-                                  Icons.calendar_today,
-                                  size: 18,
-                                ))
-                          ],
-                        ),
+                              // ),
+                              IconButton(
+                                  onPressed: () {
+                                    _selectedNepaliDate();
+                                  },
+                                  icon: const Icon(
+                                    Icons.calendar_today,
+                                    size: 18,
+                                  ))
+                            ],
+                          ),
 
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        Text(
-                          "Due Date",
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: const Color.fromARGB(255, 16, 124, 213),
-                              fontWeight: FontWeight.normal),
-                        ),
-                        // SizedBox(
-                        //   height: 5,
-                        // ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: _selectedDueNepaliDate,
-                              child: Container(
-                                height: 20.h,
-                                width: 80.w,
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 2.h, color: Colors.grey)),
-                                ),
-                                child: Text(
-                                  formattedDueTextNepali,
-                                  // formattedDueText,
+                          SizedBox(
+                            height: 4.h,
+                          ),
+                          Text(
+                            "Due Date",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                color: const Color.fromARGB(255, 16, 124, 213),
+                                fontWeight: FontWeight.normal),
+                          ),
+                          // SizedBox(
+                          //   height: 5,
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: _selectedDueNepaliDate,
+                                child: Container(
+                                  height: 20.h,
+                                  width: 80.w,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 2.h, color: Colors.grey)),
+                                  ),
+                                  child: Text(
+                                    formattedDueTextNepali,
+                                    // formattedDueText,
 
-                                  style: TextStyle(fontSize: 15.sp),
+                                    style: TextStyle(fontSize: 15.sp),
+                                  ),
                                 ),
                               ),
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  _selectedDueNepaliDate();
-                                },
-                                icon: const Icon(
-                                  Icons.calendar_today,
-                                  size: 18,
-                                ))
-                          ],
-                        ),
-                      ],
+                              IconButton(
+                                  onPressed: () {
+                                    _selectedDueNepaliDate();
+                                  },
+                                  icon: const Icon(
+                                    Icons.calendar_today,
+                                    size: 18,
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
               ),
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
                   height: 10.h,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "Description",
@@ -297,9 +360,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           fontSize: 15.sp,
                           color: const Color.fromARGB(255, 16, 124, 213),
                           fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 200.w,
                     ),
                     Text(
                       "Line Total",
@@ -361,15 +421,22 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                   },
                 ),
                 SizedBox(
-                  height: 30.h,
+                  height: 15.h,
                 ),
-
+                Divider(
+                  indent: 45,
+                  color: Colors.grey.withOpacity(.8),
+                  thickness: 1,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Container(width: 40.w, color: Colors.black),
+                        Container(width: 70.w, color: Colors.transparent),
                         Text(
                           "Sub Total",
                           style: TextStyle(
@@ -377,9 +444,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             color: const Color.fromARGB(255, 143, 142, 142),
                           ),
                         ),
-                        const Spacer(
-                            //width: 140.w,
-                            ),
+                        const Spacer(),
                         Text(
                           "000.00",
                           style: TextStyle(
@@ -394,7 +459,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                     ),
                     Row(
                       children: [
-                        Container(width: 40.w, color: Colors.black),
+                        Container(width: 70.w, color: Colors.transparent),
                         Text(
                           "Discount @ ",
                           style: TextStyle(
@@ -403,7 +468,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                         ),
                         // const Spacer(),
                         SizedBox(
-                          width: 40.w,
+                          width: 35.w,
                           height: 20.h,
                           child: TextField(
                             textAlignVertical: TextAlignVertical.bottom,
@@ -412,26 +477,21 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                             decoration: InputDecoration(
                               hintText: "Rate",
                               hintStyle: TextStyle(
-                                  color: Colors.grey, fontSize: 18.sp),
+                                  color: Colors.grey, fontSize: 16.sp),
                               contentPadding: const EdgeInsets.only(top: 28),
                             ),
                           ),
                         ),
-                        const Spacer(
-                            //width: 140.w,
-                            ),
+                        const Spacer(),
                         SizedBox(
-                          width: 60.w,
+                          width: 50.w,
                           height: 20.h,
                           child: TextField(
-                            // textAlignVertical: TextAlignVertical.bottom,
-
-                            // textAlign: TextAlign.,
                             decoration: InputDecoration(
                               hintText: "000.00",
                               contentPadding: const EdgeInsets.only(top: 28),
                               hintStyle: TextStyle(
-                                  color: Colors.grey, fontSize: 18.sp),
+                                  color: Colors.grey, fontSize: 16.sp),
                             ),
                           ),
                         ),
@@ -442,7 +502,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                     ),
                     Row(
                       children: [
-                        Container(width: 40.w, color: Colors.black),
+                        Container(width: 70.w, color: Colors.transparent),
 
                         Text(
                           "Excise @ ",
@@ -454,7 +514,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                         //   width: 60,
                         // ),
                         SizedBox(
-                          width: 40.w,
+                          width: 35.w,
                           height: 20.h,
                           child: TextField(
                             textAlignVertical: TextAlignVertical.bottom,
@@ -464,24 +524,19 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                 hintText: "Rate",
                                 contentPadding: const EdgeInsets.only(top: 28),
                                 hintStyle: TextStyle(
-                                    color: Colors.grey, fontSize: 18.sp)),
+                                    color: Colors.grey, fontSize: 16.sp)),
                           ),
                         ),
+                        const Spacer(),
                         SizedBox(
-                          width: 100.w,
-                        ),
-                        SizedBox(
-                          width: 60.w,
+                          width: 50.w,
                           height: 20.h,
                           child: TextField(
-                            // textAlignVertical: TextAlignVertical.bottom,
-
-                            // textAlign: TextAlign.,
                             decoration: InputDecoration(
                                 hintText: "000.00",
                                 contentPadding: const EdgeInsets.only(top: 28),
                                 hintStyle: TextStyle(
-                                    color: Colors.grey, fontSize: 18.sp)),
+                                    color: Colors.grey, fontSize: 16.sp)),
                           ),
                         ),
                       ],
@@ -490,19 +545,17 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       height: 15.h,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(width: 40.w, color: Colors.black),
+                        Container(width: 70.w, color: Colors.transparent),
                         Text(
                           "Tax @ ",
                           style: TextStyle(
                               fontSize: 18.sp,
                               color: const Color.fromARGB(255, 143, 142, 142)),
                         ),
-                        // SizedBox(
-                        //   width: 60,
-                        // ),
                         SizedBox(
-                          width: 40.w,
+                          width: 35.w,
                           height: 20.h,
                           child: TextField(
                             textAlignVertical: TextAlignVertical.bottom,
@@ -513,15 +566,13 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                 contentPadding: const EdgeInsets.only(top: 28),
                                 hintStyle: TextStyle(
                                   color: Colors.grey,
-                                  fontSize: 18.sp,
+                                  fontSize: 16.sp,
                                 )),
                           ),
                         ),
+                        const Spacer(),
                         SizedBox(
-                          width: 120.w,
-                        ),
-                        SizedBox(
-                          width: 60.w,
+                          width: 50.w,
                           height: 20.h,
                           child: TextField(
                             // textAlignVertical: TextAlignVertical.bottom,
@@ -531,7 +582,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                                 hintText: "000.00",
                                 contentPadding: const EdgeInsets.only(top: 28),
                                 hintStyle: TextStyle(
-                                    color: Colors.grey, fontSize: 18.sp)),
+                                    color: Colors.grey, fontSize: 16.sp)),
                           ),
                         ),
                       ],
@@ -541,7 +592,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                     ),
                     Row(
                       children: [
-                        Container(width: 40.w, color: Colors.black),
+                        Container(width: 70.w, color: Colors.transparent),
                         Checkbox(
                           value: _checkbox,
                           onChanged: (value) {
@@ -554,9 +605,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                           'Round off',
                           style: TextStyle(fontSize: 18.sp, color: Colors.grey),
                         ),
-                        SizedBox(
-                          width: 120.w,
-                        ),
+                        const Spacer(),
                         Text(
                           "0.00",
                           style: TextStyle(
@@ -567,11 +616,19 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ],
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 20.h,
+                    ),
+                    Divider(
+                      indent: 45,
+                      color: Colors.grey.withOpacity(.8),
+                      thickness: 1,
+                    ),
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Row(
                       children: [
-                        Container(width: 40.w, color: Colors.black),
+                        Container(width: 70.w, color: Colors.transparent),
                         Text(
                           'Grand Amount',
                           style: TextStyle(
@@ -579,9 +636,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
-                          width: 110.w,
-                        ),
+                        const Spacer(),
                         Text(
                           '0.00',
                           style: TextStyle(
@@ -596,7 +651,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                     ),
                     Row(
                       children: [
-                        Container(width: 40.w, color: Colors.black),
+                        Container(width: 70.w, color: Colors.transparent),
                         Text(
                           'Received Amount',
                           style: TextStyle(
@@ -604,9 +659,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                               color: Colors.blue,
                               fontWeight: FontWeight.normal),
                         ),
-                        SizedBox(
-                          width: 86.w,
-                        ),
+                        const Spacer(),
                         Text(
                           '000.00',
                           style: TextStyle(
@@ -617,11 +670,19 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                       ],
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 20.h,
+                    ),
+                    Divider(
+                      indent: 45,
+                      color: Colors.grey.withOpacity(.8),
+                      thickness: 1,
+                    ),
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Row(
                       children: [
-                        Container(width: 40.w, color: Colors.black),
+                        Container(width: 70.w, color: Colors.transparent),
                         Text(
                           'Amount Due',
                           style: TextStyle(
@@ -629,9 +690,7 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                               color: Colors.blue,
                               fontWeight: FontWeight.normal),
                         ),
-                        SizedBox(
-                          width: 130.w,
-                        ),
+                        const Spacer(),
                         Text(
                           '0.00',
                           style: TextStyle(
@@ -648,9 +707,6 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
                   height: 20.h,
                 ),
                 TextField(
-                  // textAlignVertical: TextAlignVertical.bottom,
-
-                  // textAlign: TextAlign.,
                   decoration: InputDecoration(
                       hintText: "Narration",
                       contentPadding: const EdgeInsets.only(top: 28),
@@ -665,7 +721,9 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
     );
   }
 
-  Column noData_addCustomer(BuildContext context) {
+  Column noData_addCustomer(
+    BuildContext context,
+  ) {
     return Column(
       // mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -726,7 +784,11 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
     );
   }
 
-  Column yesData_addCustomer(BuildContext context) {
+  Column yesData_addCustomer(
+    BuildContext context,
+    AutoCompleteLedgerList? a,
+  ) {
+    log('aaaaaaaaaaaaaaaaaaaaa----------$a');
     return Column(
       // mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -739,26 +801,81 @@ class _NewSalesOrderState extends State<NewSalesOrder> {
               fontWeight: FontWeight.bold),
         ),
         const SizedBox(
-          height: 5,
+          height: 8,
         ),
-        Row(
-          children: const [Text('Name ::'), Text('HERENAME')],
+        Text(a!.name.toString(),
+            style: GoogleFonts.mavenPro(
+              textStyle: TextStyle(
+                fontSize: 16.sp,
+                color: Colors.black.withOpacity(0.8),
+              ),
+            )),
+        const SizedBox(
+          height: 9,
         ),
-        Row(
-          children: const [Text('Address ::'), Text('HEREADDRESS')],
+        Text(a.address.toString(),
+            style: GoogleFonts.alegreyaSans(
+              textStyle: TextStyle(
+                fontSize: 15.sp,
+                color: Colors.grey.shade800.withOpacity(1),
+              ),
+            )),
+        const SizedBox(
+          height: 9,
         ),
-        Row(
-          children: const [Text('Pan No. ::'), Text('HEREPAN')],
+        _rowData(title: 'Pan no   -', titleData: a.panVatNo.toString()),
+        const SizedBox(
+          height: 9,
         ),
-        Row(
-          children: const [Text('Credit Limit ::'), Text('HERECREDITT')],
+        _rowData(
+            title: 'Credit Limit   -',
+            titleData: a.creditLimitAmount.toString()),
+        // Text(
+        //   a.creditLimitDays.toString(),
+        //   style: GoogleFonts.cantarell(
+        //     textStyle: TextStyle(
+        //       fontSize: 15.sp,
+        //       color: Colors.grey.shade800.withOpacity(1),
+        //     ),
+        //   ),
+        // ),
+        const SizedBox(
+          height: 8,
         ),
-        Row(
-          children: const [
-            Text('OUTSTANDING AMOUNT ::'),
-            Text('HEREOUTSTANDING')
-          ],
+        _rowData(
+            title: 'Credit Days   -', titleData: a.creditLimitDays.toString()),
+        // Text(
+        //   a.creditLimitAmount.toString(),
+        //   style: GoogleFonts.cantarell(
+        //     textStyle: TextStyle(
+        //       fontSize: 15.sp,
+        //       color: Colors.grey.shade800.withOpacity(1),
+        //     ),
+        //   ),
+        // )
+      ],
+    );
+  }
+
+  Row _rowData({AutoCompleteLedgerList? a, String? title, String? titleData}) {
+    return Row(
+      children: [
+        Text(
+          title!,
+          style: GoogleFonts.alegreyaSans(
+            textStyle: TextStyle(
+              fontSize: 15.sp,
+              color: Colors.grey.shade800.withOpacity(1),
+            ),
+          ),
         ),
+        Text(titleData!,
+            style: GoogleFonts.cantarell(
+              textStyle: TextStyle(
+                fontSize: 15.sp,
+                color: Colors.grey.shade800.withOpacity(1),
+              ),
+            )),
       ],
     );
   }

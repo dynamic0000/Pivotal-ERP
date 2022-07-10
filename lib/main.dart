@@ -23,16 +23,11 @@ class MyApp extends StatelessWidget {
             // debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(primarySwatch: Colors.blue),
-            //home: const OrganisationDetials(),
-            // home: const UserHomeScreen(),
-            // home: const LoginScreen(),
-            //   home: const NewSalesOrder(),
-            // home: SelectCustomer(),
-            // home: const NewSalesOrder(),
+            // home: const ProductTry(),
             home: const NewSalesOrder(
               indexGetter: null,
             ),
-            //home: const SelectCustomer(),
+            // home: const SelectCustomer(),
           );
         });
   }

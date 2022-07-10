@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:pivotal_erp/constant.dart';
+import 'package:pivotal_erp/models/autoCompleteProductList_model.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
-import 'package:pivotal_erp/models/ledgerDetail.dart';
 //import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -82,8 +82,7 @@ class RemoteService {
 
   var data = [];
   List<AutoCompleteLedgerList> results = [];
-  String urlList =
-      'https://demo.pivotalerp.app/v1/account/AutoCompleteLedgerList';
+  String urlList = '$urlERP/v1/account/AutoCompleteLedgerList';
 
   Future<List<AutoCompleteLedgerList>> getAutoCompleteLedgerList(
       {String? query}) async {
@@ -104,7 +103,6 @@ class RemoteService {
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Bearer $accessToken'
         },
         //body lai json format ma change gareko
@@ -125,30 +123,72 @@ class RemoteService {
     return results;
   }
 
-  Future<ledgerDetail?> getLedgerDetails() async {
-    try {
-      GetLedgerToJson details = GetLedgerToJson(2);
-      String jsonDetails = jsonEncode(details);
+  // Future<ledgerDetail?> getLedgerDetails() async {
+  //   try {
+  //     GetLedgerToJson details = GetLedgerToJson(2);
+  //     String jsonDetails = jsonEncode(details);
 
-      var uri = Uri.parse('$urlERP/v1/account/GetLedgerDetail');
-      final responed = await http.post(uri,
-          headers: {
-            'Content-Type': 'application/json',
-            'Charset': 'utf-8',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $accessToken'
-          },
-          body: jsonDetails);
-      final jsonDecoded = jsonDecode(responed.body);
-      final ledgerModel = ledgerDetail.fromJson(jsonDecoded);
-      // log("responsedd code :${responed.statusCode}");
-      //  log("hereeeeeeee${responed.body}");
-      return ledgerModel;
-      // final jsonDecoded = jsonDecode(responed.body);
-      // log("outputtttttt$jsonDecoded");
-    } catch (e) {
-      log("erorr-------------- ${e.toString()}");
-      rethrow;
+  //     var uri = Uri.parse('$urlERP/v1/account/GetLedgerDetail');
+  //     final responed = await http.post(uri,
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Charset': 'utf-8',
+  //           'Accept': 'application/json',
+  //           'Authorization': 'Bearer $accessToken'
+  //         },
+  //         body: jsonDetails);
+  //     final jsonDecoded = jsonDecode(responed.body);
+  //     final ledgerModel = ledgerDetail.fromJson(jsonDecoded);
+  //     // log("responsedd code :${responed.statusCode}");
+  //     //  log("hereeeeeeee${responed.body}");
+  //     return ledgerModel;
+  //     // final jsonDecoded = jsonDecode(responed.body);
+  //     // log("outputtttttt$jsonDecoded");
+  //   } catch (e) {
+  //     log("erorr-------------- ${e.toString()}");
+  //     rethrow;
+  //   }
+  // }
+
+  Future<List<AutoCompleteProductList>> getAutoCompleteProductList() async {
+    //Future<void> getAutoCompleteProductList() async {
+    List<AutoCompleteProductList> results9 = [];
+    //var data9 = [];
+    var url9 = Uri.parse('$urlERP/v1/inventory/AutoCompleteProductList');
+    try {
+      AutoCompleteProductListToJSON autoCompleteProductListToJSON =
+          AutoCompleteProductListToJSON(
+        1,
+        //'sandesh',
+        '',
+        1,
+      );
+      String jsonAutoCopleteProductList =
+          jsonEncode(autoCompleteProductListToJSON);
+      var response9 = await http.post(
+        url9,
+        headers: {
+          'Content-Type': 'application/json',
+          'Charset': 'utf-8',
+          'Accept': 'application/json',
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $accessToken'
+        },
+        //body lai json format ma change gareko
+        body: jsonAutoCopleteProductList,
+      );
+      log('koi$response9');
+      if (response9.statusCode == 200) {
+        var data9 = jsonDecode(response9.body);
+        log('letsseeee-------${response9.body}');
+        var results9 = data9.map((e) => AutoCompleteProductList.fromJson(e));
+        return results9;
+      } else {
+        log("No data---fetch error");
+      }
+    } on Exception catch (e) {
+      log('2222222error: $e');
     }
+    return results9;
   }
 }

@@ -1,7 +1,7 @@
-import 'package:dropdown_search2/dropdown_search2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
+import 'package:searchfield/searchfield.dart';
 
 class NewCustomerScreen extends StatefulWidget {
   const NewCustomerScreen({Key? key}) : super(key: key);
@@ -115,22 +115,11 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                       color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
-                // DropdownButton(
-                //   province : province.map(buildMenuItem).toList(),
 
-                // ),
-
-                // TextFormField(
-                //   decoration: const InputDecoration(
-                //     border: UnderlineInputBorder(),
-                //   ),
-                // ),
-                DropdownSearch<String>(
-                  mode: Mode.MENU,
-                  showSelectedItems: true,
-                  items: province,
-                  dropdownSearchDecoration:
-                      const InputDecoration(hintText: "Select provinces"),
+                SearchField(
+                  hint: "Select Province",
+                  suggestions:
+                      province.map((e) => SearchFieldListItem(e)).toList(),
                 ),
 
                 SizedBox(
@@ -143,11 +132,16 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                       color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                  ),
+                SearchField(
+                  hint: "Select Province",
+                  suggestions:
+                      province.map((e) => SearchFieldListItem(e)).toList(),
                 ),
+                // TextFormField(
+                //   decoration: const InputDecoration(
+                //     border: UnderlineInputBorder(),
+                //   ),
+                // ),
                 SizedBox(
                   height: 5.h,
                 ),

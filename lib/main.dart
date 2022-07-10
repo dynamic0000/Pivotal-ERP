@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/new_sales_order.dart';
+import 'package:pivotal_erp/view/screens/additem_screen.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 
@@ -20,15 +20,14 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
-            // debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: ThemeData(primarySwatch: Colors.blue),
-            // home: const ProductTry(),
-            home: const NewSalesOrder(
-              indexGetter: null,
-            ),
-            // home: const SelectCustomer(),
-          );
+              // debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: ThemeData(primarySwatch: Colors.blue),
+              // home: const ProductTry(),
+              // home: const NewSalesOrder(
+              //   indexGetter: null,
+              // ),
+              home: const AddItem());
         });
   }
 }

@@ -42,7 +42,9 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen()));
+                      builder: (context) => const UserHomeScreen(
+                            bearerToken: '',
+                          )));
             },
             icon: const Icon(
               Icons.arrow_back,

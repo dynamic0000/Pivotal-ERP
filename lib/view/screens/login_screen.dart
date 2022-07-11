@@ -258,8 +258,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoadingScreen(),
+                                        builder: (context) => LoadingScreen(
+                                          bearerToken: response.access_Token,
+                                        ),
                                       ),
                                     );
                                   }
@@ -279,7 +280,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-       
       ]),
     );
   }

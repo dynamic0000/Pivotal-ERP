@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:pivotal_erp/view/screens/login_screen.dart';
 import 'package:pivotal_erp/view/widgets/drawer_screen.dart';
 import 'package:pivotal_erp/view/widgets/speedDial_icons.dart';
 
 class UserHomeScreen extends StatefulWidget {
-  const UserHomeScreen({Key? key}) : super(key: key);
-
+  const UserHomeScreen({
+    Key? key,
+    required this.bearerToken,
+  }) : super(key: key);
+  final String bearerToken;
   @override
   State<UserHomeScreen> createState() => _UserHomeScreenState();
 }
@@ -37,7 +41,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 icon: const Icon(Icons.logout))
           ],
         ),
-        drawer: const DrawerScreen(),
+        drawer: DrawerScreen(
+          bearerToken: widget.bearerToken,
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -81,7 +87,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             ),
           ),
         ),
-        floatingActionButton: const SpeedDialIcon(),
+        floatingActionButton: SpeedDialIcon(
+          bearerToken: widget.bearerToken,
+        ),
       ),
     );
   }

@@ -10,7 +10,11 @@ import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:searchfield/searchfield.dart';
 
 class AddItem extends StatefulWidget {
-  const AddItem({Key? key}) : super(key: key);
+  const AddItem({
+    Key? key,
+    required this.bearerToken,
+  }) : super(key: key);
+  final String bearerToken;
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -35,6 +39,7 @@ class _AddItemState extends State<AddItem> {
                     MaterialPageRoute(
                         builder: (context) => const NewSalesOrder(
                               indexGetter: null,
+                              bearerToken: '',
                             )));
               },
               icon: const Icon(Icons.arrow_back_ios)),
@@ -48,7 +53,8 @@ class _AddItemState extends State<AddItem> {
           ],
         ),
         body: FutureBuilder<List<AutoCompleteProductList?>>(
-          future: RemoteService().getAutoCompleteProductList(),
+          future:
+              RemoteService().getAutoCompleteProductList(widget.bearerToken),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -59,7 +65,7 @@ class _AddItemState extends State<AddItem> {
             addProductList(item) {
               setState(() {
                 product.addAll(item);
-                log('prod-------$product');
+                log('pro-------$product');
               });
             }
 

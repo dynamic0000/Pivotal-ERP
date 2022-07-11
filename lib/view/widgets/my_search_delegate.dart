@@ -2,13 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class MySearchDelegate extends SearchDelegate {
+  final String bearerToken;
   String result = '';
+  MySearchDelegate({
+    required this.bearerToken,
+  });
 
   @override
   List<Widget>? buildActions(BuildContext context) => [
@@ -33,7 +38,8 @@ class MySearchDelegate extends SearchDelegate {
     // final data = names.where(
     //    (element) => element.toLowerCase().contains(query.toLowerCase()));
     return FutureBuilder<List<AutoCompleteLedgerList?>>(
-        future: RemoteService().getAutoCompleteLedgerList(query: query),
+        future: RemoteService().getAutoCompleteLedgerList(
+            query: query, bearerTokenDynamic: bearerToken),
         builder: (context, snapshot) {
           log('dataaaaaaaaa---------');
 
@@ -58,7 +64,8 @@ class MySearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return FutureBuilder<List<AutoCompleteLedgerList?>>(
-        future: RemoteService().getAutoCompleteLedgerList(query: query),
+        future: RemoteService().getAutoCompleteLedgerList(
+            bearerTokenDynamic: bearerToken, query: query),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
@@ -109,8 +116,8 @@ class MySearchDelegate extends SearchDelegate {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        NewSalesOrder(indexGetter: lst)));
+                                    builder: (context) => NewSalesOrder(
+                                        bearerToken: '', indexGetter: lst)));
                           },
                           title: Text(
                             lst.name,

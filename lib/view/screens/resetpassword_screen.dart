@@ -2,13 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pivotal_erp/controller/remote_services.dart';
 
+import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({Key? key}) : super(key: key);
-
+  const ResetPasswordScreen({
+    Key? key,
+    required this.bearerToken,
+  }) : super(key: key);
+  final String bearerToken;
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
@@ -31,7 +34,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => const UserHomeScreen())));
+                      builder: ((context) => const UserHomeScreen(
+                            bearerToken: '',
+                          ))));
             },
             icon: const Icon(Icons.arrow_back_ios)),
       ),
@@ -108,8 +113,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           var newPWD = newPassword.text;
                           var confPWD = confirmPassword.text;
                           if (newPWD == confPWD) {
-                            final changeeeeee =
-                                RemoteService().updatePassword(oldPWD, newPWD);
+                            final changeeeeee = RemoteService().updatePassword(
+                                oldPWD, newPWD, widget.bearerToken);
                             Fluttertoast.showToast(msg: 'Sucess');
                             Navigator.pop(context);
                           } else {

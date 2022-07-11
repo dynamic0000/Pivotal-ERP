@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
 import 'package:pivotal_erp/view/screens/live_customer.dart';
 import 'package:pivotal_erp/view/screens/new_customer_screen.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class SpeedDialIcon extends StatefulWidget {
-  const SpeedDialIcon({Key? key}) : super(key: key);
-
+  const SpeedDialIcon({
+    Key? key,
+    required this.bearerToken,
+  }) : super(key: key);
+  final String bearerToken;
   @override
   State<SpeedDialIcon> createState() => _SpeedDialIconState();
 }
@@ -36,7 +40,8 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const NewSalesOrder(
+                      builder: (context) => NewSalesOrder(
+                            bearerToken: widget.bearerToken,
                             indexGetter: null,
                           )));
             }),
@@ -47,7 +52,6 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
             color: Colors.black,
           ),
           label: "Zero Sales Order",
-        
         ),
         SpeedDialChild(
             backgroundColor: const Color.fromARGB(255, 136, 236, 140),

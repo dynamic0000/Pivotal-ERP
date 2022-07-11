@@ -4,23 +4,23 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
-import 'package:pivotal_erp/controller/remote_services.dart';
 
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
-import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NewSalesOrder extends StatefulWidget {
   const NewSalesOrder({
     Key? key,
     required this.indexGetter,
+    required this.bearerToken,
   }) : super(key: key);
   final AutoCompleteLedgerList? indexGetter;
+  final String bearerToken;
   @override
   // ignore: no_logic_in_create_state
   State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter);
@@ -79,7 +79,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
       initialDate: selectedDueNepaliDate,
       firstDate: NepaliDateTime(2000),
       lastDate: NepaliDateTime(2090),
-      // language: Language.english,
+      //  language: Language.english,
     );
     if (pickedDueNepali != null && pickedDueNepali != selectedDueNepaliDate) {
       setState(() {
@@ -138,15 +138,16 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen()));
+                      builder: (context) => const UserHomeScreen(
+                            bearerToken: '',
+                          )));
             },
             icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
               onPressed: () async {
-                var heram=
-                await RemoteService().getAutoCompleteProductList();
-                log('herammmmmmmmmm$heram');
+                // var heram = await RemoteService().getAutoCompleteProductList();
+                //log('herammmmmmmmmm$heram');
               },
               icon: const Icon(Icons.abc)),
           IconButton(
@@ -165,13 +166,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 size: 30.sp,
               )),
           IconButton(
-              onPressed: () async {
-                final result = await showSearch(
-                  context: context,
-                  delegate: MySearchDelegate(),
-                );
-                log('result------$result');
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.search,
                 color: Colors.green,
@@ -417,7 +412,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AddItem()));
+                            builder: (context) => AddItem(
+                                  bearerToken: widget.bearerToken,
+                                )));
                   },
                 ),
                 SizedBox(
@@ -777,7 +774,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const SelectCustomer()));
+                    builder: (context) => SelectCustomer(
+                          bearerToken: widget.bearerToken,
+                        )));
           },
         ),
       ],

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
-import 'package:pivotal_erp/models/autoCompleteledger_model.dart';
+import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';

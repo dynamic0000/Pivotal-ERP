@@ -2,14 +2,17 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:pivotal_erp/constant.dart';
-
-import 'package:pivotal_erp/models/autoCompleteledger_model.dart';
+//
+import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
-
+//import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/resetpassword_model.dart';
+//import 'package:pivotal_erp/models/resetpassword_model.dart';
+
+//import '../models/autocompleteledgerlist_model.dart';
 
 class RemoteService {
   Future<TokenModel?> getToken(String userName, String password) async {
@@ -148,22 +151,24 @@ class RemoteService {
   //   }
   // }
 
-  Future<List<AutoCompleteProductList?>> getAutoCompleteProductList() async {
+  Future<List<AutoCompleteProductList>> getAutoCompleteProductList() async {
     //Future<void> getAutoCompleteProductList() async {
-    List<AutoCompleteProductList> results9 = [];
+    List<AutoCompleteProductList> productLists = [];
     //var data9 = [];
-    var url9 = Uri.parse('$urlERP/v1/inventory/AutoCompleteProductList');
+    var url = Uri.parse('$urlERP/v1/inventory/AutoCompleteProductList');
     try {
       AutoCompleteProductListToJSON autoCompleteProductListToJSON =
           AutoCompleteProductListToJSON(
         1,
+        //'sandesh',
         '',
         1,
       );
+
       String jsonAutoCopleteProductList =
           jsonEncode(autoCompleteProductListToJSON);
-      var response9 = await http.post(
-        url9,
+      var response = await http.post(
+        url,
         headers: {
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
@@ -174,19 +179,23 @@ class RemoteService {
         //body lai json format ma change gareko
         body: jsonAutoCopleteProductList,
       );
-      log('koi$response9');
-      if (response9.statusCode == 200) {
-        var data9 = jsonDecode(response9.body);
-        log('letsseeee-------${response9.body}');
-        var results9 = data9.map((e) => AutoCompleteProductList.fromJson(e));
-        return results9;
+      // log('koi${response.body}');
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        // resultss =
+        //     data9.map((e) => AutoCompleteProductList.fromJson(e)).toList();
+        // log('productLists$resultss');
+        return [
+          ...data.map((e) => AutoCompleteProductList.fromJson(e)).toList()
+        ];
       } else {
         log("No data---fetch error");
       }
     } on Exception catch (e) {
-      log('2222222error: $e');
+      log('error-------: $e');
     }
-    return results9;
+    // log('final' '$results9');
+    return productLists;
   }
 
   // Future<List<AutoCompleteProductList>?> getAutoCompleteProductList() async {
@@ -231,7 +240,7 @@ class RemoteService {
   //     );
   //     String jsonAutoCopleteProductList =
   //         jsonEncode(autoCompleteProductListToJSON);
-  //     var response9 = await http.post(
+  //     var response = await http.post(
   //       url9,
   //       headers: {
   //         'Content-Type': 'application/json',

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/organisationdetails_screen.dart';
 import 'package:pivotal_erp/view/screens/resetpassword_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
-  const DrawerScreen({Key? key}) : super(key: key);
-
+  const DrawerScreen({
+    Key? key,
+    required this.bearerToken,
+  }) : super(key: key);
+  final String bearerToken;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -34,7 +38,9 @@ class DrawerScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen()));
+                      builder: (context) => const UserHomeScreen(
+                            bearerToken: '',
+                          )));
             },
           ),
           ListTile(
@@ -94,7 +100,9 @@ class DrawerScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ResetPasswordScreen()));
+                      builder: (context) => ResetPasswordScreen(
+                            bearerToken: bearerToken,
+                          )));
             },
           ),
         ],
@@ -170,7 +178,6 @@ class DrawerScreen extends StatelessWidget {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text("Date Format"),
-    
       actions: [
         ADButton,
         BSButton,

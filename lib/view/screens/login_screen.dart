@@ -259,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const LoadingScreen(),
+                                             LoadingScreen(bearerToken: response.access_Token,),
                                       ),
                                     );
                                   }
@@ -279,7 +279,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-       
       ]),
     );
   }

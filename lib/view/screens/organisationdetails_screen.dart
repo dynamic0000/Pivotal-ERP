@@ -19,7 +19,9 @@ class _OrganisationDetialsState extends State<OrganisationDetials> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen()));
+                      builder: (context) => const UserHomeScreen(
+                            bearerToken: '',
+                          )));
             },
             icon: const Icon(Icons.arrow_back_ios)),
         elevation: 0,

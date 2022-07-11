@@ -2,13 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
 
 class SelectCustomer extends StatefulWidget {
-  const SelectCustomer({Key? key}) : super(key: key);
+  const SelectCustomer({
+    Key? key,
+    required this.bearerToken,
+  }) : super(key: key);
+  final String bearerToken;
 
   @override
   State<SelectCustomer> createState() => _SelectCustomerState();
@@ -27,6 +32,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const NewSalesOrder(
+                            bearerToken: '',
                             indexGetter: null,
                           )));
             },
@@ -36,7 +42,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
               onPressed: () async {
                 final result = await showSearch(
                   context: context,
-                  delegate: MySearchDelegate(),
+                  delegate: MySearchDelegate(bearerToken: widget.bearerToken),
                 );
                 log('result------$result');
               },
@@ -44,7 +50,8 @@ class _SelectCustomerState extends State<SelectCustomer> {
         ],
       ),
       body: FutureBuilder<List<AutoCompleteLedgerList?>>(
-          future: RemoteService().getAutoCompleteLedgerList(query: query),
+          future: RemoteService().getAutoCompleteLedgerList(
+              bearerTokenDynamic: widget.bearerToken, query: query),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -96,8 +103,8 @@ class _SelectCustomerState extends State<SelectCustomer> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          NewSalesOrder(indexGetter: lst)));
+                                      builder: (context) => NewSalesOrder(
+                                          bearerToken: widget.bearerToken, indexGetter: lst)));
                             },
                             title: Text(
                               lst.name,

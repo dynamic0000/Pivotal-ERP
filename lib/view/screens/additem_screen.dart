@@ -2,13 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:searchfield/searchfield.dart';
+
 import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
-import 'package:searchfield/searchfield.dart';
 
 class AddItem extends StatefulWidget {
-  const AddItem({Key? key}) : super(key: key);
+  const AddItem({
+    Key? key,
+    required this.bearerToken,
+  }) : super(key: key);
+  final String bearerToken;
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -33,6 +38,7 @@ class _AddItemState extends State<AddItem> {
                     MaterialPageRoute(
                         builder: (context) => const NewSalesOrder(
                               indexGetter: null,
+                              bearerToken: '',
                             )));
               },
               icon: const Icon(Icons.arrow_back_ios)),
@@ -46,7 +52,7 @@ class _AddItemState extends State<AddItem> {
           ],
         ),
         body: FutureBuilder<List<AutoCompleteProductList?>>(
-          future: RemoteService().getAutoCompleteProductList(),
+          future: RemoteService().getAutoCompleteProductList(widget.bearerToken),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -55,18 +61,18 @@ class _AddItemState extends State<AddItem> {
 
             List<AutoCompleteProductList?>? data1 = snapshot.data;
             log('data?????????//-------${data1![0]!.name}');
-            final values = ListView.builder(
-                itemCount: data1.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                      onTap: () {
-                        product.add(data1[index]);
-                      },
-                      title: Text(data1[index]!.name));
-                });
+            // final values = ListView.builder(
+            //     itemCount: data1.length,
+            //     itemBuilder: (context, index) {
+            //       return ListTile(
+            //           onTap: () {
+            //             product.add(data1[index]);
+            //           },
+            //           title: Text(data1[index]!.name));
+            //     });
 
             // log('valueeeee-------$values');
-            // log('productssss-------$product');
+            log('ssssproductssss-------$data1');
 
             return SingleChildScrollView(
               child: Column(children: [
@@ -98,15 +104,18 @@ class _AddItemState extends State<AddItem> {
                                     .map((e) => SearchFieldListItem(e!.name))
                                     .toList(),
 
-onSuggestionTap: (SearchFieldListItem<AutoCompleteProductList> x) {
-                        setState(() {
-                          selectProduct = x;
-                        });
-                       
-                      },
-                    )
+                                onSuggestionTap: (x) {
+                                  log('product0-------${x.searchKey}');
+                                  var filterItem = data1.firstWhere(
+                                      (e) => x.searchKey == e!.name);
+                                  log('filtered$filterItem');
+                                  // product.add(x);
+                                  // setState(() {
+                                  // log('product1-------$x');
 
-                              ),
+                                  // });
+                                },
+                              )
                             ],
                           )),
                       Row(
@@ -127,7 +136,7 @@ onSuggestionTap: (SearchFieldListItem<AutoCompleteProductList> x) {
                             //  height: 50,
                             width: 90.w,
                             child: TextFormField(
-                              initialValue: 'N/A',
+                              initialValue: '',
                               decoration: InputDecoration(
                                 label: Text(
                                   'Unit',

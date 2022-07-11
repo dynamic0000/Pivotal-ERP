@@ -35,7 +35,7 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen()));
+                      builder: (context) =>  UserHomeScreen(bearerToken: '',)));
             },
             icon: const Icon(
               Icons.arrow_back,
@@ -133,7 +133,7 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 SearchField(
-                  hint: "Select Province",
+                  hint: "Select District",
                   suggestions:
                       province.map((e) => SearchFieldListItem(e)).toList(),
                 ),

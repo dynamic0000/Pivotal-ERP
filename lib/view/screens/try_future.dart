@@ -15,7 +15,7 @@ class _Future1State extends State<Future1> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<AutoCompleteProductList?>>(
-        future: RemoteService().getAutoCompleteProductList(),
+        future: RemoteService().getAutoCompleteProductList(''),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             log('snapsot------${snapshot.data}');

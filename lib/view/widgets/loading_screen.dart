@@ -1,10 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
-  const LoadingScreen({Key? key}) : super(key: key);
+  const LoadingScreen({
+    Key? key,
+    required this.bearerToken,
+  }) : super(key: key);
+  final String bearerToken;
 
   @override
   State<LoadingScreen> createState() => _LoadingScreenState();
@@ -16,7 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
     Timer(const Duration(milliseconds: 150), () {
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const UserHomeScreen()));
+          MaterialPageRoute(builder: (context) =>  UserHomeScreen(bearerToken: widget.bearerToken,)));
     });
   }
 

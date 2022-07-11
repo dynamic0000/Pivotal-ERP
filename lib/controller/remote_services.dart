@@ -39,7 +39,7 @@ class RemoteService {
     }
   }
 
-  Future<http.Response?> updatePassword(String oldPWD, String newPWD) async {
+  Future<http.Response?> updatePassword(String oldPWD, String newPWD,String dynamicToken) async {
     try {
       User user = User(oldPWD, newPWD);
 
@@ -52,7 +52,7 @@ class RemoteService {
             'Content-Type': 'application/json',
             'Charset': 'utf-8',
             'Accept': 'application/json',
-            'Authorization': 'Bearer $accessToken'
+            'Authorization': 'Bearer $dynamicToken'
           },
           body: jsonUser);
 
@@ -81,12 +81,13 @@ class RemoteService {
     }
   }
 
-  var data = [];
-  List<AutoCompleteLedgerList> results = [];
-  String urlList = '$urlERP/v1/account/AutoCompleteLedgerList';
+
 
   Future<List<AutoCompleteLedgerList>> getAutoCompleteLedgerList(
-      {String? query}) async {
+      {String? query,required String? bearerTokenDynamic}) async {
+          var data = [];
+  List<AutoCompleteLedgerList> results = [];
+  String urlList = '$urlERP/v1/account/AutoCompleteLedgerList';
     var url = Uri.parse(urlList);
     try {
       AutoCompleteLedgerListToJSON autoCompleteLedgerListToJSON =
@@ -104,7 +105,7 @@ class RemoteService {
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
-          'Authorization': 'Bearer $accessToken'
+          'Authorization': 'Bearer $bearerTokenDynamic'
         },
         //body lai json format ma change gareko
         body: jsonAutoCopleteLedgerList,
@@ -151,7 +152,7 @@ class RemoteService {
   //   }
   // }
 
-  Future<List<AutoCompleteProductList>> getAutoCompleteProductList() async {
+  Future<List<AutoCompleteProductList>> getAutoCompleteProductList(String dynamicToken) async {
     //Future<void> getAutoCompleteProductList() async {
     List<AutoCompleteProductList> productLists = [];
     //var data9 = [];
@@ -174,7 +175,7 @@ class RemoteService {
           'Charset': 'utf-8',
           'Accept': 'application/json',
           // 'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer $accessToken'
+          'Authorization': 'Bearer $dynamicToken'
         },
         //body lai json format ma change gareko
         body: jsonAutoCopleteProductList,

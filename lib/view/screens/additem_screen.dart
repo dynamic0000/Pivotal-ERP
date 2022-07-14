@@ -171,9 +171,9 @@ class _AddItemState extends State<AddItem> {
                                   });
                                   addProductList(
                                       item: filterItem,
-                                      if(itemIndex==null){
-                                        return filterItem!.productId=0;
-                                      }
+                                      //if(itemIndex==null){
+                                      //return filterItem!.productId=0;
+                                      //    }
                                       itemIndex: filterItem!.productId);
                                   log('indexxxxxxxxxx--------$productIdx');
                                   // log('filtered${filterItem[0]!.name}');

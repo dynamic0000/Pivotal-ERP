@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
@@ -8,12 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
-import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
-import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
 
 class NewSalesOrder extends StatefulWidget {
   const NewSalesOrder({
@@ -92,6 +91,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     }
   }
 
+  //late AnimationController loadingController;
+  File? _file;
+  PlatformFile? _platformFile;
   Future pickImage() async {
     await ImagePicker().pickImage(source: ImageSource.gallery);
   }
@@ -101,7 +103,23 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   }
 
   Future selectFile() async {
-    await FilePicker.platform.pickFiles(allowMultiple: false);
+    var file = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+        type: FileType.custom,
+        allowedExtensions: ['png', 'jpg', 'jpeg']);
+    if (_file == null) {
+      log('yesssssssss');
+      _file = File(file!.files.single.path!);
+      setState(() {
+        _platformFile = file.files.first;
+      });
+
+      log('fileyes------$_file');
+      log('filePlatformmmmuppppppp------$_platformFile');
+    }
+    //loadingController.forward();
+    log('fileno------$_file');
+    log('filePlatformmmmdownnnn------$_platformFile');
   }
 
   @override
@@ -140,7 +158,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => UserHomeScreen(
+                      builder: (context) => const UserHomeScreen(
                             bearerToken: '',
                           )));
             },
@@ -148,7 +166,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         actions: [
           IconButton(
               onPressed: () async {
-               // var heram = await RemoteService().getAutoCompleteProductList();
+                // var heram = await RemoteService().getAutoCompleteProductList();
                 //log('herammmmmmmmmm$heram');
               },
               icon: const Icon(Icons.abc)),
@@ -347,6 +365,18 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 10.h,
                 ),
+                GestureDetector(
+                  child: Text('file: ${_platformFile?.name}'),
+                  onTap: () {
+                    setState(() {
+                      _platformFile?.name != '';
+                      log('letscheck-----------${_platformFile?.name}');
+                    });
+
+                    log('dipika is absent');
+                  },
+                ),
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -414,7 +444,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AddItem(bearerToken: widget.bearerToken ,)));
+                            builder: (context) => AddItem(
+                                  bearerToken: widget.bearerToken,
+                                )));
                   },
                 ),
                 SizedBox(

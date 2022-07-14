@@ -5,6 +5,7 @@ import 'package:pivotal_erp/constant.dart';
 //
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
+import 'package:pivotal_erp/models/getproductdetails_model.dart';
 //import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -39,7 +40,8 @@ class RemoteService {
     }
   }
 
-  Future<http.Response?> updatePassword(String oldPWD, String newPWD,String dynamicToken) async {
+  Future<http.Response?> updatePassword(
+      String oldPWD, String newPWD, String dynamicToken) async {
     try {
       User user = User(oldPWD, newPWD);
 
@@ -81,13 +83,11 @@ class RemoteService {
     }
   }
 
-
-
   Future<List<AutoCompleteLedgerList>> getAutoCompleteLedgerList(
-      {String? query,required String? bearerTokenDynamic}) async {
-          var data = [];
-  List<AutoCompleteLedgerList> results = [];
-  String urlList = '$urlERP/v1/account/AutoCompleteLedgerList';
+      {String? query, required String? bearerTokenDynamic}) async {
+    var data = [];
+    List<AutoCompleteLedgerList> results = [];
+    String urlList = '$urlERP/v1/account/AutoCompleteLedgerList';
     var url = Uri.parse(urlList);
     try {
       AutoCompleteLedgerListToJSON autoCompleteLedgerListToJSON =
@@ -152,7 +152,8 @@ class RemoteService {
   //   }
   // }
 
-  Future<List<AutoCompleteProductList>> getAutoCompleteProductList(String dynamicToken) async {
+  Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
+      String query, String dynamicToken) async {
     //Future<void> getAutoCompleteProductList() async {
     List<AutoCompleteProductList> productLists = [];
     //var data9 = [];
@@ -162,7 +163,7 @@ class RemoteService {
           AutoCompleteProductListToJSON(
         1,
         //'sandesh',
-        '',
+        query,
         1,
       );
 
@@ -175,12 +176,12 @@ class RemoteService {
           'Charset': 'utf-8',
           'Accept': 'application/json',
           // 'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer $dynamicToken'
+          'Authorization': 'Bearer $access'
         },
         //body lai json format ma change gareko
         body: jsonAutoCopleteProductList,
       );
-      log('koi${response.body}');
+      // log('koi${response.body}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         // resultss =
@@ -199,72 +200,36 @@ class RemoteService {
     return productLists;
   }
 
-  // Future<List<AutoCompleteProductList>?> getAutoCompleteProductList() async {
-  //   try {
-  //     AutoCompleteProductListToJSON autoCompleteProductListToJSON =
-  //         AutoCompleteProductListToJSON(1, 'c', 1);
-  //     String jsonAutoCompleteProductList =
-  //         jsonEncode(autoCompleteProductListToJSON);
-  //     var uri = Uri.parse('$urlERP/v1/inventory/AutoCompleteProductList');
-  //     final response1 = http.post(
-  //       uri,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Charset': 'utf-8',
-  //         'Accept': 'application/json',
-  //         'Authorization': 'Bearer $accessToken'
-  //       },
-  //       body: jsonAutoCompleteProductList,
-  //     );
-  //     if (response1.statusCode == 200) {
-  //       data = json.decode(response1.body);
-  //       results1 = data.map((e) => AutoCompleteProductList.fromJson(e)).toList();
-  //     }
-  //   } on Exception catch (e) {
-  //     log('ProductInventoryyy-------${e.toString()}');
-  //   }
-  //   return results1;
-  // }
-  // Future<List<AutoCompleteProductList>> getAutoCompleteProductList() async {
-  //   //Future<void> getAutoCompleteProductList() async {
-  //   List<AutoCompleteProductList> results9 = [];
-  //   //var data9 = [];
-  //   var url9 = Uri.parse(
-  //       'https://demo.pivotalerp.app/v1/inventory/AutoCompleteProductList');
-  //   try {
-  //     AutoCompleteProductListToJSON autoCompleteProductListToJSON =
-  //         AutoCompleteProductListToJSON(
-  //       1,
-  //       //'sandesh',
-  //       '',
-  //       1,
-  //     );
-  //     String jsonAutoCopleteProductList =
-  //         jsonEncode(autoCompleteProductListToJSON);
-  //     var response = await http.post(
-  //       url9,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Charset': 'utf-8',
-  //         'Accept': 'application/json',
-  //         // 'Content-Type': 'application/x-www-form-urlencoded',
-  //         'Authorization': 'Bearer $accessToken'
-  //       },
-  //       //body lai json format ma change gareko
-  //       body: jsonAutoCopleteProductList,
-  //     );
-  //     log('koi$response9');
-  //     if (response9.statusCode == 200) {
-  //       var data9 = jsonDecode(response9.body);
-  //       log('letsseeee-------${response9.body}');
-  //       var results9 = data9.map((e) => AutoCompleteProductList.fromJson(e));
-  //       return results9;
-  //     } else {
-  //       log("No data---fetch error");
-  //     }
-  //   } on Exception catch (e) {
-  //     log('2222222error: $e');
-  //   }
-  //   return results9;
-  // }
+  Future<GetProductDetails?> getProductDetials(int productIdIndex) async {
+    var url =
+        Uri.parse('https://demo.pivotalerp.app/v1/inventory/GetProductDetail');
+    try {
+      GetProductDetialsToJSON getProductDetialsToJSON =
+          GetProductDetialsToJSON(productIdIndex);
+      String jsonGetProductDetials = jsonEncode(getProductDetialsToJSON);
+      var response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $access',
+          'Content-Type': 'application/json',
+          'Charset': 'utf-8',
+          'Accept': 'application/json',
+        },
+        body: jsonGetProductDetials,
+      );
+
+      if (response.statusCode == 200) {
+        log('aaaaaaaaa');
+        var data = jsonDecode(response.body);
+        final productModel = GetProductDetails.fromMap(data);
+        log('productdetails-----$data');
+        return productModel;
+      }
+      log('errrorr11111');
+    } catch (e) {
+      log('getProductDetialerrorrrr----${e.toString()};');
+      rethrow;
+    }
+    return null;
+  }
 }

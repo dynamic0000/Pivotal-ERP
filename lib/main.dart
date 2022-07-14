@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/splash_screen.dart';
+import 'package:pivotal_erp/view/screens/try_future.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 
@@ -20,14 +22,20 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
-              // debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              theme: ThemeData(primarySwatch: Colors.blue),
-              // home: const ProductTry(),
-              // home: const NewSalesOrder(
-              //   indexGetter: null,
-              // ),
-              home: const SplashScreen());
+            // debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(primarySwatch: Colors.blue),
+            // home: const ProductTry(),
+            // home: const NewSalesOrder(
+            //   indexGetter: null,
+            // ),
+            home: const AddItem(
+              bearerToken: '',
+            ),
+            // const AddItem(
+            //   bearerToken: '',
+            // ),
+          );
         });
   }
 }

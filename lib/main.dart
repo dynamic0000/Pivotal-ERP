@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/new_sales_order.dart';
+import 'package:pivotal_erp/view/screens/additem_screen.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 
@@ -23,11 +23,13 @@ class MyApp extends StatelessWidget {
             // debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(primarySwatch: Colors.blue),
+            // home: const SplashScreen(),
+            home: const AddItem(bearerToken: ''),
             // home: const AddItem(),
-            home: const NewSalesOrder(
-              indexGetter: null,
-              bearerToken: '',
-            ),
+            // home: const NewSalesOrder(
+            //   indexGetter: null,
+            //   bearerToken: '',
+            // ),
             // home: const SelectCustomer(),
           );
         });

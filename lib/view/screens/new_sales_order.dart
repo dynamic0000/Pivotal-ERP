@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,6 +43,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   bool isEnabled = true;
   final node1 = FocusNode();
   final node2 = FocusNode();
+  //final FilePick = '';
 
   _NewSalesOrderDataState(this.indexGetter);
 
@@ -90,48 +92,32 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     }
   }
 
-  Future pickImage() async {
-    await ImagePicker().pickImage(source: ImageSource.gallery);
-  }
+  // Future pickImage() async {
+  //   final galleryResult =
+  //       await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   log("GalleryResult--------------${galleryResult!.name}");
+  // }
 
   Future captureImage() async {
-    await ImagePicker().pickImage(source: ImageSource.camera);
+    final cameraResult =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    log("CameraResult------------${cameraResult!.name}");
   }
 
   Future selectFile() async {
-    await FilePicker.platform.pickFiles(allowMultiple: false);
+    final fileResults =
+        await FilePicker.platform.pickFiles(allowMultiple: false);
+    log("FileResults---------${fileResults!.names}");
   }
 
   @override
   Widget build(BuildContext context) {
-    //Size size = MediaQuery.of(context).size;
-    // return
-    //hasData(context, indexGetter);
-    // return FutureBuilder(
-    //     future: RemoteService().getAutoCompleteLedgerList(),
-    //     builder: (
-    //       context,
-    //       AsyncSnapshot<List<AutoCompleteLedgerList?>> snapshot,
-    //     ) {
-    //       // final aCLL = snapshot.data;
-
-    //       // log('indexxxxxxxxxxxxx-----$indexGetter');
-
-    //       // if (indexGetter == null) {
-    //       //   return const Center(child: Text('NOooooo'));
-    //       // } else {
-    //         return hasData(context, indexGetter);
-    //       // }
-    //     });
-    // }
-
-    // Scaffold hasData(BuildContext context, AutoCompleteLedgerList? indexGetter) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
         title: Text(
           "Sales Invoice",
-          style: TextStyle(fontSize: 30.sp),
+          style: TextStyle(fontSize: 22.sp),
         ),
         leading: IconButton(
             onPressed: () {
@@ -420,6 +406,16 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 15.h,
                 ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 45.h,
+                  //color: Colors.red,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.amberAccent),
+                  //child: Text('${}'),
+                ),
+
                 Divider(
                   indent: 45,
                   color: Colors.grey.withOpacity(.8),
@@ -925,14 +921,15 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     icon: const Icon(Icons.cancel_outlined))
               ],
             ),
-            filesColumn(
-              context,
-              "images/gallery.png",
-              "Gallery",
-              () {
-                pickImage();
-              },
-            ),
+            filesColumn(context, "images/gallery.png", "Gallery", () async {
+              var galleryResult =
+                  await ImagePicker().pickImage(source: ImageSource.gallery);
+              log("GalleryResult--------------${galleryResult!.name}");
+            }
+                // {
+                //   pickImage();
+                // },
+                ),
             SizedBox(
               height: 6.h,
             ),

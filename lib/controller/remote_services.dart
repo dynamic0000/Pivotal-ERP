@@ -151,9 +151,10 @@ class RemoteService {
   //     rethrow;
   //   }
   // }
-
+  String dynamic =
+      'Fuywe9spLtCUZ7omgS-PUdHkyXI5i0VOIbGZEmLYkwErZZyszGpb93KL5zcnkrB-Pe3kgiArSDxrg5xD-NoawC0s2-Z09iCzcpgGNzAW2tYmbLnCdSDCyV4xOrQLBLZ3LEaV2KJcLCffWgb6DzJ-H1Tp_Pw7lkoePI2FMt3cC6dvb3DjSCMus0ZDywJo1-mbLdEVMYdYmve0_ZbgPkOtPLp3jFnjGqwF1WbRRhmXIdlrJRhgB73z_6C0GKMStFipHpDWOUMvkf4XRIFEG1ZriOi0Vhnx3v_03GKT-WPsavy4ZZ6NXWON9HJQLih0SbYLPu2wx7Me4tDHMBuDMznyv3njl2CU-ZpNOPusWFomQvwUBsPk_bOHI4uQEtyZpjt3_5E1XQ-FZJpR0c3tZBRMmkJJz_Y2wGkE4tUcAgcsfHQ';
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
-      String dynamicToken) async {
+      String dynamicToken, String query) async {
     //Future<void> getAutoCompleteProductList() async {
     List<AutoCompleteProductList> productLists = [];
     //var data9 = [];
@@ -163,7 +164,8 @@ class RemoteService {
           AutoCompleteProductListToJSON(
         1,
         //'sandesh',
-        '',
+
+        query,
         1,
       );
 
@@ -176,7 +178,7 @@ class RemoteService {
           'Charset': 'utf-8',
           'Accept': 'application/json',
           // 'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer $dynamicToken'
+          'Authorization': 'Bearer $dynamic'
         },
         //body lai json format ma change gareko
         body: jsonAutoCopleteProductList,

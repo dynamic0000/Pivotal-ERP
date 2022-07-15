@@ -29,6 +29,7 @@ class NewSalesOrder extends StatefulWidget {
 
 class _NewSalesOrderDataState extends State<NewSalesOrder> {
   AutoCompleteLedgerList? indexGetter;
+  bool isDataPicked = false;
 
   //AutoCompleteLedgerList? aCLL;
 
@@ -100,7 +101,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   var cameraName;
   var galleryName;
 
-  PlatformFile? _platformFile;
+//  String? _platformFile;
   // PlatformFile? _cameraPlatformFile;
   Future pickImage() async {
     var galleryFile =
@@ -123,48 +124,21 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
 
   Future selectFile() async {
     var file = await FilePicker.platform.pickFiles(
-        allowMultiple: false,
-        type: FileType.custom,
-        allowedExtensions: ['png', 'jpg', 'jpeg']);
-    if (_file == null) {
-      log('yesssssssss');
-      _file = File(file!.files.single.path!);
-      setState(() {
-        _platformFile = file.files.first;
-      });
+      allowMultiple: true,
+      // type: FileType.custom,
+      // allowedExtensions: ['png', 'jpg', 'jpeg']
+    );
 
-      // log('fileyes------$_file');
-      // log('filePlatformmmmuppppppp------$_platformFile');
-    }
-    //loadingController.forward();
-    // log('fileno------$_file');
-    // log('filePlatformmmmdownnnn------$_platformFile');
+    _file = File(file!.files.single.path!);
+    setState(() {
+      _resultFile = file.files.first.name;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    //Size size = MediaQuery.of(context).size;
-    // return
-    //hasData(context, indexGetter);
-    // return FutureBuilder(
-    //     future: RemoteService().getAutoCompleteLedgerList(),
-    //     builder: (
-    //       context,
-    //       AsyncSnapshot<List<AutoCompleteLedgerList?>> snapshot,
-    //     ) {
-    //       // final aCLL = snapshot.data;
-
-    //       // log('indexxxxxxxxxxxxx-----$indexGetter');
-
-    //       // if (indexGetter == null) {
-    //       //   return const Center(child: Text('NOooooo'));
-    //       // } else {
-    //         return hasData(context, indexGetter);
-    //       // }
-    //     });
-    // }
-
     // Scaffold hasData(BuildContext context, AutoCompleteLedgerList? indexGetter) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
@@ -222,6 +196,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     var customerData = indexGetter == null
         ? noData_addCustomer(context)
         : yesData_addCustomer(context, indexGetter);
+//////////////condition for file pixked display////////
+    var dataPicked =
+        _resultFile == null ? Container() : fileNameDisplay(context);
     log('testrfgggggggggggggggggggggggggggg');
     return SingleChildScrollView(
       child: Container(
@@ -384,41 +361,8 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 10.h,
                 ),
-                GestureDetector(
-                  child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 177, 177, 177)),
-                          borderRadius: BorderRadius.circular(10),
-                          color: const Color.fromARGB(255, 169, 214, 251)),
-                      height: 30,
-                      width: double.infinity - 20,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(_resultFile ?? _platformFile?.name ?? '',
-                            style: GoogleFonts.bebasNeue(
-                                textStyle: TextStyle(
-                                    color:
-                                        const Color.fromARGB(255, 111, 111, 111)
-                                            .withOpacity(1)))),
-                      )),
-                  onTap: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.r),
-                                topRight: Radius.circular(20.r))),
-                        context: context,
-                        builder: (context) => buildSheetForRemoval());
 
-                    // setState(() {
-                    //   //_platformFile?.name= '';
-                    //   log('letscheck-----------${_platformFile?.name}');
-                    // });
-
-                    log('dipika is absent');
-                  },
-                ),
+                dataPicked,
 
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -793,6 +737,43 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     );
   }
 
+  GestureDetector fileNameDisplay(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+          decoration: BoxDecoration(
+              border:
+                  Border.all(color: const Color.fromARGB(255, 177, 177, 177)),
+              borderRadius: BorderRadius.circular(10),
+              color: const Color.fromARGB(255, 169, 214, 251)),
+          height: 30,
+          width: double.infinity - 20,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(_resultFile ?? '',
+                style: GoogleFonts.bebasNeue(
+                    textStyle: TextStyle(
+                        color: const Color.fromARGB(255, 111, 111, 111)
+                            .withOpacity(1)))),
+          )),
+      onTap: () {
+        showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.r),
+                    topRight: Radius.circular(20.r))),
+            context: context,
+            builder: (context) => buildSheetForRemoval());
+
+        // setState(() {
+        //   //_platformFile?.name= '';
+        //   log('letscheck-----------${_platformFile?.name}');
+        // });
+
+        log('dipika is absent');
+      },
+    );
+  }
+
   Column noData_addCustomer(
     BuildContext context,
   ) {
@@ -1041,8 +1022,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
             ),
             filesColumn(context, "images/dustbin.png", "Remove", () {
               setState(() {
-                // _platformFile!.name = '';
-                log('letscheck-----------${_platformFile?.name.isEmpty}');
+                // _platformFile = '';
+                _resultFile = '';
+                log('letscheck-----------$_resultFile');
               });
             }),
           ],

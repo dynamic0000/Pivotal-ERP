@@ -39,7 +39,7 @@ class AutoCompleteLedgerList {
       this.emailId});
 
   AutoCompleteLedgerList.fromJson(Map<String, dynamic> json) {
-    log('jsonnnnn$json');
+    //log('jsonnnnn$json');
 
     ledgerId = int.parse(json['LedgerId'].toString());
     log('ledgerid print $ledgerId');

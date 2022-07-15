@@ -1,5 +1,3 @@
-//
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -7,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
 
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
+import 'package:pivotal_erp/models/getproductdetails_model.dart';
+
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:searchfield/searchfield.dart';
 
@@ -28,11 +28,47 @@ var product = AutoCompleteProductList(
     productGroup: '',
     partNo: '',
     productGroupId: 2,
-    productId: 1,
+    productId: 0,
     unit: '',
     unitId: 5);
+
+var data2 = GetProductDetails(
+    productId: 0,
+    productGroupId: 0,
+    name: '',
+    closingQty: 0,
+    salesRate: 0.0,
+    outQty: 0.0,
+    alias: '',
+    code: '',
+    productGroup: '',
+    productCategories: '',
+    productType: '',
+    vatRate: 0,
+    exDutyRate: 0);
+
+int productIdx = 0;
 //AutoCompleteProductList? product;
 String query = '';
+@override
+void initState() {
+  // TODO: implement initState
+  var data2 = GetProductDetails(
+      productId: 0,
+      productGroupId: 0,
+      name: '',
+      closingQty: 0,
+      salesRate: 0.0,
+      outQty: 0.0,
+      alias: '',
+      code: '',
+      productGroup: '',
+      productCategories: '',
+      productType: '',
+      vatRate: 0,
+      exDutyRate: 0);
+  productIdx = 0;
+}
 
 class _AddItemState extends State<AddItem> {
   //String query = '';
@@ -56,7 +92,10 @@ class _AddItemState extends State<AddItem> {
               icon: const Icon(Icons.arrow_back_ios)),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  var result = await RemoteService().getProductDetials(1);
+                  log('resultProductDetials---$result');
+                },
                 icon: Icon(
                   Icons.verified_rounded,
                   size: 30.sp,
@@ -73,9 +112,10 @@ class _AddItemState extends State<AddItem> {
 
             List<AutoCompleteProductList?>? data1 = snapshot.data;
 
-            addProductList({item}) {
+            addProductList({item, itemIndex}) {
               setState(() {
                 product = item;
+                productIdx = itemIndex;
                 // product.addAll(item);
                 log('pro-------$product');
               });
@@ -130,7 +170,13 @@ class _AddItemState extends State<AddItem> {
                                   var filterItem = data1.firstWhere((e) {
                                     return x.searchKey == e!.name;
                                   });
-                                  addProductList(item: filterItem);
+                                  addProductList(
+                                      item: filterItem,
+                                      //if(itemIndex==null){
+                                      //return filterItem!.productId=0;
+                                      //    }
+                                      itemIndex: filterItem!.productId);
+                                  log('indexxxxxxxxxx--------$productIdx');
                                   // log('filtered${filterItem[0]!.name}');
                                   // product.add(x);
                                   //log('product-------${product[0].name}');
@@ -258,40 +304,81 @@ class _AddItemState extends State<AddItem> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.grey[300],
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 10.h,
+                FutureBuilder<GetProductDetails?>(
+                  future: RemoteService().getProductDetials(productIdx),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      log('isdata???????????----------${snapshot.data}');
+                      return Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.grey[300],
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              _rowData('Closing Stock', '0'),
+                              _rowData('Alternate Unit',
+                                  '0'), ////int.parse(product.code) value rakhda error aauxa hera
+                              _rowData('Last Sale Rate', '0'),
+                              _rowData('Last Sale Quantity', '0'),
+                              _rowData('Alias', '0'),
+                              _rowData('Code', '0'),
+                              _rowData('Product Group', '0'),
+                              _rowData('Product Category', '0'),
+                              _rowData('Product Type', '0'),
+                              _rowData('Vat Rate', '0'),
+                              _rowData('EXDutyRate', '0'),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                            ],
+                          ),
                         ),
-                        _rowData(product.name, product.productId),
-                        _rowData(
-                            product.productGroup,
-                            product
-                                .unitId), ////int.parse(product.code) value rakhda error aauxa hera
-                        _rowData('Alternative Unit', 0),
-                        _rowData('Last Sale Rate', 0),
-                        _rowData('Last Sale Quantity', 0),
-                        _rowData('Alias', 0),
-                        _rowData('Code', 0),
-                        _rowData('Product Group', 0),
-                        _rowData('Product Category', 0),
-                        _rowData('Product Type', 0),
-                        _rowData('Vat Rate', 0),
-                        _rowData('EXDutyRate', 0),
-                        SizedBox(
-                          height: 10.h,
+                      );
+                    }
+                    var data2 = snapshot.data;
+                    log('productIndexxxxyyyyyyyyyy_____$productIdx');
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.grey[300],
                         ),
-                      ],
-                    ),
-                  ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            _rowData(
+                                'Closing Stock', data2!.closingQty.toString()),
+                            _rowData('Alternate Unit',
+                                '0'), ////int.parse(product.code) value rakhda error aauxa hera
+                            _rowData(
+                                'Last Sale Rate', data2.salesRate.toString()),
+                            _rowData(
+                                'Last Sale Quantity', data2.outQty.toString()),
+                            _rowData('Alias', data2.alias),
+                            _rowData('Code', data2.code),
+                            _rowData('Product Group', data2.productGroup),
+                            _rowData(
+                                'Product Category', data2.productCategories),
+                            _rowData('Product Type', data2.productType),
+                            _rowData('Vat Rate', data2.vatRate.toString()),
+                            _rowData('EXDutyRate', data2.exDutyRate.toString()),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 )
               ]),
             );
@@ -301,7 +388,7 @@ class _AddItemState extends State<AddItem> {
 
   TextStyle textStyle = const TextStyle(
       color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500);
-  Widget _rowData(String title, int? value
+  Widget _rowData(String title, String? value
       //String value,
       ) {
     return Padding(

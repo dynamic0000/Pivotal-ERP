@@ -5,6 +5,7 @@ import 'package:pivotal_erp/constant.dart';
 //
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
+import 'package:pivotal_erp/models/getproductdetails_model.dart';
 //import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -152,7 +153,7 @@ class RemoteService {
   //   }
   // }
   String dynamic =
-      'Fuywe9spLtCUZ7omgS-PUdHkyXI5i0VOIbGZEmLYkwErZZyszGpb93KL5zcnkrB-Pe3kgiArSDxrg5xD-NoawC0s2-Z09iCzcpgGNzAW2tYmbLnCdSDCyV4xOrQLBLZ3LEaV2KJcLCffWgb6DzJ-H1Tp_Pw7lkoePI2FMt3cC6dvb3DjSCMus0ZDywJo1-mbLdEVMYdYmve0_ZbgPkOtPLp3jFnjGqwF1WbRRhmXIdlrJRhgB73z_6C0GKMStFipHpDWOUMvkf4XRIFEG1ZriOi0Vhnx3v_03GKT-WPsavy4ZZ6NXWON9HJQLih0SbYLPu2wx7Me4tDHMBuDMznyv3njl2CU-ZpNOPusWFomQvwUBsPk_bOHI4uQEtyZpjt3_5E1XQ-FZJpR0c3tZBRMmkJJz_Y2wGkE4tUcAgcsfHQ';
+      'JfjH_157zPi6XwjMUfPwHUv0svft_d4ytokdPGpbo5Rw8gh3GCvMR_d0_-ZKQA2jAt5K3c5-uN0Nb-ofJci-VO9Fjt1e0nDd6iS-U4T3bIUlQlXM-gV11YLIE3Gxi4LPOdpjuOPYh58DdeoJGUXn3ejUntDSN86pDpbgSPpLbYcOzuE7d9zwJNWEp67yNJAB69OGb853o0-8-C1dOGmcDGVAlAKk-NGAtTttoY7sBRusFFZV8a7R5oFNfC52zLyF6IiJJYG4ZGhD_wdcmTu70BahpjTI2yIXnQ6nVf_C3S7eyWVgvYcITozMKotfe84TeWqTawS1sx5mvYcW2tgo_A0Cmv2JVmge2wtmwj-uUh4x5lQgG58rEdmb-bVcHWIYDyBEXKUX89e-RezAPpzjRqNMENHPOTDQFjM8Omifcuw';
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
       String dynamicToken, String query) async {
     //Future<void> getAutoCompleteProductList() async {
@@ -200,6 +201,39 @@ class RemoteService {
     }
     // log('final' '$results9');
     return productLists;
+  }
+
+  Future<GetProductDetails?> getProductDetials(int productIdIndex) async {
+    var url =
+        Uri.parse('https://demo.pivotalerp.app/v1/inventory/GetProductDetail');
+    try {
+      GetProductDetialsToJSON getProductDetialsToJSON =
+          GetProductDetialsToJSON(productIdIndex);
+      String jsonGetProductDetials = jsonEncode(getProductDetialsToJSON);
+      var response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $dynamic',
+          'Content-Type': 'application/json',
+          'Charset': 'utf-8',
+          'Accept': 'application/json',
+        },
+        body: jsonGetProductDetials,
+      );
+
+      if (response.statusCode == 200) {
+        log('aaaaaaaaa');
+        var data = jsonDecode(response.body);
+        final productModel = GetProductDetails.fromMap(data);
+        log('productdetails-----$data');
+        return productModel;
+      }
+      log('errrorr11111');
+    } catch (e) {
+      log('getProductDetialerrorrrr----${e.toString()};');
+      rethrow;
+    }
+    return null;
   }
 
   // Future<List<AutoCompleteProductList>?> getAutoCompleteProductList() async {

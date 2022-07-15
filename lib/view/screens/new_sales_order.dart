@@ -1,8 +1,8 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,7 +43,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   bool isEnabled = true;
   final node1 = FocusNode();
   final node2 = FocusNode();
-  //final FilePick = '';
 
   _NewSalesOrderDataState(this.indexGetter);
 
@@ -56,6 +55,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     formattedDueTextNepali =
         NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
   }
+  // void clearText() {
+  //   fieldText.clear();
+  // }
 
   //first issue calendar
   Future<void> _selectedNepaliDate() async {
@@ -92,32 +94,83 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     }
   }
 
-  // Future pickImage() async {
-  //   final galleryResult =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   log("GalleryResult--------------${galleryResult!.name}");
-  // }
+  //late AnimationController loadingController;
+  File? _file;
+  String? _resultFile;
+  var cameraName;
+  var galleryName;
+
+  PlatformFile? _platformFile;
+  // PlatformFile? _cameraPlatformFile;
+  Future pickImage() async {
+    var galleryFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    galleryName = File(galleryFile!.path);
+    setState(() {
+      _resultFile = galleryFile.name;
+    });
+  }
 
   Future captureImage() async {
-    final cameraResult =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    log("CameraResult------------${cameraResult!.name}");
+    var cameraFile = await ImagePicker().pickImage(source: ImageSource.camera);
+    cameraName = File(cameraFile!.path);
+
+    setState(() {
+      _resultFile = cameraFile.name;
+      log("result file ---------$_resultFile");
+    });
   }
 
   Future selectFile() async {
-    final fileResults =
-        await FilePicker.platform.pickFiles(allowMultiple: false);
-    log("FileResults---------${fileResults!.names}");
+    var file = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+        type: FileType.custom,
+        allowedExtensions: ['png', 'jpg', 'jpeg']);
+    if (_file == null) {
+      log('yesssssssss');
+      _file = File(file!.files.single.path!);
+      setState(() {
+        _platformFile = file.files.first;
+      });
+
+      // log('fileyes------$_file');
+      // log('filePlatformmmmuppppppp------$_platformFile');
+    }
+    //loadingController.forward();
+    // log('fileno------$_file');
+    // log('filePlatformmmmdownnnn------$_platformFile');
   }
 
   @override
   Widget build(BuildContext context) {
+    //Size size = MediaQuery.of(context).size;
+    // return
+    //hasData(context, indexGetter);
+    // return FutureBuilder(
+    //     future: RemoteService().getAutoCompleteLedgerList(),
+    //     builder: (
+    //       context,
+    //       AsyncSnapshot<List<AutoCompleteLedgerList?>> snapshot,
+    //     ) {
+    //       // final aCLL = snapshot.data;
+
+    //       // log('indexxxxxxxxxxxxx-----$indexGetter');
+
+    //       // if (indexGetter == null) {
+    //       //   return const Center(child: Text('NOooooo'));
+    //       // } else {
+    //         return hasData(context, indexGetter);
+    //       // }
+    //     });
+    // }
+
+    // Scaffold hasData(BuildContext context, AutoCompleteLedgerList? indexGetter) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
         title: Text(
           "Sales Invoice",
-          style: TextStyle(fontSize: 22.sp),
+          style: TextStyle(fontSize: 30.sp),
         ),
         leading: IconButton(
             onPressed: () {
@@ -331,6 +384,42 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 10.h,
                 ),
+                GestureDetector(
+                  child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 177, 177, 177)),
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 169, 214, 251)),
+                      height: 30,
+                      width: double.infinity - 20,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(_resultFile ?? _platformFile?.name ?? '',
+                            style: GoogleFonts.bebasNeue(
+                                textStyle: TextStyle(
+                                    color:
+                                        const Color.fromARGB(255, 111, 111, 111)
+                                            .withOpacity(1)))),
+                      )),
+                  onTap: () {
+                    showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.r),
+                                topRight: Radius.circular(20.r))),
+                        context: context,
+                        builder: (context) => buildSheetForRemoval());
+
+                    // setState(() {
+                    //   //_platformFile?.name= '';
+                    //   log('letscheck-----------${_platformFile?.name}');
+                    // });
+
+                    log('dipika is absent');
+                  },
+                ),
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -406,16 +495,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 15.h,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 45.h,
-                  //color: Colors.red,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.amberAccent),
-                  //child: Text('${}'),
-                ),
-
                 Divider(
                   indent: 45,
                   color: Colors.grey.withOpacity(.8),
@@ -921,15 +1000,14 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     icon: const Icon(Icons.cancel_outlined))
               ],
             ),
-            filesColumn(context, "images/gallery.png", "Gallery", () async {
-              var galleryResult =
-                  await ImagePicker().pickImage(source: ImageSource.gallery);
-              log("GalleryResult--------------${galleryResult!.name}");
-            }
-                // {
-                //   pickImage();
-                // },
-                ),
+            filesColumn(
+              context,
+              "images/gallery.png",
+              "Gallery",
+              () {
+                pickImage();
+              },
+            ),
             SizedBox(
               height: 6.h,
             ),
@@ -940,6 +1018,33 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
             ),
             filesColumn(context, "images/upload.png", "Upload file",
                 () => selectFile()),
+          ],
+        ),
+      );
+  buildSheetForRemoval() => SizedBox(
+        height: 130.h,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.cancel_outlined))
+              ],
+            ),
+            SizedBox(
+              height: 6.h,
+            ),
+            filesColumn(context, "images/dustbin.png", "Remove", () {
+              setState(() {
+                // _platformFile!.name = '';
+                log('letscheck-----------${_platformFile?.name.isEmpty}');
+              });
+            }),
           ],
         ),
       );

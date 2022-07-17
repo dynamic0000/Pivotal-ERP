@@ -27,17 +27,17 @@ var product = AutoCompleteProductList(
     code: '',
     productGroup: '',
     partNo: '',
-    productGroupId: 2,
+    productGroupId: 0,
     productId: 0,
     unit: '',
-    unitId: 5);
+    unitId: 0);
 
 var data2 = GetProductDetails(
     productId: 0,
     productGroupId: 0,
     name: '',
     closingQty: 0,
-    salesRate: 0.0,
+    salesRate: 8.0,
     outQty: 0.0,
     alias: '',
     code: '',
@@ -182,31 +182,6 @@ class _AddItemState extends State<AddItem> {
                                   //log('product-------${product[0].name}');
                                 },
                               ),
-                              // DropdownSearch<String>(
-                              //   mode: Mode.MENU,
-                              //   //to show search box
-                              //   showSearchBox: true,
-                              //   //showSelectedItem: true,
-                              //   //list of dropdown items
-                              //   items:
-                              //       // data1!.map((e) => e!.name).toList(),
-                              //       const [
-                              //     "India",
-                              //     "USA",
-                              //     "Brazil",
-                              //     "Canada",
-                              //     "Australia",
-                              //     "Singapore"
-                              //   ],
-                              //   hint: 'Select Product',
-                              //   // onChanged: print,
-
-                              //   //show selected item
-                              //   // selectedItem: "India",
-                              //   // dropdownBuilder: (BuildContext String? )?{
-
-                              //   // },
-                              // ),
                             ],
                           )),
                       Row(
@@ -227,13 +202,14 @@ class _AddItemState extends State<AddItem> {
 
                           SizedBox(
                             width: 90.w,
-                            child: TextFormField(
-                              initialValue: '0',
+                            child: TextField(
+                              //initialValue: '0',
                               decoration: InputDecoration(
+                                  hintText: 0.toString(),
                                   label: Text(
-                                'Quantity *',
-                                style: textStyle,
-                              )),
+                                    'Quantity *',
+                                    style: textStyle,
+                                  )),
                             ),
                           ),
                           SizedBox(
@@ -252,8 +228,12 @@ class _AddItemState extends State<AddItem> {
                           SizedBox(
                             width: 90.w,
                             child: TextFormField(
-                              initialValue: '0',
+                              // textInputAction: ,
+                              keyboardType: TextInputType.number,
+                              initialValue: product.name,
                               decoration: InputDecoration(
+
+                                  //hintText: 0.toString(),
                                   label: Text(
                                 'Rate *',
                                 style: textStyle,
@@ -279,7 +259,7 @@ class _AddItemState extends State<AddItem> {
                           SizedBox(
                             width: 90.w,
                             child: TextFormField(
-                              initialValue: product.unitId.toString(),
+                              initialValue: product.unit.toString(),
                               decoration: InputDecoration(
                                 label: Text(
                                   'Unit',

@@ -153,7 +153,7 @@ class RemoteService {
   //   }
   // }
   String dynamic =
-      'PkozRT0WvHWCag0D8Kuf8AcZjKRpqr7XDjFPCzPkrodjy2v6ACq-IH8snoKluyBHPYAYREFsz3vQjPpyz-AR0UGAzm1O8ESfg8BaBKuSaCdHxBpxSgIud1HKmpKTY-oVQvz4SjS-4xa41X_gAA9_xpKh_oG-INmj16HrbhYBk7A1njbnrhhYoQQazZmlXknhpy3qe7RLy1M8foTqLZa__iCKWu-feYkn_59vi8ZVpLu9OMg7DIvqrRAgLKndMilrRBGYUztq_3Kb2npfhCtyym3_9lf5-_YCOADMVdOBz-Oo0CMdjSEwi4q7JJA13Cqp4tT1BTAlDUujqwMkh5lJczN2gCj2Ad3MlGqBmIHEzPorN-aufKqU4SVszFyzBgYSwTAaZGXT0PWLZr1cVBP0o5dSmB2L1wRfXjWF_-WTtNA';
+      '_mWktus1fVxh-W393lS3lk2njNmVoPYqOwnKEagLeYl9fjkWuREkyghFfeJBsXvYlPwAC776nX--J5EQLS_N7zNzlressTu0mH5HQNhc4X9ooyxuff4T3bh24zMW_cYgczZg-aNWCEV9itu-ifevrw981xHVURKS2uym1dLLteUka6nk77BCePbTBjk2oWD0KNlMAuxlko_DkqzTjb4moPl9pKXGpOg3LI_wuZaGrDCOpBrfr7flrHaPSn47iLJO_ZED7Mbeif4Rby4JMTN86u_5HHcUkpcn1q-qarSca7ljv9prPZxs4TpHi-YcnFfHFrIvS0KL7zS4Fj8IfBVMZ5HQ0fkCUMFNpUUgjE2aQXX4xrWf8xLxsxUkOX3cDpJsVVmDYAeDgg1in5c8mxlNmfL7xnJ-IkfJGGPyWjzxvIc';
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
       String dynamicToken, String query) async {
     //Future<void> getAutoCompleteProductList() async {

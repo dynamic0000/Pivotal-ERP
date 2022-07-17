@@ -25,12 +25,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(primarySwatch: Colors.blue),
             // home: const SplashScreen(),
             home: const AddItem(bearerToken: ''),
-            // home: const AddItem(),
-            // home: const NewSalesOrder(
-            //   indexGetter: null,
-            //   bearerToken: '',
-            // ),
-            // home: const SelectCustomer(),
+            // home: const NewScreen(),
           );
         });
   }

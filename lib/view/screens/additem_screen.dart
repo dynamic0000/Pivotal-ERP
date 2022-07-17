@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +22,7 @@ class AddItem extends StatefulWidget {
   State<AddItem> createState() => _AddItemState();
 }
 
+//String quantity = '';
 var product = AutoCompleteProductList(
     name: '',
     alias: '',
@@ -46,33 +48,21 @@ var data2 = GetProductDetails(
     productType: '',
     vatRate: 0,
     exDutyRate: 0);
+var _quantity = 0;
+// var _discount;
+var _rate;
+
+// final quantityValue = TextEditingController();
+// final discountValue = TextEditingController();
+var textController = TextEditingController();
 
 int productIdx = 0;
 //AutoCompleteProductList? product;
 String query = '';
 @override
-void initState() {
-  // TODO: implement initState
-  var data2 = GetProductDetails(
-      productId: 0,
-      productGroupId: 0,
-      name: '',
-      closingQty: 0,
-      salesRate: 0.0,
-      outQty: 0.0,
-      alias: '',
-      code: '',
-      productGroup: '',
-      productCategories: '',
-      productType: '',
-      vatRate: 0,
-      exDutyRate: 0);
-  productIdx = 0;
-}
+void initState() {}
 
 class _AddItemState extends State<AddItem> {
-  //String query = '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,6 +78,9 @@ class _AddItemState extends State<AddItem> {
                               indexGetter: null,
                               bearerToken: '',
                             )));
+                setState(() {
+                  //productIdx = 0;
+                });
               },
               icon: const Icon(Icons.arrow_back_ios)),
           actions: [
@@ -116,7 +109,7 @@ class _AddItemState extends State<AddItem> {
               setState(() {
                 product = item;
                 productIdx = itemIndex;
-                // product.addAll(item);
+
                 log('pro-------$product');
               });
             }
@@ -124,9 +117,7 @@ class _AddItemState extends State<AddItem> {
             // log('data?????????//-------${data1![0]!.name}');
 
             log('product-------$product');
-            // if (data1!.isEmpty) {
-            //   return const Center(child: Text("No products"));
-            // }
+
             return SingleChildScrollView(
               child: Column(children: [
                 SizedBox(
@@ -147,17 +138,6 @@ class _AddItemState extends State<AddItem> {
                                     fontWeight: FontWeight.w500,
                                     color: Color.fromARGB(255, 52, 158, 244)),
                               ),
-                              // TextDropdownFormField(
-                              //   options: data1!.map((e) => e!.unit).toList(),
-                              //   decoration: const InputDecoration(
-                              //     // hintText: "Select Province",
-                              //     suffixIcon: Icon(Icons.arrow_drop_down),
-                              //   ),
-                              // ),
-
-                              // DropdownButtonFormField(items: data1.map((e) => e!.name),
-                              //  onChanged: onChanged)
-
                               SearchField(
                                 searchInputDecoration: const InputDecoration(
                                     suffixIcon: Icon(Icons.arrow_drop_down)),
@@ -172,14 +152,8 @@ class _AddItemState extends State<AddItem> {
                                   });
                                   addProductList(
                                       item: filterItem,
-                                      //if(itemIndex==null){
-                                      //return filterItem!.productId=0;
-                                      //    }
                                       itemIndex: filterItem!.productId);
                                   log('indexxxxxxxxxx--------$productIdx');
-                                  // log('filtered${filterItem[0]!.name}');
-                                  // product.add(x);
-                                  //log('product-------${product[0].name}');
                                 },
                               ),
                             ],
@@ -187,36 +161,26 @@ class _AddItemState extends State<AddItem> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // Column(
-                          //   children: [
-                          //     const Text(
-                          //       "Quantity*",
-                          //       style: TextStyle(
-                          //           fontSize: 15,
-                          //           fontWeight: FontWeight.w500,
-                          //           color: Color.fromARGB(255, 52, 158, 244)),
-                          //     ),
-                          //     Text(product.code)
-                          //   ],
-                          // ),
-
                           SizedBox(
                             width: 90.w,
-                            child: TextField(
-                              //initialValue: '0',
+                            child: TextFormField(
+                              //controller: quantityValue,
+                              initialValue: _quantity.toString(),
                               decoration: InputDecoration(
-                                  hintText: 0.toString(),
-                                  label: Text(
-                                    'Quantity *',
-                                    style: textStyle,
-                                  )),
+                                // hintText: '0',
+                                label: Text(
+                                  _quantity.toString(),
+                                  // 'Quantity *',
+                                  style: textStyle,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(
                             //  height: 50,
                             width: 90.w,
                             child: TextFormField(
-                              initialValue: 'N/A',
+                              // initialValue: '0' ?? product.name,
                               decoration: InputDecoration(
                                 label: Text(
                                   'Unit',
@@ -228,16 +192,19 @@ class _AddItemState extends State<AddItem> {
                           SizedBox(
                             width: 90.w,
                             child: TextFormField(
-                              // textInputAction: ,
+                              //controller: _controller,
+
                               keyboardType: TextInputType.number,
-                              initialValue: product.name,
+                              // initialValue: '0',
                               decoration: InputDecoration(
+                                  border: const UnderlineInputBorder(),
 
                                   //hintText: 0.toString(),
                                   label: Text(
-                                'Rate *',
-                                style: textStyle,
-                              )),
+                                    //    _rate.toString(),
+                                    'Rate *',
+                                    style: textStyle,
+                                  )),
                             ),
                           ),
                         ],
@@ -248,9 +215,11 @@ class _AddItemState extends State<AddItem> {
                           SizedBox(
                             width: 90.w,
                             child: TextFormField(
-                              initialValue: '0',
+                              //controller: rateValue,
+                              //initialValue: 'okay' ?? product.name,
                               decoration: InputDecoration(
                                   label: Text(
+                                //_discount.toString(),
                                 'Discount %',
                                 style: textStyle,
                               )),
@@ -274,6 +243,9 @@ class _AddItemState extends State<AddItem> {
                               initialValue: '0',
                               decoration: InputDecoration(
                                   label: Text(
+                                //(_rate * _quantity * _discount * 0.01)
+                                //  .toString(),
+
                                 'Amount *',
                                 style: textStyle,
                               )),
@@ -285,41 +257,20 @@ class _AddItemState extends State<AddItem> {
                   ),
                 ),
                 FutureBuilder<GetProductDetails?>(
+                  initialData: GetProductDetails(
+                      closingQty: 0,
+                      salesRate: 0,
+                      outQty: 0,
+                      alias: '',
+                      code: '0',
+                      productCategories: '0',
+                      productGroup: '0',
+                      vatRate: 0,
+                      exDutyRate: 0,
+                      productType: '0'),
+                  // Container(child: Text(data2.baseUnitId),),
                   future: RemoteService().getProductDetials(productIdx),
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      log('isdata???????????----------${snapshot.data}');
-                      return Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.grey[300],
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              _rowData('Closing Stock', '0'),
-                              _rowData('Alternate Unit',
-                                  '0'), ////int.parse(product.code) value rakhda error aauxa hera
-                              _rowData('Last Sale Rate', '0'),
-                              _rowData('Last Sale Quantity', '0'),
-                              _rowData('Alias', '0'),
-                              _rowData('Code', '0'),
-                              _rowData('Product Group', '0'),
-                              _rowData('Product Category', '0'),
-                              _rowData('Product Type', '0'),
-                              _rowData('Vat Rate', '0'),
-                              _rowData('EXDutyRate', '0'),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
                     var data2 = snapshot.data;
                     log('productIndexxxxyyyyyyyyyy_____$productIdx');
                     return Padding(
@@ -335,22 +286,25 @@ class _AddItemState extends State<AddItem> {
                             SizedBox(
                               height: 10.h,
                             ),
-                            _rowData(
-                                'Closing Stock', data2!.closingQty.toString()),
+                            _rowData('Closing Stock',
+                                data2?.closingQty.toString() ?? '0'),
                             _rowData('Alternate Unit',
                                 '0'), ////int.parse(product.code) value rakhda error aauxa hera
+                            _rowData('Last Sale Rate',
+                                data2?.salesRate.toString() ?? '0'),
+                            _rowData('Last Sale Quantity',
+                                data2?.outQty.toString() ?? '0'),
+                            _rowData('Alias', data2?.alias ?? '0'),
+                            _rowData('Code', data2?.code ?? '0'),
                             _rowData(
-                                'Last Sale Rate', data2.salesRate.toString()),
+                                'Product Group', data2?.productGroup ?? '0'),
+                            _rowData('Product Category',
+                                data2?.productCategories ?? '0'),
+                            _rowData('Product Type', data2?.productType ?? '0'),
                             _rowData(
-                                'Last Sale Quantity', data2.outQty.toString()),
-                            _rowData('Alias', data2.alias),
-                            _rowData('Code', data2.code),
-                            _rowData('Product Group', data2.productGroup),
-                            _rowData(
-                                'Product Category', data2.productCategories),
-                            _rowData('Product Type', data2.productType),
-                            _rowData('Vat Rate', data2.vatRate.toString()),
-                            _rowData('EXDutyRate', data2.exDutyRate.toString()),
+                                'Vat Rate', data2?.vatRate.toString() ?? '0'),
+                            _rowData('EXDutyRate',
+                                data2?.exDutyRate.toString() ?? '0'),
                             SizedBox(
                               height: 10.h,
                             ),

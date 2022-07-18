@@ -34,10 +34,12 @@ var newData;
 // var data2 = GetProductDetails(
 //   salesRate: 0.1,
 // );
-int? quantity;
-int? amount;
-int? rate;
+int? quantity = 0;
+double? amount;
+double? rate;
+double? discount;
 int productIdx = 0;
+double? discountAmount;
 //AutoCompleteProductList? product;
 String query = '';
 @override
@@ -50,6 +52,7 @@ class _AddItemState extends State<AddItem> {
   var unitController = TextEditingController();
   var quantityController = TextEditingController();
   var amountController = TextEditingController();
+  var discountController = TextEditingController();
   //String query = '';
 
   @override
@@ -113,23 +116,11 @@ class _AddItemState extends State<AddItem> {
                     newData.then((productDetials) {
                       rateController.text =
                           productDetials!.salesRate.toString();
-                      // productDetials!.salesRate!.toString();
+
                       unitController.text = productDetials!.baseUnit.toString();
+
+                      //log("rate--------------")
                     });
-                    // log("unitController----------${unitController.text}");
-
-                    //  unitController.text = data1![item]!.unit.toString();
-                    //rateController.text = productDetials!.salesRate!.toString();
-
-                    // product.addAll(item);
-
-                    quantity = int.parse(quantityController.text);
-                    rate = int.parse(rateController.text);
-
-                    log("intQuantity-----------$quantity");
-                    log("intRate---------${rateController.text}");
-
-                    //log("quantity--------------${quantityController.text}");
                   });
                 }
 
@@ -193,6 +184,25 @@ class _AddItemState extends State<AddItem> {
                                     child: TextFormField(
                                       //initialValue: '0',
                                       controller: quantityController,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          newData.then((productDetials) {
+                                            quantity = int.parse(
+                                                quantityController.text);
+                                            rate = double.parse(
+                                                rateController.text);
+                                            amount = quantity! * rate!;
+
+                                            log("rate-------$rate");
+
+                                            log("intQuantity-----------$quantity");
+                                            //log("amountValue---------${quantity! * rate!}");
+                                            log("amount--------$amount");
+                                            amountController.text =
+                                                amount.toString();
+                                          });
+                                        });
+                                      },
                                       decoration: InputDecoration(
                                           label: Text(
                                         'Quantity *',
@@ -238,7 +248,33 @@ class _AddItemState extends State<AddItem> {
                                   SizedBox(
                                     width: 90.w,
                                     child: TextFormField(
-                                      initialValue: '0',
+                                      onChanged: (value) {
+                                        setState(() {
+                                          newData.then((productDetials) {
+                                            quantity = int.parse(
+                                                quantityController.text);
+                                            rate = double.parse(
+                                                rateController.text);
+                                            discount = double.parse(
+                                                discountController.text);
+                                            discountAmount = (quantity! *
+                                                    rate! *
+                                                    discount!) /
+                                                100;
+                                            amount = (quantity! * rate!) -
+                                                discountAmount!;
+
+                                            log("rate-------$discountAmount");
+
+                                            log("intQuantity-----------$quantity");
+                                            //log("amountValue---------${quantity! * rate!}");
+                                            log("amountAfterDiscount--------$amount");
+                                            amountController.text =
+                                                amount.toString();
+                                          });
+                                        });
+                                      },
+                                      controller: discountController,
                                       decoration: InputDecoration(
                                           label: Text(
                                         'Discount %',
@@ -247,14 +283,15 @@ class _AddItemState extends State<AddItem> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 90.w,
+                                    width: 40.w,
                                     child: TextFormField(
                                       initialValue: '0',
-                                      decoration: InputDecoration(
-                                        label: Text(
-                                          'Unit',
-                                          style: textStyle,
-                                        ),
+                                      decoration: const InputDecoration(
+                                        prefixIcon: Icon(Icons.arrow_drop_down),
+                                        // label: Text(
+                                        //   'Unit',
+                                        //   style: textStyle,
+                                        // ),
                                       ),
                                     ),
                                   ),
@@ -262,6 +299,7 @@ class _AddItemState extends State<AddItem> {
                                     width: 90.w,
                                     child: TextFormField(
                                       controller: amountController,
+                                      readOnly: true,
                                       decoration: InputDecoration(
                                           label: Text(
                                         'Amount *',
@@ -289,39 +327,39 @@ class _AddItemState extends State<AddItem> {
                                           'Closing Stock',
                                           productDetials?.closingQty
                                                   .toString() ??
-                                              ''),
+                                              '0'),
                                       _rowData('Alternate Unit',
-                                          '0'), ////int.parse(product.code) value rakhda error aauxa hera
+                                          'N/A'), ////int.parse(product.code) value rakhda error aauxa hera
                                       _rowData(
                                           'Last Sale Rate',
                                           productDetials?.salesRate
                                                   .toString() ??
-                                              ''),
+                                              '0'),
                                       _rowData(
                                           'Last Sale Quantity',
                                           productDetials?.outQty.toString() ??
-                                              ''),
+                                              '0'),
+                                      _rowData('Alias',
+                                          productDetials?.alias ?? '0'),
                                       _rowData(
-                                          'Alias', productDetials?.alias ?? ''),
-                                      _rowData(
-                                          'Code', productDetials?.code ?? ''),
+                                          'Code', productDetials?.code ?? '0'),
                                       _rowData('Product Group',
-                                          productDetials?.productGroup ?? ''),
+                                          productDetials?.productGroup ?? '0'),
                                       _rowData(
                                           'Product Category',
                                           productDetials?.productCategories ??
-                                              ''),
+                                              '0'),
                                       _rowData('Product Type',
-                                          productDetials?.productType ?? ''),
+                                          productDetials?.productType ?? '0'),
                                       _rowData(
                                           'Vat Rate',
                                           productDetials?.vatRate.toString() ??
-                                              ''),
+                                              '0'),
                                       _rowData(
                                           'EXDutyRate',
                                           productDetials?.exDutyRate
                                                   .toString() ??
-                                              ''),
+                                              '0'),
 
                                       SizedBox(
                                         height: 10.h,

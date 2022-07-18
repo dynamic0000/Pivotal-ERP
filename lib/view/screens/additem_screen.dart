@@ -34,7 +34,9 @@ var newData;
 // var data2 = GetProductDetails(
 //   salesRate: 0.1,
 // );
-
+int? quantity;
+int? amount;
+int? rate;
 int productIdx = 0;
 //AutoCompleteProductList? product;
 String query = '';
@@ -45,6 +47,9 @@ void initState() {
 
 class _AddItemState extends State<AddItem> {
   var rateController = TextEditingController();
+  var unitController = TextEditingController();
+  var quantityController = TextEditingController();
+  var amountController = TextEditingController();
   //String query = '';
 
   @override
@@ -85,24 +90,10 @@ class _AddItemState extends State<AddItem> {
             }
 
             List<AutoCompleteProductList?>? data1 = snapshot.data;
-            log('dataaaaaaaaa?????????----------$data1');
-            // addProductList({item, itemIndex}) {
-            //   setState(() {
-            //     product = item;
-            //     productIdx = itemIndex;
-            //     rateController.text = productDetails![itemIndex]!.code;
-            //     // product.addAll(item);
-            //     log('ControlerrINNN${rateController.text}');
-            //     log('pro-------$product');
-            //   });
-            // }
 
             // log('data?????????//-------${data1![0]!.name}');
-            log('ControlerrOUTTTT${rateController.text}');
-            log('product-------$product');
-            // if (data1!.isEmpty) {
-            //   return const Center(child: Text("No products"));
-            // }
+            // log('ControlerrOUTTTT${rateController.text}');
+            // log('product-------$product');
 
             return FutureBuilder<GetProductDetails?>(
               //  newData = RemoteService().getProductDetials(productIdx);
@@ -121,17 +112,28 @@ class _AddItemState extends State<AddItem> {
                     newData = RemoteService().getProductDetials(productIdx);
                     newData.then((productDetials) {
                       rateController.text =
-                          productDetials!.salesRate!.toString();
+                          productDetials!.salesRate.toString();
+                      // productDetials!.salesRate!.toString();
+                      unitController.text = productDetials!.baseUnit.toString();
                     });
-                    // rateController.text = productDetials!.salesRate!.toString();
+                    // log("unitController----------${unitController.text}");
+
+                    //  unitController.text = data1![item]!.unit.toString();
+                    //rateController.text = productDetials!.salesRate!.toString();
 
                     // product.addAll(item);
-                    log('ControlerrINNN${rateController.text.toString()}');
-                    log('pro-------$product');
+
+                    quantity = int.parse(quantityController.text);
+                    rate = int.parse(rateController.text);
+
+                    log("intQuantity-----------$quantity");
+                    log("intRate---------${rateController.text}");
+
+                    //log("quantity--------------${quantityController.text}");
                   });
                 }
 
-                log('contOutttttttttt${rateController.text}');
+                //log('contOutttttttttt${rateController.text}');
                 //////////////////////////////////
                 // var productDetials = snapshot.data;
 
@@ -174,15 +176,8 @@ class _AddItemState extends State<AddItem> {
                                       });
                                       addProductList(
                                           item: filterItem,
-                                          //if(itemIndex==null){
-                                          //return filterItem!.productId=0;
-                                          //    }
                                           itemIndex: filterItem!.productId);
                                       log('indexxxxxxxxxx--------$productIdx');
-                                      //      log('dieselPriceeeeeeeeee------${data2.salesRate}');
-                                      // log('filtered${filterItem[0]!.name}');
-                                      // product.add(x);
-                                      //log('product-------${product[0].name}');
                                     },
                                   ),
                                 ],
@@ -196,7 +191,8 @@ class _AddItemState extends State<AddItem> {
                                   SizedBox(
                                     width: 90.w,
                                     child: TextFormField(
-                                      initialValue: product.productGroup,
+                                      //initialValue: '0',
+                                      controller: quantityController,
                                       decoration: InputDecoration(
                                           label: Text(
                                         'Quantity *',
@@ -205,10 +201,10 @@ class _AddItemState extends State<AddItem> {
                                     ),
                                   ),
                                   SizedBox(
-                                    //  height: 50,
                                     width: 90.w,
                                     child: TextFormField(
-                                      initialValue: 'N/A',
+                                      controller: unitController,
+                                      readOnly: true,
                                       decoration: InputDecoration(
                                         label: Text(
                                           'Unit',
@@ -220,7 +216,8 @@ class _AddItemState extends State<AddItem> {
                                   SizedBox(
                                     width: 90.w,
                                     child: TextFormField(
-                                      //initialValue: '',
+                                      readOnly: true,
+
                                       controller: rateController,
                                       //     initialValue: data2.salesRate.toString(),
                                       decoration: InputDecoration(
@@ -264,7 +261,7 @@ class _AddItemState extends State<AddItem> {
                                   SizedBox(
                                     width: 90.w,
                                     child: TextFormField(
-                                      initialValue: '0',
+                                      controller: amountController,
                                       decoration: InputDecoration(
                                           label: Text(
                                         'Amount *',

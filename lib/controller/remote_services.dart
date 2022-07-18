@@ -153,7 +153,7 @@ class RemoteService {
   //   }
   // }
   String dynamic =
-      '_mWktus1fVxh-W393lS3lk2njNmVoPYqOwnKEagLeYl9fjkWuREkyghFfeJBsXvYlPwAC776nX--J5EQLS_N7zNzlressTu0mH5HQNhc4X9ooyxuff4T3bh24zMW_cYgczZg-aNWCEV9itu-ifevrw981xHVURKS2uym1dLLteUka6nk77BCePbTBjk2oWD0KNlMAuxlko_DkqzTjb4moPl9pKXGpOg3LI_wuZaGrDCOpBrfr7flrHaPSn47iLJO_ZED7Mbeif4Rby4JMTN86u_5HHcUkpcn1q-qarSca7ljv9prPZxs4TpHi-YcnFfHFrIvS0KL7zS4Fj8IfBVMZ5HQ0fkCUMFNpUUgjE2aQXX4xrWf8xLxsxUkOX3cDpJsVVmDYAeDgg1in5c8mxlNmfL7xnJ-IkfJGGPyWjzxvIc';
+      'ufzrvOw6yiDMxSIvf1m54g6WptJeQB1xP8_2oBYu__kh2J8ZvtSJA1mazwIjPMtcQZLisiG-FWc7DjkSICfGJ4p3uq2qxjMQzor62_7s8YT-eCen17gsFDWh5mYyrPz5dCyVxsRbRqThMfeyIXIVymd1vWJJHtpGJRZSR4Ng4cdMTOpw3KPsVeOYNZ_ZBamDO2CmiV9swC8Wa4ZXwHBMzgrntERCCxahue8LdLcfAAonUI8GYFg-0lb4fFZcoR4trVyOdRfWORNupoEbqchoY_c-yB5pLT_0V3QeZY25VDlpZV1br55OYWI5xHPGQny864zGceRnbI0z-ZWesaHWTlINCn-SdZplTLU-TXja4mHDh983L0mTLqxYkEFBcGl_A1EEH1XU0GUd2iCUbTI3HGInIyctkA87El3Dh3coWmA';
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
       String dynamicToken, String query) async {
     //Future<void> getAutoCompleteProductList() async {
@@ -222,10 +222,9 @@ class RemoteService {
       );
 
       if (response.statusCode == 200) {
-        log('aaaaaaaaa');
         var data = jsonDecode(response.body);
         final productModel = GetProductDetails.fromMap(data);
-        log('productdetails-----$data');
+        // log('productdetails-----$data');
         return productModel;
       }
       log('errrorr11111');

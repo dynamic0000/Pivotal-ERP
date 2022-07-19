@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
@@ -37,11 +38,15 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
 
   // Size size = MediaQuery.of(context).size;
   bool _checkbox = false;
+  late String formattedText = "";
+  late String formattedDueText = "";
 
   late String formattedTextNepali = '';
   late String formattedDueTextNepali = '';
   NepaliDateTime selectedNepaliDate = NepaliDateTime.now();
   NepaliDateTime selectedDueNepaliDate = NepaliDateTime.now();
+  DateTime selectedDate = DateTime.now();
+  DateTime selectedDueDate = DateTime.now();
 
   bool isEnabled = true;
   final node1 = FocusNode();
@@ -57,42 +62,73 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
     formattedDueTextNepali =
         NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
+    formattedText = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
+    formattedDueText = DateFormat("yyyy-MM-dd").format(DateTime.now());
   }
   // void clearText() {
   //   fieldText.clear();
   // }
 
   //first issue calendar
-  Future<void> _selectedNepaliDate() async {
-    NepaliDateTime? pickedNepali = await showMaterialDatePicker(
-      context: context,
-      initialDate: selectedNepaliDate,
-      firstDate: NepaliDateTime(2000),
-      lastDate: NepaliDateTime(2090),
-    );
-    if (pickedNepali != null && pickedNepali != selectedNepaliDate) {
+  // Future<void> _selectedNepaliDate() async {
+  //   NepaliDateTime? pickedNepali = await showMaterialDatePicker(
+  //     context: context,
+  //     initialDate: selectedNepaliDate,
+  //     firstDate: NepaliDateTime(2000),
+  //     lastDate: NepaliDateTime(2090),
+  //   );
+  //   if (pickedNepali != null && pickedNepali != selectedNepaliDate) {
+  //     setState(() {
+  //       selectedNepaliDate = pickedNepali;
+  //       formattedTextNepali =
+  //           NepaliDateFormat("yyyy-MM-dd").format(selectedNepaliDate);
+  //     });
+  //   }
+  // }
+
+  //second due date calendar
+  // Future<void> _selectedDueNepaliDate() async {
+  //   NepaliDateTime? pickedDueNepali = await showMaterialDatePicker(
+  //     context: context,
+  //     initialDate: selectedDueNepaliDate,
+  //     firstDate: NepaliDateTime(2000),
+  //     lastDate: NepaliDateTime(2090),
+  //     //  language: Language.english,
+  //   );
+  //   if (pickedDueNepali != null && pickedDueNepali != selectedDueNepaliDate) {
+  //     setState(() {
+  //       selectedDueNepaliDate = pickedDueNepali;
+  //       formattedDueTextNepali =
+  //           NepaliDateFormat("yyyy-MM-dd").format(selectedDueNepaliDate);
+  //     });
+  //   }
+  // }
+
+  Future<void> _selectDate() async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2010),
+        lastDate: DateTime(2040));
+    if (picked != null && picked != selectedDate) {
       setState(() {
-        selectedNepaliDate = pickedNepali;
-        formattedTextNepali =
-            NepaliDateFormat("yyyy-MM-dd").format(selectedNepaliDate);
+        selectedDate = picked;
+        formattedText = DateFormat("yyyy-MM-dd").format(selectedDate);
       });
     }
   }
 
-  //second due date calendar
-  Future<void> _selectedDueNepaliDate() async {
-    NepaliDateTime? pickedDueNepali = await showMaterialDatePicker(
-      context: context,
-      initialDate: selectedDueNepaliDate,
-      firstDate: NepaliDateTime(2000),
-      lastDate: NepaliDateTime(2090),
-      //  language: Language.english,
-    );
-    if (pickedDueNepali != null && pickedDueNepali != selectedDueNepaliDate) {
+  Future<void> _selectDueDate() async {
+    final DateTime? pickedDue = await showDatePicker(
+        context: context,
+        initialDate: selectedDueDate,
+        firstDate: DateTime(2010),
+        lastDate: DateTime(2040));
+    if (pickedDue != null && pickedDue != selectedDate) {
       setState(() {
-        selectedDueNepaliDate = pickedDueNepali;
-        formattedDueTextNepali =
-            NepaliDateFormat("yyyy-MM-dd").format(selectedDueNepaliDate);
+        selectedDueDate = pickedDue;
+        formattedDueText = DateFormat("yyyy-MM-dd").format(selectedDueDate);
       });
     }
   }
@@ -256,8 +292,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                             child: TextField(
                               focusNode: node1,
                               style: TextStyle(fontSize: 10.sp),
-                              enabled: isEnabled,
-                              readOnly: !isEnabled,
+                              readOnly: true,
                             ),
                           ),
                           SizedBox(
@@ -274,7 +309,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: _selectedNepaliDate,
+                                onTap: _selectDate,
                                 child: Container(
                                   height: 20.h,
                                   width: 80.w,
@@ -284,7 +319,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                             width: 2.0.w, color: Colors.grey)),
                                   ),
                                   child: Text(
-                                    formattedTextNepali,
+                                    formattedText,
                                     // formattedText,
 
                                     style: TextStyle(fontSize: 15.sp),
@@ -295,7 +330,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                               // ),
                               IconButton(
                                   onPressed: () {
-                                    _selectedNepaliDate();
+                                    _selectDate();
                                   },
                                   icon: const Icon(
                                     Icons.calendar_today,
@@ -317,7 +352,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: _selectedDueNepaliDate,
+                                onTap: _selectDueDate,
                                 child: Container(
                                   height: 20.h,
                                   width: 80.w,
@@ -327,7 +362,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                             width: 2.h, color: Colors.grey)),
                                   ),
                                   child: Text(
-                                    formattedDueTextNepali,
+                                    formattedDueText,
                                     // formattedDueText,
 
                                     style: TextStyle(fontSize: 15.sp),
@@ -336,7 +371,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                               ),
                               IconButton(
                                   onPressed: () {
-                                    _selectedDueNepaliDate();
+                                    _selectDueDate();
                                   },
                                   icon: const Icon(
                                     Icons.calendar_today,

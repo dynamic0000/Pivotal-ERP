@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
+import 'package:pivotal_erp/models/getproductdetails_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
@@ -22,6 +23,7 @@ class NewSalesOrder extends StatefulWidget {
   }) : super(key: key);
   final AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
+
   @override
   // ignore: no_logic_in_create_state
   State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter);
@@ -162,7 +164,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 // var heram = await RemoteService().getAutoCompleteProductList();
                 //log('herammmmmmmmmm$heram');
               },
-              icon: const Icon(Icons.abc)),
+              icon: const Icon(Icons.verified_rounded)),
           IconButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -187,19 +189,19 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               ))
         ],
       ),
-      body: data_or_not(context, indexGetter),
+      body: data_or_not(context: context, indexGetter: indexGetter),
     );
   }
 
   SingleChildScrollView data_or_not(
-      BuildContext context, AutoCompleteLedgerList? indexGetter) {
+      {BuildContext? context, AutoCompleteLedgerList? indexGetter}) {
     var customerData = indexGetter == null
-        ? noData_addCustomer(context)
-        : yesData_addCustomer(context, indexGetter);
+        ? noData_addCustomer(context!)
+        : yesData_addCustomer(context: context!, a: indexGetter);
 //////////////condition for file pixked display////////
     var dataPicked =
         _resultFile == null ? Container() : fileNameDisplay(context);
-    log('testrfgggggggggggggggggggggggggggg');
+
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(15),
@@ -258,7 +260,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                               readOnly: !isEnabled,
                             ),
                           ),
-
                           SizedBox(
                             height: 5.h,
                           ),
@@ -269,7 +270,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                 color: const Color.fromARGB(255, 16, 124, 213),
                                 fontWeight: FontWeight.normal),
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -303,7 +303,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                   ))
                             ],
                           ),
-
                           SizedBox(
                             height: 4.h,
                           ),
@@ -314,9 +313,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                 color: const Color.fromARGB(255, 16, 124, 213),
                                 fontWeight: FontWeight.normal),
                           ),
-                          // SizedBox(
-                          //   height: 5,
-                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -439,6 +435,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 15.h,
                 ),
+                // addItem_data(context, GetProductDetails()),
                 Divider(
                   indent: 45,
                   color: Colors.grey.withOpacity(.8),
@@ -839,10 +836,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     );
   }
 
-  Column yesData_addCustomer(
-    BuildContext context,
+  Column yesData_addCustomer({
+    BuildContext? context,
     AutoCompleteLedgerList? a,
-  ) {
+  }) {
     log('aaaaaaaaaaaaaaaaaaaaa----------$a');
     return Column(
       // mainAxisAlignment: MainAxisAlignment.start,
@@ -885,29 +882,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         _rowData(
             title: 'Credit Limit   -',
             titleData: a.creditLimitAmount.toString()),
-        // Text(
-        //   a.creditLimitDays.toString(),
-        //   style: GoogleFonts.cantarell(
-        //     textStyle: TextStyle(
-        //       fontSize: 15.sp,
-        //       color: Colors.grey.shade800.withOpacity(1),
-        //     ),
-        //   ),
-        // ),
         const SizedBox(
           height: 8,
         ),
         _rowData(
             title: 'Credit Days   -', titleData: a.creditLimitDays.toString()),
-        // Text(
-        //   a.creditLimitAmount.toString(),
-        //   style: GoogleFonts.cantarell(
-        //     textStyle: TextStyle(
-        //       fontSize: 15.sp,
-        //       color: Colors.grey.shade800.withOpacity(1),
-        //     ),
-        //   ),
-        // )
       ],
     );
   }
@@ -1030,4 +1009,27 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
           ],
         ),
       );
+  Container addItem_data(BuildContext context, GetProductDetails? data) {
+    log("value of data--------------${data!.name}");
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 130, 191, 241),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      width: MediaQuery.of(context).size.width,
+      height: 50.h,
+      child: Padding(
+        padding: const EdgeInsets.all(3),
+        child: Column(
+          children: [
+            Text(
+              data.name.toString(),
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(data.productGroup.toString())
+          ],
+        ),
+      ),
+    );
+  }
 }

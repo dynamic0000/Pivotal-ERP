@@ -117,7 +117,9 @@ class MySearchDelegate extends SearchDelegate {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => NewSalesOrder(
-                                        bearerToken: '', indexGetter: lst)));
+                                          bearerToken: '',
+                                          indexGetter: lst,
+                                        )));
                           },
                           title: Text(
                             lst.name,

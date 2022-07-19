@@ -4,6 +4,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pivotal_erp/view/screens/live_customer.dart';
 import 'package:pivotal_erp/view/screens/new_customer_screen.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
+import 'package:searchfield/searchfield.dart';
 
 class SpeedDialIcon extends StatefulWidget {
   const SpeedDialIcon({
@@ -44,6 +45,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
                             bearerToken: widget.bearerToken,
                             indexGetter: null,
                           )));
+              showVoucherDialog(context);
             }),
         SpeedDialChild(
           backgroundColor: const Color.fromARGB(255, 136, 236, 140),
@@ -95,5 +97,65 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
             }),
       ],
     );
+  }
+
+  showVoucherDialog(BuildContext context) {
+    AlertDialog voucher = AlertDialog(
+      //actionsAlignment: MainAxisAlignment.start,
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.cancel_outlined),
+            ),
+          ],
+        )
+      ],
+      title: const Text('Voucher Mode'),
+      content: Column(
+        children: [
+          SearchField(
+            suggestions: const [],
+            hint: "Search",
+          ),
+          ListTile(
+            title: const Text(
+              "SalesOrder",
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NewSalesOrder(
+                          indexGetter: null, bearerToken: '')));
+            },
+          ),
+          ListTile(
+            title: const Text(
+              "sa-SalesOrder",
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NewSalesOrder(
+                          indexGetter: null, bearerToken: '')));
+            },
+          ),
+        ],
+      ),
+    );
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return voucher;
+        });
   }
 }

@@ -31,9 +31,7 @@ var product = AutoCompleteProductList(
     unit: '',
     unitId: 5);
 var newData;
-// var data2 = GetProductDetails(
-//   salesRate: 0.1,
-// );
+
 int? quantity = 0;
 double? amount;
 double? rate;
@@ -74,9 +72,12 @@ class _AddItemState extends State<AddItem> {
               icon: const Icon(Icons.arrow_back_ios)),
           actions: [
             IconButton(
-                onPressed: () async {
-                  var result = await RemoteService().getProductDetials(1);
-                  log('resultProductDetials---$result');
+                onPressed: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const NewSalesOrder(
+                  //             indexGetter: null, bearerToken: '')));
                 },
                 icon: Icon(
                   Icons.verified_rounded,
@@ -93,10 +94,6 @@ class _AddItemState extends State<AddItem> {
             }
 
             List<AutoCompleteProductList?>? data1 = snapshot.data;
-
-            // log('data?????????//-------${data1![0]!.name}');
-            // log('ControlerrOUTTTT${rateController.text}');
-            // log('product-------$product');
 
             return FutureBuilder<GetProductDetails?>(
               //  newData = RemoteService().getProductDetials(productIdx);

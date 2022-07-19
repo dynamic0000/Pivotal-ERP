@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
-import 'package:pivotal_erp/view/screens/splash_screen.dart';
-import 'package:pivotal_erp/view/screens/try_future.dart';
 
 // const bool debugEnableDevicesSimulator = true;
 

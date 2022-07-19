@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
+import 'package:pivotal_erp/controller/remote_services.dart';
 
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
@@ -15,20 +16,36 @@ import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
 
 class NewSalesOrder extends StatefulWidget {
+  // ignore: use_key_in_widget_constructors
   const NewSalesOrder({
     Key? key,
     required this.indexGetter,
     required this.bearerToken,
-  }) : super(key: key);
+    this.quantityReq,
+    this.amountReq,
+    this.rateReq,
+    this.productNameReq,
+  }) : super();
   final AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
+  final int? quantityReq;
+  final double? amountReq;
+  final double? rateReq;
+  final String? productNameReq;
+
   @override
   // ignore: no_logic_in_create_state
-  State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter);
+  State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter,
+      quantityReq, amountReq, rateReq, productNameReq, bearerToken);
 }
 
 class _NewSalesOrderDataState extends State<NewSalesOrder> {
   AutoCompleteLedgerList? indexGetter;
+  final String bearerToken;
+  final int? quantityReq;
+  final double? amountReq;
+  final double? rateReq;
+  final String? productNameReq;
 
   //AutoCompleteLedgerList? aCLL;
 
@@ -44,7 +61,8 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   final node1 = FocusNode();
   final node2 = FocusNode();
 
-  _NewSalesOrderDataState(this.indexGetter);
+  _NewSalesOrderDataState(this.indexGetter, this.quantityReq, this.amountReq,
+      this.rateReq, this.productNameReq, this.bearerToken);
 
   @override
   void initState() {
@@ -93,13 +111,26 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
 
   //late AnimationController loadingController;
   File? _file;
+  File? _cameraFile;
   PlatformFile? _platformFile;
+  PlatformFile? _cameraPlatformFile;
   Future pickImage() async {
     await ImagePicker().pickImage(source: ImageSource.gallery);
   }
 
   Future captureImage() async {
     await ImagePicker().pickImage(source: ImageSource.camera);
+    var cameraFile = await FilePicker.platform.pickFiles();
+    if (cameraFile != null) {
+      log('yesssssssssCamera');
+      _cameraFile = File(cameraFile.files.single.path!);
+      setState(() {
+        _platformFile = cameraFile.files.first;
+      });
+
+      log('Camerafileyes------$_file');
+      log('CamerafilePlatformmmmuppppppp------$_platformFile');
+    }
   }
 
   Future selectFile() async {
@@ -107,9 +138,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         allowMultiple: false,
         type: FileType.custom,
         allowedExtensions: ['png', 'jpg', 'jpeg']);
-    if (_file == null) {
+    if (file != null) {
       log('yesssssssss');
-      _file = File(file!.files.single.path!);
+      _file = File(file.files.single.path!);
       setState(() {
         _platformFile = file.files.first;
       });
@@ -123,7 +154,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     //Size size = MediaQuery.of(context).size;
     // return
     //hasData(context, indexGetter);
@@ -186,23 +219,36 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 size: 30.sp,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                final result = await RemoteService().getVoucherNo();
+                  log('voucherNOOOOOO---$result');
+              },
               icon: Icon(
-                Icons.search,
+                Icons.coronavirus,
                 color: Colors.green,
                 size: 30.sp,
               ))
         ],
       ),
-      body: data_or_not(context, indexGetter),
+      body: data_or_not(
+          context: context,
+          indexGetter: indexGetter,
+          quantityReq: quantityReq,
+          amountReq: amountReq,
+          rateReq: rateReq),
     );
   }
 
   SingleChildScrollView data_or_not(
-      BuildContext context, AutoCompleteLedgerList? indexGetter) {
+      {int? quantityReq,
+      double? amountReq,
+      double? rateReq,
+      String? productNameReq,
+      BuildContext? context,
+      AutoCompleteLedgerList? indexGetter}) {
     var customerData = indexGetter == null
-        ? noData_addCustomer(context)
-        : yesData_addCustomer(context, indexGetter);
+        ? noData_addCustomer(context!)
+        : yesData_addCustomer(context!, indexGetter);
     log('testrfgggggggggggggggggggggggggggg');
     return SingleChildScrollView(
       child: Container(
@@ -366,17 +412,59 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                   height: 10.h,
                 ),
                 GestureDetector(
-                  child: Text('file: ${_platformFile?.name}'),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color.fromARGB(255, 181, 204, 224),
+                      ),
+                      height: 30,
+                      width: double.infinity - 20,
+                      child: Center(
+                          child: Text(_platformFile?.name ?? '',
+                              style: GoogleFonts.bebasNeue(
+                                  textStyle: TextStyle(
+                                      color: Colors.black.withOpacity(1)))))),
                   onTap: () {
-                    setState(() {
-                      _platformFile?.name != '';
-                      log('letscheck-----------${_platformFile?.name}');
-                    });
+                    showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.r),
+                                topRight: Radius.circular(20.r))),
+                        context: context,
+                        builder: (context) => buildSheetForRemoval());
+
+                    // setState(() {
+                    //   //_platformFile?.name= '';
+                    //   log('letscheck-----------${_platformFile?.name}');
+                    // });
 
                     log('dipika is absent');
                   },
                 ),
 
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color.fromARGB(255, 159, 191, 218),
+                  ),
+                  height: 40,
+                  width: double.infinity - 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(product.name),
+                          Text('$quantityReq*$rateReq')
+                        ],
+                      ),
+                      Text(amountReq.toString())
+                    ],
+                  ),
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -975,6 +1063,34 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
             ),
             filesColumn(context, "images/upload.png", "Upload file",
                 () => selectFile()),
+          ],
+        ),
+      );
+
+  buildSheetForRemoval() => SizedBox(
+        height: 130.h,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.cancel_outlined))
+              ],
+            ),
+            SizedBox(
+              height: 6.h,
+            ),
+            filesColumn(context, "images/dustbin.png", "Remove", () {
+              setState(() {
+//_platformFile!.name = '';
+                log('letscheck-----------${_platformFile?.name}');
+              });
+            }),
           ],
         ),
       );

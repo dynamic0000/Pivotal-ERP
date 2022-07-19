@@ -40,7 +40,8 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  NewSalesOrder(bearerToken: widget.bearerToken,
+                      builder: (context) => NewSalesOrder(
+                            bearerToken: widget.bearerToken,
                             indexGetter: null,
                           )));
             }),

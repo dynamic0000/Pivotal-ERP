@@ -30,46 +30,29 @@ var product = AutoCompleteProductList(
     productId: 0,
     unit: '',
     unitId: 5);
-
-var data2 = GetProductDetails(
-    productId: 0,
-    productGroupId: 0,
-    name: '',
-    closingQty: 0,
-    salesRate: 0.0,
-    outQty: 0.0,
-    alias: '',
-    code: '',
-    productGroup: '',
-    productCategories: '',
-    productType: '',
-    vatRate: 0,
-    exDutyRate: 0);
-
+var newData;
+// var data2 = GetProductDetails(
+//   salesRate: 0.1,
+// );
+int? quantity = 0;
+double? amount;
+double? rate;
+double? discount;
 int productIdx = 0;
+double? discountAmount;
 //AutoCompleteProductList? product;
 String query = '';
 @override
 void initState() {
-  // TODO: implement initState
-  var data2 = GetProductDetails(
-      productId: 0,
-      productGroupId: 0,
-      name: '',
-      closingQty: 0,
-      salesRate: 0.0,
-      outQty: 0.0,
-      alias: '',
-      code: '',
-      productGroup: '',
-      productCategories: '',
-      productType: '',
-      vatRate: 0,
-      exDutyRate: 0);
   productIdx = 0;
 }
 
 class _AddItemState extends State<AddItem> {
+  var rateController = TextEditingController();
+  var unitController = TextEditingController();
+  var quantityController = TextEditingController();
+  var amountController = TextEditingController();
+  var discountController = TextEditingController();
   //String query = '';
 
   @override
@@ -91,9 +74,13 @@ class _AddItemState extends State<AddItem> {
               icon: const Icon(Icons.arrow_back_ios)),
           actions: [
             IconButton(
-                onPressed: () async {
-                  var result = await RemoteService().getProductDetials(1);
-                  log('resultProductDetials---$result');
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>  NewSalesOrder(
+                            quantityReq:int.parse(quantityController.text) ,amountReq:double.parse(amountController.text) ,productNameReq: product.name,rateReq: double.parse(rateController.text),
+                              indexGetter: null, bearerToken: '')));
                 },
                 icon: Icon(
                   Icons.verified_rounded,
@@ -111,292 +98,305 @@ class _AddItemState extends State<AddItem> {
 
             List<AutoCompleteProductList?>? data1 = snapshot.data;
 
-            addProductList({item, itemIndex}) {
-              setState(() {
-                product = item;
-                productIdx = itemIndex;
-                // product.addAll(item);
-                log('pro-------$product');
-              });
-            }
-
             // log('data?????????//-------${data1![0]!.name}');
+            // log('ControlerrOUTTTT${rateController.text}');
+            // log('product-------$product');
 
-            log('product-------$product');
-            // if (data1!.isEmpty) {
-            //   return const Center(child: Text("No products"));
-            // }
-            return SingleChildScrollView(
-              child: Column(children: [
-                SizedBox(
-                  //  color: Colors.grey,
-                  width: double.infinity,
-                  height: 230.h,
+            return FutureBuilder<GetProductDetails?>(
+              //  newData = RemoteService().getProductDetials(productIdx);
+
+              future: newData,
+              //  RemoteService().getProductDetials(productIdx),
+              builder: (context, snapshot) {
+                // List<GetProductDetails>
+                GetProductDetails? productDetials = snapshot.data;
+
+                /////////////////////////////////////
+                addProductList({item, itemIndex}) {
+                  setState(() {
+                    product = item;
+                    productIdx = itemIndex;
+                    newData = RemoteService().getProductDetials(productIdx);
+                    newData.then((productDetials) {
+                      rateController.text =
+                          productDetials!.salesRate.toString();
+
+                      unitController.text = productDetials!.baseUnit.toString();
+
+                      //log("rate--------------")
+                    });
+                  });
+                }
+
+                //log('contOutttttttttt${rateController.text}');
+                //////////////////////////////////
+                // var productDetials = snapshot.data;
+
+                return SingleChildScrollView(
                   child: Column(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(
+                        //  color: Colors.grey,
+                        width: double.infinity,
+                        height: 530.h,
+                        child: Column(children: [
+                          Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Product/Item*",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color:
+                                            Color.fromARGB(255, 52, 158, 244)),
+                                  ),
+                                  SearchField(
+                                    searchInputDecoration:
+                                        const InputDecoration(
+                                            suffixIcon:
+                                                Icon(Icons.arrow_drop_down)),
+                                    hint: "Select Products",
+                                    autoCorrect: true,
+                                    suggestions: data1!
+                                        .map(
+                                            (e) => SearchFieldListItem(e!.name))
+                                        .toList(),
+                                    onSuggestionTap: (x) {
+                                      var filterItem = data1.firstWhere((e) {
+                                        return x.searchKey == e!.name;
+                                      });
+                                      addProductList(
+                                          item: filterItem,
+                                          itemIndex: filterItem!.productId);
+                                      log('indexxxxxxxxxx--------$productIdx');
+                                    },
+                                  ),
+                                ],
+                              )),
+                          Column(
                             children: [
-                              const Text(
-                                "Product/Item*",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color.fromARGB(255, 52, 158, 244)),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SizedBox(
+                                    width: 90.w,
+                                    child: TextFormField(
+                                      //initialValue: '0',
+                                      controller: quantityController,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          newData.then((productDetials) {
+                                            quantity = int.parse(
+                                                quantityController.text);
+                                            rate = double.parse(
+                                                rateController.text);
+                                            amount = quantity! * rate!;
+
+                                            log("rate-------$rate");
+
+                                            log("intQuantity-----------$quantity");
+                                            //log("amountValue---------${quantity! * rate!}");
+                                            log("amount--------$amount");
+                                            amountController.text =
+                                                amount.toString();
+                                          });
+                                        });
+                                      },
+                                      decoration: InputDecoration(
+                                          label: Text(
+                                        'Quantity *',
+                                        style: textStyle,
+                                      )),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 90.w,
+                                    child: TextFormField(
+                                      controller: unitController,
+                                      readOnly: true,
+                                      decoration: InputDecoration(
+                                        label: Text(
+                                          'Unit',
+                                          style: textStyle,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 90.w,
+                                    child: TextFormField(
+                                      readOnly: true,
+
+                                      controller: rateController,
+                                      //     initialValue: data2.salesRate.toString(),
+                                      decoration: InputDecoration(
+                                          label: Text(
+                                        'Rate *',
+
+                                        //    data2.salesRate.toString(),
+                                        style: textStyle,
+                                      )),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              // TextDropdownFormField(
-                              //   options: data1!.map((e) => e!.unit).toList(),
-                              //   decoration: const InputDecoration(
-                              //     // hintText: "Select Province",
-                              //     suffixIcon: Icon(Icons.arrow_drop_down),
-                              //   ),
-                              // ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SizedBox(
+                                    width: 90.w,
+                                    child: TextFormField(
+                                      onChanged: (value) {
+                                        setState(() {
+                                          newData.then((productDetials) {
+                                            quantity = int.parse(
+                                                quantityController.text);
+                                            rate = double.parse(
+                                                rateController.text);
+                                            discount = double.parse(
+                                                discountController.text);
+                                            discountAmount = (quantity! *
+                                                    rate! *
+                                                    discount!) /
+                                                100;
+                                            amount = (quantity! * rate!) -
+                                                discountAmount!;
 
-                              // DropdownButtonFormField(items: data1.map((e) => e!.name),
-                              //  onChanged: onChanged)
+                                            log("rate-------$discountAmount");
 
-                              SearchField(
-                                searchInputDecoration: const InputDecoration(
-                                    suffixIcon: Icon(Icons.arrow_drop_down)),
-                                hint: "Select Products",
-                                autoCorrect: true,
-                                suggestions: data1!
-                                    .map((e) => SearchFieldListItem(e!.name))
-                                    .toList(),
-                                onSuggestionTap: (x) {
-                                  var filterItem = data1.firstWhere((e) {
-                                    return x.searchKey == e!.name;
-                                  });
-                                  addProductList(
-                                      item: filterItem,
-                                      //if(itemIndex==null){
-                                      //return filterItem!.productId=0;
-                                      //    }
-                                      itemIndex: filterItem!.productId);
-                                  log('indexxxxxxxxxx--------$productIdx');
-                                  // log('filtered${filterItem[0]!.name}');
-                                  // product.add(x);
-                                  //log('product-------${product[0].name}');
-                                },
+                                            log("intQuantity-----------$quantity");
+                                            //log("amountValue---------${quantity! * rate!}");
+                                            log("amountAfterDiscount--------$amount");
+                                            amountController.text =
+                                                amount.toString();
+                                          });
+                                        });
+                                      },
+                                      controller: discountController,
+                                      decoration: InputDecoration(
+                                          label: Text(
+                                        'Discount %',
+                                        style: textStyle,
+                                      )),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 40.w,
+                                    child: TextFormField(
+                                      initialValue: '0',
+                                      decoration: const InputDecoration(
+                                        prefixIcon: Icon(Icons.arrow_drop_down),
+                                        // label: Text(
+                                        //   'Unit',
+                                        //   style: textStyle,
+                                        // ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 90.w,
+                                    child: TextFormField(
+                                      controller: amountController,
+                                      readOnly: true,
+                                      decoration: InputDecoration(
+                                          label: Text(
+                                        'Amount *',
+                                        style: textStyle,
+                                      )),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              // DropdownSearch<String>(
-                              //   mode: Mode.MENU,
-                              //   //to show search box
-                              //   showSearchBox: true,
-                              //   //showSelectedItem: true,
-                              //   //list of dropdown items
-                              //   items:
-                              //       // data1!.map((e) => e!.name).toList(),
-                              //       const [
-                              //     "India",
-                              //     "USA",
-                              //     "Brazil",
-                              //     "Canada",
-                              //     "Australia",
-                              //     "Singapore"
-                              //   ],
-                              //   hint: 'Select Product',
-                              //   // onChanged: print,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 14.0, vertical: 28),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.grey[300],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
 
-                              //   //show selected item
-                              //   // selectedItem: "India",
-                              //   // dropdownBuilder: (BuildContext String? )?{
+                                      _rowData(
+                                          'Closing Stock',
+                                          productDetials?.closingQty
+                                                  .toString() ??
+                                              '0'),
+                                      _rowData('Alternate Unit',
+                                          'N/A'), ////int.parse(product.code) value rakhda error aauxa hera
+                                      _rowData(
+                                          'Last Sale Rate',
+                                          productDetials?.salesRate
+                                                  .toString() ??
+                                              '0'),
+                                      _rowData(
+                                          'Last Sale Quantity',
+                                          productDetials?.outQty.toString() ??
+                                              '0'),
+                                      _rowData('Alias',
+                                          productDetials?.alias ?? '0'),
+                                      _rowData(
+                                          'Code', productDetials?.code ?? '0'),
+                                      _rowData('Product Group',
+                                          productDetials?.productGroup ?? '0'),
+                                      _rowData(
+                                          'Product Category',
+                                          productDetials?.productCategories ??
+                                              '0'),
+                                      _rowData('Product Type',
+                                          productDetials?.productType ?? '0'),
+                                      _rowData(
+                                          'Vat Rate',
+                                          productDetials?.vatRate.toString() ??
+                                              '0'),
+                                      _rowData(
+                                          'EXDutyRate',
+                                          productDetials?.exDutyRate
+                                                  .toString() ??
+                                              '0'),
 
-                              //   // },
-                              // ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
                             ],
-                          )),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // Column(
-                          //   children: [
-                          //     const Text(
-                          //       "Quantity*",
-                          //       style: TextStyle(
-                          //           fontSize: 15,
-                          //           fontWeight: FontWeight.w500,
-                          //           color: Color.fromARGB(255, 52, 158, 244)),
-                          //     ),
-                          //     Text(product.code)
-                          //   ],
-                          // ),
-
-                          SizedBox(
-                            width: 90.w,
-                            child: TextFormField(
-                              initialValue: '0',
-                              decoration: InputDecoration(
-                                  label: Text(
-                                'Quantity *',
-                                style: textStyle,
-                              )),
-                            ),
                           ),
-                          SizedBox(
-                            //  height: 50,
-                            width: 90.w,
-                            child: TextFormField(
-                              initialValue: 'N/A',
-                              decoration: InputDecoration(
-                                label: Text(
-                                  'Unit',
-                                  style: textStyle,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 90.w,
-                            child: TextFormField(
-                              initialValue: '0',
-                              decoration: InputDecoration(
-                                  label: Text(
-                                'Rate *',
-                                style: textStyle,
-                              )),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            width: 90.w,
-                            child: TextFormField(
-                              initialValue: '0',
-                              decoration: InputDecoration(
-                                  label: Text(
-                                'Discount %',
-                                style: textStyle,
-                              )),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 90.w,
-                            child: TextFormField(
-                              initialValue: product.unitId.toString(),
-                              decoration: InputDecoration(
-                                label: Text(
-                                  'Unit',
-                                  style: textStyle,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 90.w,
-                            child: TextFormField(
-                              initialValue: '0',
-                              decoration: InputDecoration(
-                                  label: Text(
-                                'Amount *',
-                                style: textStyle,
-                              )),
-                            ),
-                          ),
-                        ],
+                        ]),
                       ),
                     ],
                   ),
-                ),
-                FutureBuilder<GetProductDetails?>(
-                  future: RemoteService().getProductDetials(productIdx),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      log('isdata???????????----------${snapshot.data}');
-                      return Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.grey[300],
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              _rowData('Closing Stock', '0'),
-                              _rowData('Alternate Unit',
-                                  '0'), ////int.parse(product.code) value rakhda error aauxa hera
-                              _rowData('Last Sale Rate', '0'),
-                              _rowData('Last Sale Quantity', '0'),
-                              _rowData('Alias', '0'),
-                              _rowData('Code', '0'),
-                              _rowData('Product Group', '0'),
-                              _rowData('Product Category', '0'),
-                              _rowData('Product Type', '0'),
-                              _rowData('Vat Rate', '0'),
-                              _rowData('EXDutyRate', '0'),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                    var data2 = snapshot.data;
-                    log('productIndexxxxyyyyyyyyyy_____$productIdx');
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.grey[300],
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            _rowData(
-                                'Closing Stock', data2!.closingQty.toString()),
-                            _rowData('Alternate Unit',
-                                '0'), ////int.parse(product.code) value rakhda error aauxa hera
-                            _rowData(
-                                'Last Sale Rate', data2.salesRate.toString()),
-                            _rowData(
-                                'Last Sale Quantity', data2.outQty.toString()),
-                            _rowData('Alias', data2.alias),
-                            _rowData('Code', data2.code),
-                            _rowData('Product Group', data2.productGroup),
-                            _rowData(
-                                'Product Category', data2.productCategories),
-                            _rowData('Product Type', data2.productType),
-                            _rowData('Vat Rate', data2.vatRate.toString()),
-                            _rowData('EXDutyRate', data2.exDutyRate.toString()),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                )
-              ]),
+                );
+              },
             );
           },
         ));
   }
+}
 
-  TextStyle textStyle = const TextStyle(
-      color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500);
-  Widget _rowData(String title, String? value
-      //String value,
-      ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text(title), const SizedBox(), Text(value.toString())],
-      ),
-    );
-  }
+TextStyle textStyle = const TextStyle(
+    color: Colors.blue, fontSize: 18, fontWeight: FontWeight.w500);
+Widget _rowData(String title, String? value
+    //String value,
+    ) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [Text(title), const SizedBox(), Text(value.toString())],
+    ),
+  );
 }

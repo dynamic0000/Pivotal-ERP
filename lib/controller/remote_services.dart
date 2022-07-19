@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:intl/intl.dart';
 import 'package:pivotal_erp/constant.dart';
 //
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
 import 'package:pivotal_erp/models/getproductdetails_model.dart';
+import 'package:pivotal_erp/models/getvoucherno_model.dart';
 //import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -206,6 +208,7 @@ class RemoteService {
     try {
       GetProductDetialsToJSON getProductDetialsToJSON =
           GetProductDetialsToJSON(productIdIndex);
+      log('contAPIIIII-____$productIdIndex');
       String jsonGetProductDetials = jsonEncode(getProductDetialsToJSON);
       var response = await http.post(
         url,
@@ -219,15 +222,53 @@ class RemoteService {
       );
 
       if (response.statusCode == 200) {
-        log('aaaaaaaaa');
+        // log('aaaaaaaaa');
         var data = jsonDecode(response.body);
         final productModel = GetProductDetails.fromMap(data);
-        log('productdetails-----$data');
+        //   log('productdetails-----$data');
         return productModel;
       }
-      log('errrorr11111');
+      //log('errrorr11111');
     } catch (e) {
       log('getProductDetialerrorrrr----${e.toString()};');
+      rethrow;
+    }
+    return null;
+  }
+
+  Future<GetVoucherNo?> getVoucherNo() async {
+    var url = Uri.parse('https://demo.pivotalerp.app/v1/General/GetVoucherNo');
+    try {
+      
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+      log('formatted-------$formattedDate');
+
+      GetVoucherNoToJSON getVoucherNoToJSON =
+          GetVoucherNoToJSON(0, formattedDate, 13);
+
+      String jsonGetVoucherNo = jsonEncode(getVoucherNoToJSON);
+      var response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $access',
+          'Content-Type': 'application/json',
+          'Charset': 'utf-8',
+          'Accept': 'application/json',
+        },
+        body: jsonGetVoucherNo,
+      );
+    //  log('responsesese-----------${response.statusCode}');
+      if (response.statusCode == 200) {
+        // log('aaaaaaaaa');
+        var data = jsonDecode(response.body);
+        final voucherNo = GetVoucherNo.fromMap(data);
+        log('VoucherNoooooo-----${voucherNo.toJson()}');
+        return voucherNo;
+      }
+      //log('errrorr11111');
+    } catch (e) {
+      log('getVOucherNoooerrorrrr----${e.toString()};');
       rethrow;
     }
     return null;

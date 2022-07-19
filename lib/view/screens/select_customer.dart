@@ -104,7 +104,8 @@ class _SelectCustomerState extends State<SelectCustomer> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => NewSalesOrder(
-                                          bearerToken: widget.bearerToken, indexGetter: lst)));
+                                          bearerToken: widget.bearerToken,
+                                          indexGetter: lst)));
                             },
                             title: Text(
                               lst.name,

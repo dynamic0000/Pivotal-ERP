@@ -11,7 +11,6 @@ import 'package:intl/intl.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
-import 'package:pivotal_erp/models/getproductdetails_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
@@ -21,22 +20,33 @@ class NewSalesOrder extends StatefulWidget {
     Key? key,
     required this.indexGetter,
     required this.bearerToken,
+    this.quantityReq,
+    this.amountReq,
+    this.rateReq,
+    this.productNameReq,
   }) : super(key: key);
   final AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
+  final int? quantityReq;
+  final double? amountReq;
+  final double? rateReq;
+  final String? productNameReq;
 
   @override
   // ignore: no_logic_in_create_state
-  State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter);
+  State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter,
+      quantityReq, amountReq, rateReq, productNameReq, bearerToken);
 }
 
 class _NewSalesOrderDataState extends State<NewSalesOrder> {
   AutoCompleteLedgerList? indexGetter;
+  final String bearerToken;
+  final int? quantityReq;
+  final double? amountReq;
+  final double? rateReq;
+  final String? productNameReq;
   bool isDataPicked = false;
 
-  //AutoCompleteLedgerList? aCLL;
-
-  // Size size = MediaQuery.of(context).size;
   bool _checkbox = false;
   late String formattedText = "";
   late String formattedDueText = "";
@@ -52,7 +62,8 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   final node1 = FocusNode();
   final node2 = FocusNode();
 
-  _NewSalesOrderDataState(this.indexGetter);
+  _NewSalesOrderDataState(this.indexGetter, this.quantityReq, this.amountReq,
+      this.rateReq, this.productNameReq, this.bearerToken);
 
   @override
   void initState() {
@@ -225,18 +236,30 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               ))
         ],
       ),
-      body: data_or_not(context: context, indexGetter: indexGetter),
+      body: data_or_not(
+          context: context,
+          indexGetter: indexGetter,
+          quantityReq: quantityReq,
+          amountReq: amountReq,
+          rateReq: rateReq),
     );
   }
 
   SingleChildScrollView data_or_not(
-      {BuildContext? context, AutoCompleteLedgerList? indexGetter}) {
+      {int? quantityReq,
+      double? amountReq,
+      double? rateReq,
+      String? productNameReq,
+      BuildContext? context,
+      AutoCompleteLedgerList? indexGetter}) {
     var customerData = indexGetter == null
         ? noData_addCustomer(context!)
-        : yesData_addCustomer(context: context!, a: indexGetter);
+        : yesData_addCustomer(context!, indexGetter);
 //////////////condition for file pixked display////////
     var dataPicked =
         _resultFile == null ? Container() : fileNameDisplay(context);
+
+    var amountPicked = amountReq == null ? Container() : amountDisplay(context);
 
     return SingleChildScrollView(
       child: Container(
@@ -394,6 +417,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 ),
 
                 dataPicked,
+                const SizedBox(
+                  height: 10,
+                ),
+                amountPicked,
 
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -806,6 +833,37 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     );
   }
 
+  Container amountDisplay(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: const Color.fromARGB(255, 159, 191, 218),
+      ),
+      height: 45,
+      width: double.infinity - 20,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // IconButton(onPressed: (){}, icon: Icon(i))
+            Column(
+              children: [
+                Text(
+                  product.name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 15),
+                ),
+                Text('$quantityReq*$rateReq')
+              ],
+            ),
+            Text(amountReq.toString())
+          ],
+        ),
+      ),
+    );
+  }
+
   Column noData_addCustomer(
     BuildContext context,
   ) {
@@ -871,10 +929,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     );
   }
 
-  Column yesData_addCustomer({
+  Column yesData_addCustomer(
     BuildContext? context,
     AutoCompleteLedgerList? a,
-  }) {
+  ) {
     log('aaaaaaaaaaaaaaaaaaaaa----------$a');
     return Column(
       // mainAxisAlignment: MainAxisAlignment.start,
@@ -1044,27 +1102,27 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
           ],
         ),
       );
-  Container addItem_data(BuildContext context, GetProductDetails? data) {
-    log("value of data--------------${data!.name}");
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 130, 191, 241),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      width: MediaQuery.of(context).size.width,
-      height: 50.h,
-      child: Padding(
-        padding: const EdgeInsets.all(3),
-        child: Column(
-          children: [
-            Text(
-              data.name.toString(),
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(data.productGroup.toString())
-          ],
-        ),
-      ),
-    );
-  }
+  // Container addItem_data(BuildContext context, GetProductDetails? data) {
+  //   log("value of data--------------${data!.name}");
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       color: const Color.fromARGB(255, 130, 191, 241),
+  //       borderRadius: BorderRadius.circular(5),
+  //     ),
+  //     width: MediaQuery.of(context).size.width,
+  //     height: 50.h,
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(3),
+  //       child: Column(
+  //         children: [
+  //           Text(
+  //             data.name.toString(),
+  //             style: const TextStyle(fontWeight: FontWeight.bold),
+  //           ),
+  //           Text(data.productGroup.toString())
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

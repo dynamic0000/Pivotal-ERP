@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -123,32 +125,20 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
             suggestions: const [],
             hint: "Search",
           ),
-          ListTile(
-            title: const Text(
-              "SalesOrder",
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NewSalesOrder(
-                          indexGetter: null, bearerToken: '')));
-            },
-          ),
-          ListTile(
-            title: const Text(
-              "sa-SalesOrder",
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NewSalesOrder(
-                          indexGetter: null, bearerToken: '')));
-            },
-          ),
+          SizedBox(
+            height: 300.0, // Change as per your requirement
+            width: 300.0,
+            child: ListView.builder(
+                itemCount: listItems.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(listItems[index]),
+                    onTap: () {
+                      log("${listItems[index]} is pressed");
+                    },
+                  );
+                }),
+          )
         ],
       ),
     );
@@ -159,3 +149,5 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
         });
   }
 }
+
+const List<String> listItems = ['a', 'b', 'c', 'd', 'e', 'f', 't', 'h'];

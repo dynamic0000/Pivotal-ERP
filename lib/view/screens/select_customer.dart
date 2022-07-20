@@ -32,7 +32,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const NewSalesOrder(
+                      builder: (context) => NewSalesOrder(
                             bearerToken: '',
                             indexGetter: null,
                           )));

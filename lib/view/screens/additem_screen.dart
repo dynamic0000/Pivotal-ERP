@@ -40,7 +40,6 @@ int productIdx = 0;
 double? discountAmount;
 //AutoCompleteProductList? product;
 String query = '';
-
 @override
 void initState() {
   productIdx = 0;
@@ -63,32 +62,22 @@ class _AddItemState extends State<AddItem> {
           leading: IconButton(
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NewSalesOrder(
-                      bearerToken: '',
-                      indexGetter: null,
-                    ),
-                  ),
-                );
-                setState(() {
-                  productIdx = 0;
-                });
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NewSalesOrder(
+                              indexGetter: null,
+                              bearerToken: '',
+                            )));
               },
               icon: const Icon(Icons.arrow_back_ios)),
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => NewSalesOrder(
-                              quantityReq: int.parse(quantityController.text),
-                              amountReq: double.parse(amountController.text),
-                              productNameReq: product.name,
-                              rateReq: double.parse(rateController.text),
-                              indexGetter: null,
-                              bearerToken: '')));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const NewSalesOrder(
+                  //             indexGetter: null, bearerToken: '')));
                 },
                 icon: Icon(
                   Icons.verified_rounded,

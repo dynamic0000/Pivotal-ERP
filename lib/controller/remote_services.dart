@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:intl/intl.dart';
 import 'package:pivotal_erp/constant.dart';
 //
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
 import 'package:pivotal_erp/models/getproductdetails_model.dart';
-import 'package:pivotal_erp/models/getvoucherno_model.dart';
 //import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -155,7 +153,7 @@ class RemoteService {
   //   }
   // }
   String dynamic =
-      'VPJuUe3ggO90jkOwSepGicy9ilCXb6OFJX-py5HrfbR03-aVFGdn5z41oMCkrkSh8fIYLXkjkGAa1UGjC2lfiSsU_5Lc8RgjXwro27iSiwqhX7EUMcYWWMR2dHEkMz_YCaYai4RI0I8EhaUDpO9xkkU4YlfhQgDU1-cz1HI6vcInaAcSEvRXjq32GUIPD7X0dpf76cj-d9J2ov8teOpQeJZf6TMp0Kyk6DokgcxO2QRCKZP3HL1A-S-hLGNL3uOq6O9yUO-vCTKehTaAPex48jCSI2hF-0QTXXch4272taVF0GUmuhZN1cOMICOh2lI1XXtCsGFRJI-ker0fk8txffIQAfmgIt39vPr9k_OJNSlW4XFnOKUmn7L8rvDmDWF3VNuQXwpzTQXo4dMXJx7KrM3yzxsz9W9-Hiwj-kBv2u4';
+      'jOd4icj6C5-dXJu4Io-AxxtFO9CpldUfCPcHnyPXYB1cqMCOY0oQWgNIMEklATTP-1XRJNB_dZJiCW62OpnUgE-BWkwGlEBS2Hmh-1sOlkflyXFT_y2r-g54J-4Ebm99Tde-ieEJFVU0rcQ2GYGXMMzZc_wAFICOS67isYB2jpLfbZYhGh9fvH6qwuox2ncyLKStikdUhaUCSSp3AVaMGiuLaA7b8d5PBzEhMyZeQXDbXn7iVbaE_qzI07jc8ozAmOOTdgkwYDxsPbjlccg8Om68e4Cy43xGv6CNE0xXgDoCQW9jyLGkYp-P2UGmerJvpndFe4oSf4uw038BqnbDyQOEN0NsmZjc_zI5NurBCfCeEiwxMNnW7laatocXqZ8p_GDvvpR5FG6beH6HR2PgpdUto00ECK_I-zrpDrbaXNE';
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
       String dynamicToken, String query) async {
     //Future<void> getAutoCompleteProductList() async {
@@ -235,40 +233,72 @@ class RemoteService {
     return null;
   }
 
-  Future<GetVoucherNo?> getVoucherNo() async {
-    var url = Uri.parse('https://demo.pivotalerp.app/v1/General/GetVoucherNo');
-    try {
-      DateTime now = DateTime.now();
-      String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-      log('formatted-------$formattedDate');
-
-      GetVoucherNoToJSON getVoucherNoToJSON =
-          GetVoucherNoToJSON(0, formattedDate, 13);
-
-      String jsonGetVoucherNo = jsonEncode(getVoucherNoToJSON);
-      var response = await http.post(
-        url,
-        headers: {
-          'Authorization': 'Bearer $dynamic',
-          'Content-Type': 'application/json',
-          'Charset': 'utf-8',
-          'Accept': 'application/json',
-        },
-        body: jsonGetVoucherNo,
-      );
-      //  log('responsesese-----------${response.statusCode}');
-      if (response.statusCode == 200) {
-        // log('aaaaaaaaa');
-        var data = jsonDecode(response.body);
-        final voucherNo = GetVoucherNo.fromMap(data);
-        log('VoucherNoooooo-----${voucherNo.toJson()}');
-        return voucherNo;
-      }
-      //log('errrorr11111');
-    } catch (e) {
-      log('getVOucherNoooerrorrrr----${e.toString()};');
-      rethrow;
-    }
-    return null;
-  }
+  // Future<List<AutoCompleteProductList>?> getAutoCompleteProductList() async {
+  //   try {
+  //     AutoCompleteProductListToJSON autoCompleteProductListToJSON =
+  //         AutoCompleteProductListToJSON(1, 'c', 1);
+  //     String jsonAutoCompleteProductList =
+  //         jsonEncode(autoCompleteProductListToJSON);
+  //     var uri = Uri.parse('$urlERP/v1/inventory/AutoCompleteProductList');
+  //     final response1 = http.post(
+  //       uri,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Charset': 'utf-8',
+  //         'Accept': 'application/json',
+  //         'Authorization': 'Bearer $accessToken'
+  //       },
+  //       body: jsonAutoCompleteProductList,
+  //     );
+  //     if (response1.statusCode == 200) {
+  //       data = json.decode(response1.body);
+  //       results1 = data.map((e) => AutoCompleteProductList.fromJson(e)).toList();
+  //     }
+  //   } on Exception catch (e) {
+  //     log('ProductInventoryyy-------${e.toString()}');
+  //   }
+  //   return results1;
+  // }
+  // Future<List<AutoCompleteProductList>> getAutoCompleteProductList() async {
+  //   //Future<void> getAutoCompleteProductList() async {
+  //   List<AutoCompleteProductList> results9 = [];
+  //   //var data9 = [];
+  //   var url9 = Uri.parse(
+  //       'https://demo.pivotalerp.app/v1/inventory/AutoCompleteProductList');
+  //   try {
+  //     AutoCompleteProductListToJSON autoCompleteProductListToJSON =
+  //         AutoCompleteProductListToJSON(
+  //       1,
+  //       //'sandesh',
+  //       '',
+  //       1,
+  //     );
+  //     String jsonAutoCopleteProductList =
+  //         jsonEncode(autoCompleteProductListToJSON);
+  //     var response = await http.post(
+  //       url9,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Charset': 'utf-8',
+  //         'Accept': 'application/json',
+  //         // 'Content-Type': 'application/x-www-form-urlencoded',
+  //         'Authorization': 'Bearer $accessToken'
+  //       },
+  //       //body lai json format ma change gareko
+  //       body: jsonAutoCopleteProductList,
+  //     );
+  //     log('koi$response9');
+  //     if (response9.statusCode == 200) {
+  //       var data9 = jsonDecode(response9.body);
+  //       log('letsseeee-------${response9.body}');
+  //       var results9 = data9.map((e) => AutoCompleteProductList.fromJson(e));
+  //       return results9;
+  //     } else {
+  //       log("No data---fetch error");
+  //     }
+  //   } on Exception catch (e) {
+  //     log('2222222error: $e');
+  //   }
+  //   return results9;
+  // }
 }

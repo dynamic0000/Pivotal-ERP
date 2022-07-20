@@ -132,8 +132,8 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          NewSalesOrder(indexGetter: null, bearerToken: '')));
+                      builder: (context) => const NewSalesOrder(
+                          indexGetter: null, bearerToken: '')));
             },
           ),
           ListTile(
@@ -145,8 +145,8 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          NewSalesOrder(indexGetter: null, bearerToken: '')));
+                      builder: (context) => const NewSalesOrder(
+                          indexGetter: null, bearerToken: '')));
             },
           ),
         ],

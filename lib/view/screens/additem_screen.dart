@@ -65,7 +65,7 @@ class _AddItemState extends State<AddItem> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NewSalesOrder(
+                    builder: (context) => NewSalesOrder(
                       bearerToken: '',
                       indexGetter: null,
                     ),

@@ -16,7 +16,7 @@ import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
 
 class NewSalesOrder extends StatefulWidget {
-  const NewSalesOrder({
+  NewSalesOrder({
     Key? key,
     required this.indexGetter,
     required this.bearerToken,
@@ -28,7 +28,7 @@ class NewSalesOrder extends StatefulWidget {
   final AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
   final int? quantityReq;
-  final double? amountReq;
+  double? amountReq;
   final double? rateReq;
   final String? productNameReq;
 
@@ -42,7 +42,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
   final int? quantityReq;
-  final double? amountReq;
+  double? amountReq;
   final double? rateReq;
   final String? productNameReq;
   bool isDataPicked = false;
@@ -844,10 +844,24 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // IconButton(onPressed: (){}, icon: Icon(i))
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    amountReq = null;
+                    log("amoutReq$amountReq");
+                  });
+                },
+                icon: const Icon(
+                  Icons.remove_circle,
+                  color: Colors.red,
+                  size: 25,
+                )),
+            //const Spacer(),
             Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   product.name,
@@ -857,6 +871,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 Text('$quantityReq*$rateReq')
               ],
             ),
+            const Spacer(),
             Text(amountReq.toString())
           ],
         ),
@@ -1093,36 +1108,14 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               height: 6.h,
             ),
             filesColumn(context, "images/dustbin.png", "Remove", () {
+              Navigator.pop(context);
               setState(() {
                 // _platformFile = '';
-                _resultFile = '';
-                log('letscheck-----------$_resultFile');
+                _resultFile = null;
+                //log('letscheck-----------$_resultFile');
               });
             }),
           ],
         ),
       );
-  // Container addItem_data(BuildContext context, GetProductDetails? data) {
-  //   log("value of data--------------${data!.name}");
-  //   return Container(
-  //     decoration: BoxDecoration(
-  //       color: const Color.fromARGB(255, 130, 191, 241),
-  //       borderRadius: BorderRadius.circular(5),
-  //     ),
-  //     width: MediaQuery.of(context).size.width,
-  //     height: 50.h,
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(3),
-  //       child: Column(
-  //         children: [
-  //           Text(
-  //             data.name.toString(),
-  //             style: const TextStyle(fontWeight: FontWeight.bold),
-  //           ),
-  //           Text(data.productGroup.toString())
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }

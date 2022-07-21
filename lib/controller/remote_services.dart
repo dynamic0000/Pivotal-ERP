@@ -1,13 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:html';
 
 import 'package:intl/intl.dart';
 import 'package:pivotal_erp/constant.dart';
+import 'package:dio/dio.dart';
 //
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
 import 'package:pivotal_erp/models/getproductdetails_model.dart';
+import 'package:pivotal_erp/models/getvouchermodes_model.dart';
 import 'package:pivotal_erp/models/getvoucherno_model.dart';
+import 'package:pivotal_erp/models/savesalesinvoice_model.dart';
 //import 'package:pivotal_erp/models/resetpassword_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
@@ -239,7 +243,6 @@ class RemoteService {
   Future<GetVoucherNo?> getVoucherNo() async {
     var url = Uri.parse('https://demo.pivotalerp.app/v1/General/GetVoucherNo');
     try {
-      
       DateTime now = DateTime.now();
       String formattedDate = DateFormat('yyyy-MM-dd').format(now);
       log('formatted-------$formattedDate');
@@ -258,9 +261,8 @@ class RemoteService {
         },
         body: jsonGetVoucherNo,
       );
-    //  log('responsesese-----------${response.statusCode}');
+
       if (response.statusCode == 200) {
-        // log('aaaaaaaaa');
         var data = jsonDecode(response.body);
         final voucherNo = GetVoucherNo.fromMap(data);
         log('VoucherNoooooo-----${voucherNo.toJson()}');
@@ -272,5 +274,111 @@ class RemoteService {
       rethrow;
     }
     return null;
+  }
+
+  ////////////////////////////////////////////////////////////////////
+  Future<List<GetVoucherModes>?> getVoucherModes() async {
+    List<GetVoucherModes> voucherModes = [];
+
+    var url = Uri.parse('$urlERP/v1/Account/GetVoucherModes?VoucherType=13');
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $access',
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        log('satatuscode-------${response.statusCode}');
+        var data = jsonDecode(response.body);
+
+        // var voucherModes =
+        //   [...data.map((e) => GetVoucherModes.fromJson(e)).toList()];
+
+        log('VoucherMOdessssss-------$voucherModes');
+
+        return [...data.map((e) => GetVoucherModes.fromJson(e)).toList()];
+      } else {
+        log("No data---fetch error");
+      }
+    } catch (e) {
+      log('eeeeeeeeeeeeeeee_________${e.toString()}');
+    }
+    // log('final' '$results9');
+    return voucherModes;
+  }
+
+  Future<SaveSalesInvoice?> saveSalesInvoice({
+    int? voucherId,
+    int? quantity,
+    double? amount,
+    int? billedQuantity,
+    double? disAmt,
+    double? disPer,
+    int? ledgerId,
+    int? productId,
+    double? rate,
+    int? unitId,
+    int? partyledgerId,
+    double? totalAmount,
+    String? voucherDate,
+  }) async {
+    var url =
+        'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
+    SaveSalesInvoice? saveOn;
+    try {
+      Dio dio = Dio();
+
+      log('tryinggggggggg');
+      var response = await dio.put(
+        url,
+        headers: {
+          'Authorization': 'Bearer $access',
+          'Content-Type': 'application/form-data',
+          // 'Charset': 'utf-8',
+          // 'Accept': 'application/json',
+        },
+        body: {
+          "aditionalCostColl": '${[]}',
+          "itemAllocationColl": '${[
+            {
+              "ActualQty": 1,
+              "Amount": 1,
+              "BilledQty": 1,
+              "DiscountAmt": 1,
+              "DiscountPer": 1,
+              "FreeQty": 13,
+              "LedgerId": 0,
+              "ProductId": 0,
+              "Rate": 1,
+              "UnitId": 1
+            }
+          ]}',
+          "manualVoucherNO": "1",
+          "narration": "",
+          // "partyLedgerId": 1,
+          "refNo": "",
+          // "totalAmount": 1,
+          "voucherDate": '2022-07-20',
+          // "voucherId": 1
+        },
+      );
+      var data = response.body;
+      log('savaDataatatatatata-----$data');
+      if (response.statusCode == 200) {
+        log('saveresponsecose---------${response.statusCode}');
+        String responseString = response.body;
+        log('saveresponseString=======$responseString');
+        var saveIt = saveSalesInvoiceFromJson(data);
+        log('save-----------$saveIt');
+        return saveIt;
+      }
+    } catch (e) {
+      log('saveadddingAPIeroooorrrrrrrrrr____________${e.toString()}');
+    }
+    log('saveOONN------$saveOn');
+    return saveOn;
   }
 }

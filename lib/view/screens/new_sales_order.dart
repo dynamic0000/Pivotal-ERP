@@ -7,62 +7,85 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
-import 'package:pivotal_erp/controller/remote_services.dart';
 
+import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import 'package:pivotal_erp/view/screens/select_customer.dart';
 
 class NewSalesOrder extends StatefulWidget {
-  // ignore: use_key_in_widget_constructors
-  const NewSalesOrder({
-    Key? key,
-    required this.indexGetter,
-    required this.bearerToken,
-    this.quantityReq,
-    this.amountReq,
-    this.rateReq,
-    this.productNameReq,
-  }) : super();
+  NewSalesOrder(
+      {Key? key,
+      required this.indexGetter,
+      required this.bearerToken,
+      this.quantityReq,
+      this.rateReq,
+      this.productNameReq,
+      this.voucherIdpass,
+      this.voucherName,
+      this.amountReq})
+      : super(key: key);
   final AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
   final int? quantityReq;
-  final double? amountReq;
+  double? amountReq;
   final double? rateReq;
   final String? productNameReq;
+  final int? voucherIdpass;
+  final String? voucherName;
 
   @override
   // ignore: no_logic_in_create_state
-  State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter,
-      quantityReq, amountReq, rateReq, productNameReq, bearerToken);
+  State<NewSalesOrder> createState() => _NewSalesOrderDataState(
+      indexGetter,
+      quantityReq,
+      amountReq,
+      rateReq,
+      productNameReq,
+      bearerToken,
+      voucherIdpass,
+      voucherName);
 }
 
 class _NewSalesOrderDataState extends State<NewSalesOrder> {
   AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
   final int? quantityReq;
-  final double? amountReq;
+  double? amountReq;
   final double? rateReq;
   final String? productNameReq;
+  final int? voucherIdpass;
+  final String? voucherName;
 
-  //AutoCompleteLedgerList? aCLL;
+  bool isDataPicked = false;
 
-  // Size size = MediaQuery.of(context).size;
   bool _checkbox = false;
+  late String formattedText = "";
+  late String formattedDueText = "";
 
   late String formattedTextNepali = '';
   late String formattedDueTextNepali = '';
   NepaliDateTime selectedNepaliDate = NepaliDateTime.now();
   NepaliDateTime selectedDueNepaliDate = NepaliDateTime.now();
+  DateTime selectedDate = DateTime.now();
+  DateTime selectedDueDate = DateTime.now();
 
   bool isEnabled = true;
   final node1 = FocusNode();
   final node2 = FocusNode();
 
-  _NewSalesOrderDataState(this.indexGetter, this.quantityReq, this.amountReq,
-      this.rateReq, this.productNameReq, this.bearerToken);
+  _NewSalesOrderDataState(
+      this.indexGetter,
+      this.quantityReq,
+      this.amountReq,
+      this.rateReq,
+      this.productNameReq,
+      this.bearerToken,
+      this.voucherIdpass,
+      this.voucherName);
 
   @override
   void initState() {
@@ -72,119 +95,127 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
     formattedDueTextNepali =
         NepaliDateFormat('yyyy-MM-dd').format(NepaliDateTime.now());
+    formattedText = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
+    formattedDueText = DateFormat("yyyy-MM-dd").format(DateTime.now());
   }
+  // void clearText() {
+  //   fieldText.clear();
+  // }
 
   //first issue calendar
-  Future<void> _selectedNepaliDate() async {
-    NepaliDateTime? pickedNepali = await showMaterialDatePicker(
-      context: context,
-      initialDate: selectedNepaliDate,
-      firstDate: NepaliDateTime(2000),
-      lastDate: NepaliDateTime(2090),
-    );
-    if (pickedNepali != null && pickedNepali != selectedNepaliDate) {
+  // Future<void> _selectedNepaliDate() async {
+  //   NepaliDateTime? pickedNepali = await showMaterialDatePicker(
+  //     context: context,
+  //     initialDate: selectedNepaliDate,
+  //     firstDate: NepaliDateTime(2000),
+  //     lastDate: NepaliDateTime(2090),
+  //   );
+  //   if (pickedNepali != null && pickedNepali != selectedNepaliDate) {
+  //     setState(() {
+  //       selectedNepaliDate = pickedNepali;
+  //       formattedTextNepali =
+  //           NepaliDateFormat("yyyy-MM-dd").format(selectedNepaliDate);
+  //     });
+  //   }
+  // }
+
+  //second due date calendar
+  // Future<void> _selectedDueNepaliDate() async {
+  //   NepaliDateTime? pickedDueNepali = await showMaterialDatePicker(
+  //     context: context,
+  //     initialDate: selectedDueNepaliDate,
+  //     firstDate: NepaliDateTime(2000),
+  //     lastDate: NepaliDateTime(2090),
+  //     //  language: Language.english,
+  //   );
+  //   if (pickedDueNepali != null && pickedDueNepali != selectedDueNepaliDate) {
+  //     setState(() {
+  //       selectedDueNepaliDate = pickedDueNepali;
+  //       formattedDueTextNepali =
+  //           NepaliDateFormat("yyyy-MM-dd").format(selectedDueNepaliDate);
+  //     });
+  //   }
+  // }
+
+  Future<void> _selectDate() async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2010),
+        lastDate: DateTime(2040));
+    if (picked != null && picked != selectedDate) {
       setState(() {
-        selectedNepaliDate = pickedNepali;
-        formattedTextNepali =
-            NepaliDateFormat("yyyy-MM-dd").format(selectedNepaliDate);
+        selectedDate = picked;
+        formattedText = DateFormat("yyyy-MM-dd").format(selectedDate);
       });
     }
   }
 
-  //second due date calendar
-  Future<void> _selectedDueNepaliDate() async {
-    NepaliDateTime? pickedDueNepali = await showMaterialDatePicker(
-      context: context,
-      initialDate: selectedDueNepaliDate,
-      firstDate: NepaliDateTime(2000),
-      lastDate: NepaliDateTime(2090),
-      //  language: Language.english,
-    );
-    if (pickedDueNepali != null && pickedDueNepali != selectedDueNepaliDate) {
+  Future<void> _selectDueDate() async {
+    final DateTime? pickedDue = await showDatePicker(
+        context: context,
+        initialDate: selectedDueDate,
+        firstDate: DateTime(2010),
+        lastDate: DateTime(2040));
+    if (pickedDue != null && pickedDue != selectedDate) {
       setState(() {
-        selectedDueNepaliDate = pickedDueNepali;
-        formattedDueTextNepali =
-            NepaliDateFormat("yyyy-MM-dd").format(selectedDueNepaliDate);
+        selectedDueDate = pickedDue;
+        formattedDueText = DateFormat("yyyy-MM-dd").format(selectedDueDate);
       });
     }
   }
 
   //late AnimationController loadingController;
   File? _file;
-  File? _cameraFile;
-  PlatformFile? _platformFile;
-  PlatformFile? _cameraPlatformFile;
+  String? _resultFile;
+  var cameraName;
+  var galleryName;
+
+//  String? _platformFile;
+  // PlatformFile? _cameraPlatformFile;
   Future pickImage() async {
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+    var galleryFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    galleryName = File(galleryFile!.path);
+    setState(() {
+      _resultFile = galleryFile.name;
+    });
   }
 
   Future captureImage() async {
-    await ImagePicker().pickImage(source: ImageSource.camera);
-    var cameraFile = await FilePicker.platform.pickFiles();
-    if (cameraFile != null) {
-      log('yesssssssssCamera');
-      _cameraFile = File(cameraFile.files.single.path!);
-      setState(() {
-        _platformFile = cameraFile.files.first;
-      });
+    var cameraFile = await ImagePicker().pickImage(source: ImageSource.camera);
+    cameraName = File(cameraFile!.path);
 
-      log('Camerafileyes------$_file');
-      log('CamerafilePlatformmmmuppppppp------$_platformFile');
-    }
+    setState(() {
+      _resultFile = cameraFile.name;
+      log("result file ---------$_resultFile");
+    });
   }
 
   Future selectFile() async {
     var file = await FilePicker.platform.pickFiles(
-        allowMultiple: false,
-        type: FileType.custom,
-        allowedExtensions: ['png', 'jpg', 'jpeg']);
-    if (file != null) {
-      log('yesssssssss');
-      _file = File(file.files.single.path!);
-      setState(() {
-        _platformFile = file.files.first;
-      });
+      allowMultiple: true,
+      // type: FileType.custom,
+      // allowedExtensions: ['png', 'jpg', 'jpeg']
+    );
 
-      log('fileyes------$_file');
-      log('filePlatformmmmuppppppp------$_platformFile');
-    }
-    //loadingController.forward();
-    log('fileno------$_file');
-    log('filePlatformmmmdownnnn------$_platformFile');
+    _file = File(file!.files.single.path!);
+    setState(() {
+      _resultFile = file.files.first.name;
+    });
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    //Size size = MediaQuery.of(context).size;
-    // return
-    //hasData(context, indexGetter);
-    // return FutureBuilder(
-    //     future: RemoteService().getAutoCompleteLedgerList(),
-    //     builder: (
-    //       context,
-    //       AsyncSnapshot<List<AutoCompleteLedgerList?>> snapshot,
-    //     ) {
-    //       // final aCLL = snapshot.data;
-
-    //       // log('indexxxxxxxxxxxxx-----$indexGetter');
-
-    //       // if (indexGetter == null) {
-    //       //   return const Center(child: Text('NOooooo'));
-    //       // } else {
-    //         return hasData(context, indexGetter);
-    //       // }
-    //     });
-    // }
-
+  Widget build(BuildContext context) {
     // Scaffold hasData(BuildContext context, AutoCompleteLedgerList? indexGetter) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 29, 117, 189),
         title: Text(
-          "Sales Invoice",
-          style: TextStyle(fontSize: 30.sp),
+          voucherName ?? "Sales Invoice",
+          style: TextStyle(fontSize: 20.sp),
         ),
         leading: IconButton(
             onPressed: () {
@@ -199,10 +230,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         actions: [
           IconButton(
               onPressed: () async {
+                await RemoteService().saveSalesInvoice();
                 // var heram = await RemoteService().getAutoCompleteProductList();
                 //log('herammmmmmmmmm$heram');
               },
-              icon: const Icon(Icons.abc)),
+              icon: const Icon(Icons.verified_rounded)),
           IconButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -219,18 +251,16 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 size: 30.sp,
               )),
           IconButton(
-              onPressed: () async {
-                final result = await RemoteService().getVoucherNo();
-                  log('voucherNOOOOOO---$result');
-              },
+              onPressed: () {},
               icon: Icon(
-                Icons.coronavirus,
+                Icons.search,
                 color: Colors.green,
                 size: 30.sp,
               ))
         ],
       ),
       body: data_or_not(
+          voucherIdPass: voucherIdpass,
           context: context,
           indexGetter: indexGetter,
           quantityReq: quantityReq,
@@ -245,11 +275,17 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
       double? rateReq,
       String? productNameReq,
       BuildContext? context,
+      int? voucherIdPass,
       AutoCompleteLedgerList? indexGetter}) {
     var customerData = indexGetter == null
         ? noData_addCustomer(context!)
         : yesData_addCustomer(context!, indexGetter);
-    log('testrfgggggggggggggggggggggggggggg');
+//////////////condition for file pixked display////////
+    var dataPicked =
+        _resultFile == null ? Container() : fileNameDisplay(context);
+
+    var amountPicked = amountReq == null ? Container() : amountDisplay(context);
+
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(15),
@@ -289,7 +325,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            "Invoice No.",
+                            voucherIdpass.toString(),
                             style: TextStyle(
                                 fontSize: 15.sp,
                                 color: const Color.fromARGB(255, 16, 124, 213),
@@ -304,11 +340,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                             child: TextField(
                               focusNode: node1,
                               style: TextStyle(fontSize: 10.sp),
-                              enabled: isEnabled,
-                              readOnly: !isEnabled,
+                              readOnly: true,
                             ),
                           ),
-
                           SizedBox(
                             height: 5.h,
                           ),
@@ -319,12 +353,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                 color: const Color.fromARGB(255, 16, 124, 213),
                                 fontWeight: FontWeight.normal),
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: _selectedNepaliDate,
+                                onTap: _selectDate,
                                 child: Container(
                                   height: 20.h,
                                   width: 80.w,
@@ -334,7 +367,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                             width: 2.0.w, color: Colors.grey)),
                                   ),
                                   child: Text(
-                                    formattedTextNepali,
+                                    formattedText,
                                     // formattedText,
 
                                     style: TextStyle(fontSize: 15.sp),
@@ -345,7 +378,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                               // ),
                               IconButton(
                                   onPressed: () {
-                                    _selectedNepaliDate();
+                                    _selectDate();
                                   },
                                   icon: const Icon(
                                     Icons.calendar_today,
@@ -353,7 +386,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                   ))
                             ],
                           ),
-
                           SizedBox(
                             height: 4.h,
                           ),
@@ -364,14 +396,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                 color: const Color.fromARGB(255, 16, 124, 213),
                                 fontWeight: FontWeight.normal),
                           ),
-                          // SizedBox(
-                          //   height: 5,
-                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: _selectedDueNepaliDate,
+                                onTap: _selectDueDate,
                                 child: Container(
                                   height: 20.h,
                                   width: 80.w,
@@ -381,7 +410,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                             width: 2.h, color: Colors.grey)),
                                   ),
                                   child: Text(
-                                    formattedDueTextNepali,
+                                    formattedDueText,
                                     // formattedDueText,
 
                                     style: TextStyle(fontSize: 15.sp),
@@ -390,7 +419,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                               ),
                               IconButton(
                                   onPressed: () {
-                                    _selectedDueNepaliDate();
+                                    _selectDueDate();
                                   },
                                   icon: const Icon(
                                     Icons.calendar_today,
@@ -411,60 +440,13 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 10.h,
                 ),
-                GestureDetector(
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color.fromARGB(255, 181, 204, 224),
-                      ),
-                      height: 30,
-                      width: double.infinity - 20,
-                      child: Center(
-                          child: Text(_platformFile?.name ?? '',
-                              style: GoogleFonts.bebasNeue(
-                                  textStyle: TextStyle(
-                                      color: Colors.black.withOpacity(1)))))),
-                  onTap: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.r),
-                                topRight: Radius.circular(20.r))),
-                        context: context,
-                        builder: (context) => buildSheetForRemoval());
 
-                    // setState(() {
-                    //   //_platformFile?.name= '';
-                    //   log('letscheck-----------${_platformFile?.name}');
-                    // });
-
-                    log('dipika is absent');
-                  },
-                ),
-
+                dataPicked,
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color.fromARGB(255, 159, 191, 218),
-                  ),
-                  height: 40,
-                  width: double.infinity - 20,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text(product.name),
-                          Text('$quantityReq*$rateReq')
-                        ],
-                      ),
-                      Text(amountReq.toString())
-                    ],
-                  ),
-                ),
+                amountPicked,
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -540,6 +522,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 15.h,
                 ),
+                // addItem_data(context, GetProductDetails()),
                 Divider(
                   indent: 45,
                   color: Colors.grey.withOpacity(.8),
@@ -838,6 +821,89 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     );
   }
 
+  GestureDetector fileNameDisplay(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+          decoration: BoxDecoration(
+              border:
+                  Border.all(color: const Color.fromARGB(255, 177, 177, 177)),
+              borderRadius: BorderRadius.circular(10),
+              color: const Color.fromARGB(255, 169, 214, 251)),
+          height: 30,
+          width: double.infinity - 20,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(_resultFile ?? '',
+                style: GoogleFonts.bebasNeue(
+                    textStyle: TextStyle(
+                        color: const Color.fromARGB(255, 111, 111, 111)
+                            .withOpacity(1)))),
+          )),
+      onTap: () {
+        showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.r),
+                    topRight: Radius.circular(20.r))),
+            context: context,
+            builder: (context) => buildSheetForRemoval());
+
+        // setState(() {
+        //   //_platformFile?.name= '';
+        //   log('letscheck-----------${_platformFile?.name}');
+        // });
+
+        log('dipika is absent');
+      },
+    );
+  }
+
+  Container amountDisplay(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: const Color.fromARGB(255, 159, 191, 218),
+      ),
+      height: 45,
+      width: double.infinity - 20,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    amountReq = null;
+                    log("amoutReq$amountReq");
+                  });
+                },
+                icon: const Icon(
+                  Icons.remove_circle,
+                  color: Colors.red,
+                  size: 25,
+                )),
+            //const Spacer(),
+            Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  product.name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 15),
+                ),
+                Text('$quantityReq*$rateReq')
+              ],
+            ),
+            const Spacer(),
+            Text(amountReq.toString())
+          ],
+        ),
+      ),
+    );
+  }
+
   Column noData_addCustomer(
     BuildContext context,
   ) {
@@ -904,7 +970,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   }
 
   Column yesData_addCustomer(
-    BuildContext context,
+    BuildContext? context,
     AutoCompleteLedgerList? a,
   ) {
     log('aaaaaaaaaaaaaaaaaaaaa----------$a');
@@ -949,29 +1015,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         _rowData(
             title: 'Credit Limit   -',
             titleData: a.creditLimitAmount.toString()),
-        // Text(
-        //   a.creditLimitDays.toString(),
-        //   style: GoogleFonts.cantarell(
-        //     textStyle: TextStyle(
-        //       fontSize: 15.sp,
-        //       color: Colors.grey.shade800.withOpacity(1),
-        //     ),
-        //   ),
-        // ),
         const SizedBox(
           height: 8,
         ),
         _rowData(
             title: 'Credit Days   -', titleData: a.creditLimitDays.toString()),
-        // Text(
-        //   a.creditLimitAmount.toString(),
-        //   style: GoogleFonts.cantarell(
-        //     textStyle: TextStyle(
-        //       fontSize: 15.sp,
-        //       color: Colors.grey.shade800.withOpacity(1),
-        //     ),
-        //   ),
-        // )
       ],
     );
   }
@@ -1066,7 +1114,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
           ],
         ),
       );
-
   buildSheetForRemoval() => SizedBox(
         height: 130.h,
         width: MediaQuery.of(context).size.width,
@@ -1086,9 +1133,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               height: 6.h,
             ),
             filesColumn(context, "images/dustbin.png", "Remove", () {
+              Navigator.pop(context);
               setState(() {
-//_platformFile!.name = '';
-                log('letscheck-----------${_platformFile?.name}');
+                // _platformFile = '';
+                _resultFile = null;
+                //log('letscheck-----------$_resultFile');
               });
             }),
           ],

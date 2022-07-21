@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pivotal_erp/view/screens/User_home_screen.dart';
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 // const bool debugEnableDevicesSimulator = true;
@@ -23,14 +24,16 @@ class MyApp extends StatelessWidget {
             // debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(primarySwatch: Colors.blue),
-            // home: const ProductTry(),
+            home: const UserHomeScreen(
+              bearerToken: '',
+            ),
             // home: const NewSalesOrder(
             //   indexGetter: null,
             // ),
-            home: const NewSalesOrder(
-              bearerToken: '',
-              indexGetter: null,
-            ),
+            // home:  NewSalesOrder(
+            //   bearerToken: '',
+            //   indexGetter: null,
+            // ),
             // const AddItem(
             //   bearerToken: '',
             // ),

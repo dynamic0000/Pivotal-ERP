@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
+import 'package:pivotal_erp/controller/remote_services.dart';
 
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/view/screens/User_home_screen.dart';
@@ -24,6 +25,8 @@ class NewSalesOrder extends StatefulWidget {
     this.amountReq,
     this.rateReq,
     this.productNameReq,
+    this.voucherIdpass,
+    this.voucherName,
   }) : super(key: key);
   final AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
@@ -31,11 +34,20 @@ class NewSalesOrder extends StatefulWidget {
   double? amountReq;
   final double? rateReq;
   final String? productNameReq;
+  final int? voucherIdpass;
+  final String? voucherName;
 
   @override
   // ignore: no_logic_in_create_state
-  State<NewSalesOrder> createState() => _NewSalesOrderDataState(indexGetter,
-      quantityReq, amountReq, rateReq, productNameReq, bearerToken);
+  State<NewSalesOrder> createState() => _NewSalesOrderDataState(
+      indexGetter,
+      quantityReq,
+      amountReq,
+      rateReq,
+      productNameReq,
+      bearerToken,
+      voucherIdpass,
+      voucherName);
 }
 
 class _NewSalesOrderDataState extends State<NewSalesOrder> {
@@ -45,6 +57,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   double? amountReq;
   final double? rateReq;
   final String? productNameReq;
+  final int? voucherIdpass;
+  final String? voucherName;
+
   bool isDataPicked = false;
 
   bool _checkbox = false;
@@ -60,8 +75,15 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
 
   bool isEnabled = true;
 
-  _NewSalesOrderDataState(this.indexGetter, this.quantityReq, this.amountReq,
-      this.rateReq, this.productNameReq, this.bearerToken);
+  _NewSalesOrderDataState(
+      this.indexGetter,
+      this.quantityReq,
+      this.amountReq,
+      this.rateReq,
+      this.productNameReq,
+      this.bearerToken,
+      this.voucherIdpass,
+      this.voucherName);
 
   @override
   void initState() {
@@ -214,7 +236,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 size: 30.sp,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                RemoteService().saveSalesInvoices(voucherId: voucherIdpass);
+              },
               icon: const Icon(
                 Icons.verified_rounded,
                 color: Colors.green,
@@ -295,12 +319,19 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                             height: 5.h,
                           ),
                           SizedBox(
-                            width: 60.w,
-                            height: 16.h,
-                            child: TextField(
-                              style: TextStyle(fontSize: 10.sp),
-                              readOnly: true,
+                            child: Text(
+                              voucherIdpass.toString() ?? '0',
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  color: const Color.fromARGB(255, 7, 7, 7),
+                                  fontWeight: FontWeight.normal),
                             ),
+                            // width: 60.w,
+                            // height: 16.h,
+                            // child: TextField(
+                            //   style: TextStyle(fontSize: 10.sp),
+                            //   readOnly: true,
+                            // ),
                           ),
                           SizedBox(
                             height: 5.h,

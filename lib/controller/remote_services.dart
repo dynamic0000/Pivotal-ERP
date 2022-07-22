@@ -8,6 +8,7 @@ import 'package:pivotal_erp/constant.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
 import 'package:pivotal_erp/models/getproductdetails_model.dart';
+import 'package:pivotal_erp/models/getvouchermodes_model.dart';
 import 'package:pivotal_erp/models/getvoucherno_model.dart';
 import 'package:pivotal_erp/models/saveSalesInvoice_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
@@ -257,14 +258,47 @@ class RemoteService {
     return null;
   }
 
-  Future<SaveSalesInvoice?> saveSalesInvoices() async {
+  Future<List<GetVoucherModes>?> getVoucherModes() async {
+    List<GetVoucherModes> voucherModes = [];
+
+    var url = Uri.parse('$urlERP/v1/Account/GetVoucherModes?VoucherType=13');
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $dynamic',
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        log('satatuscode-------${response.statusCode}');
+        var data = jsonDecode(response.body);
+
+        // var voucherModes =
+        //   [...data.map((e) => GetVoucherModes.fromJson(e)).toList()];
+
+        log('VoucherMOdessssss-------$voucherModes');
+
+        return [...data.map((e) => GetVoucherModes.fromJson(e)).toList()];
+      } else {
+        log("No data---fetch error");
+      }
+    } catch (e) {
+      log('eeeeeeeeeeeeeeee_________${e.toString()}');
+    }
+    // log('final' '$results9');
+    return voucherModes;
+  }
+
+  Future<SaveSalesInvoice?> saveSalesInvoices({int? voucherId}) async {
     var url = 'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
     try {
       Dio dio = Dio();
       var data1 = """{
         "VoucherDate": "2022-07-21",
         "ManualVoucherNO": "",
-        "VoucherId": 1,
+        "VoucherId": $voucherId,
         "RefNo": "test ref 1212",
         "Narration": "Test Narration",
         "PartyLedgerId": 1,

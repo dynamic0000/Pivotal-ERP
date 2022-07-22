@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
+import 'package:pivotal_erp/models/getvouchermodes_model.dart';
 
 import 'package:pivotal_erp/view/screens/live_customer.dart';
 import 'package:pivotal_erp/view/screens/new_customer_screen.dart';
@@ -104,54 +105,65 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
 
   showVoucherDialog(BuildContext context) {
     AlertDialog voucher = AlertDialog(
-        //actionsAlignment: MainAxisAlignment.start,
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
+      //actionsAlignment: MainAxisAlignment.start,
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.cancel_outlined),
+            ),
+          ],
+        )
+      ],
+      title: const Text('Voucher Mode'),
+      content: FutureBuilder<List<GetVoucherModes?>?>(
+        future: RemoteService().getVoucherModes(),
+        builder: (context, snapshot) {
+          List<GetVoucherModes?>? voucherModes = snapshot.data;
+          log('snapsnotVOUCHERMODE----------$voucherModes');
+          if (!snapshot.hasData) {
+            return const Center(child: Text('No data'));
+          }
+          return Column(
             children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.cancel_outlined),
+              SearchField(
+                suggestions: const [],
+                hint: "Search",
               ),
+              SizedBox(
+                height: 300.0, // Change as per your requirement
+                width: 300.0,
+                child: ListView.builder(
+                    itemCount: voucherModes!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(voucherModes[index]!.voucherName!),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewSalesOrder(
+                                      voucherIdpass:
+                                          voucherModes[index]!.voucherId!,
+                                      voucherName:
+                                          voucherModes[index]!.voucherName,
+                                      indexGetter: null,
+                                      bearerToken: '')));
+                          log("aaaaaaaaaaa${voucherModes[index]!.voucherName} is pressed");
+                        },
+                      );
+                    }),
+              )
             ],
-          )
-        ],
-        title: const Text('Voucher Mode'),
-        content: FutureBuilder(
-            future: RemoteService().getVoucherNo(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(
-                  child: Text("No data available"),
-                );
-              }
-              return Column(
-                children: [
-                  SearchField(
-                    suggestions: const [],
-                    hint: "Search",
-                  ),
-                  SizedBox(
-                    height: 300.0, // Change as per your requirement
-                    width: 300.0,
-                    child: ListView.builder(
-                        itemCount: listItems.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(listItems[index]),
-                            onTap: () {
-                              log("${listItems[index]} is pressed");
-                            },
-                          );
-                        }),
-                  )
-                ],
-              );
-            }));
-
+          );
+        },
+      ),
+    );
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -159,5 +171,3 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
         });
   }
 }
-
-const List<String> listItems = ['a', 'b', 'c', 'd', 'e', 'f', 't', 'h'];

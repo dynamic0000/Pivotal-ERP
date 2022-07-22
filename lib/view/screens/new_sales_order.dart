@@ -320,7 +320,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                           ),
                           SizedBox(
                             child: Text(
-                              voucherIdpass.toString() ?? '0',
+                              voucherIdpass.toString(),
                               style: TextStyle(
                                   fontSize: 15.sp,
                                   color: const Color.fromARGB(255, 7, 7, 7),

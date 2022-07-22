@@ -58,7 +58,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
               return const Center(child: CircularProgressIndicator());
             }
             List<AutoCompleteLedgerList?>? data = snapshot.data;
-            // log('fffffffffffsssssfffffffffff${data![0]?.ledgerGroup}');
+
             List<Map<String, dynamic>> result = [];
             List<String> keys = [];
 
@@ -69,8 +69,6 @@ class _SelectCustomerState extends State<SelectCustomer> {
               List datas = [...data.where((e) => e?.ledgerGroup == k)];
               result.add({k: datas});
             }
-            // var indItem = (ind) => result[ind].map(((key, value) => value));
-            // log('message${indItem(1)}');
 
             if (result.isEmpty) {
               log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');

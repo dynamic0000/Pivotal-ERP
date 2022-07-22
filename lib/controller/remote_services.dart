@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:pivotal_erp/constant.dart';
 //
@@ -8,14 +9,11 @@ import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
 import 'package:pivotal_erp/models/getproductdetails_model.dart';
 import 'package:pivotal_erp/models/getvoucherno_model.dart';
-//import 'package:pivotal_erp/models/resetpassword_model.dart';
+import 'package:pivotal_erp/models/saveSalesInvoice_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/resetpassword_model.dart';
-//import 'package:pivotal_erp/models/resetpassword_model.dart';
-
-//import '../models/autocompleteledgerlist_model.dart';
 
 class RemoteService {
   Future<TokenModel?> getToken(String userName, String password) async {
@@ -60,12 +58,8 @@ class RemoteService {
           },
           body: jsonUser);
 
-      //  log("response code:${response.statusCode}");
-      //   log('newwwwwwwwwwwwwwwwww ${response.body}');
       final jsonDecoded = jsonDecode(response.body);
-      //  log('updateeeeeeeeeeeeeeeeeeee$jsonDecoded');
     } catch (e) {
-      // log('errorrrrrrrr${e.toString()}');
       rethrow;
     }
     return null;
@@ -96,7 +90,6 @@ class RemoteService {
       AutoCompleteLedgerListToJSON autoCompleteLedgerListToJSON =
           AutoCompleteLedgerListToJSON(
         1,
-        //'sandesh',
         query ?? '',
         1,
       );
@@ -110,7 +103,6 @@ class RemoteService {
           'Accept': 'application/json',
           'Authorization': 'Bearer $bearerTokenDynamic'
         },
-        //body lai json format ma change gareko
         body: jsonAutoCopleteLedgerList,
       );
       if (response.statusCode == 200) {
@@ -155,7 +147,7 @@ class RemoteService {
   //   }
   // }
   String dynamic =
-      'VPJuUe3ggO90jkOwSepGicy9ilCXb6OFJX-py5HrfbR03-aVFGdn5z41oMCkrkSh8fIYLXkjkGAa1UGjC2lfiSsU_5Lc8RgjXwro27iSiwqhX7EUMcYWWMR2dHEkMz_YCaYai4RI0I8EhaUDpO9xkkU4YlfhQgDU1-cz1HI6vcInaAcSEvRXjq32GUIPD7X0dpf76cj-d9J2ov8teOpQeJZf6TMp0Kyk6DokgcxO2QRCKZP3HL1A-S-hLGNL3uOq6O9yUO-vCTKehTaAPex48jCSI2hF-0QTXXch4272taVF0GUmuhZN1cOMICOh2lI1XXtCsGFRJI-ker0fk8txffIQAfmgIt39vPr9k_OJNSlW4XFnOKUmn7L8rvDmDWF3VNuQXwpzTQXo4dMXJx7KrM3yzxsz9W9-Hiwj-kBv2u4';
+      '_icllGuVTVys2cjplZheJPFsL4MdBiuQDQM__2Y13noLpu797ovxoj0xATAStdxBqTR6Cj6dZZBzBnT0jM6ENRITcC4bczdvpKjglkslUIJQZkmyqJFbf_mxfZbTp4JFFaxflC4lnpoiNq0_EC1ly5IYPus-WraNH9GCZXswh91CCVqlj2y9M6jN8LCXo9rewfyXo2xZ422uQIPhJiR22BrRCDFbDFKZH1_c3UfZ-rdEe3NWmeXq4qzVtd0AuIcvVT4jtKXLgPBn33OIFwkogU5copealvEmbSZWC2Nl9pC3RIUDBZG-9iObzN38NMTqtBP04uqUiDsr8EV8ztCZ3T8mdYyTTW7ZlJPOja-77gmmaL3C2Jst31A0_ntHj-qZJHIWGh2Qru0Ub5rXj2ObUTO44uwHNJ5C3cr_m7l_1mo';
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
       String dynamicToken, String query) async {
     //Future<void> getAutoCompleteProductList() async {
@@ -178,18 +170,13 @@ class RemoteService {
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Bearer $dynamic'
         },
-        //body lai json format ma change gareko
         body: jsonAutoCopleteProductList,
       );
-      // log('koi${response.body}');
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        // resultss =
-        //     data9.map((e) => AutoCompleteProductList.fromJson(e)).toList();
-        // log('productLists$resultss');
+
         return [
           ...data.map((e) => AutoCompleteProductList.fromJson(e)).toList()
         ];
@@ -199,7 +186,6 @@ class RemoteService {
     } on Exception catch (e) {
       log('error-------: $e');
     }
-    // log('final' '$results9');
     return productLists;
   }
 
@@ -224,7 +210,6 @@ class RemoteService {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         final productModel = GetProductDetails.fromMap(data);
-        // log('productdetails-----$data');
         return productModel;
       }
       log('errrorr11111');
@@ -246,6 +231,7 @@ class RemoteService {
           GetVoucherNoToJSON(0, formattedDate, 13);
 
       String jsonGetVoucherNo = jsonEncode(getVoucherNoToJSON);
+
       var response = await http.post(
         url,
         headers: {
@@ -256,7 +242,7 @@ class RemoteService {
         },
         body: jsonGetVoucherNo,
       );
-      //  log('responsesese-----------${response.statusCode}');
+      log('responsesese-----------${response.statusCode}');
       if (response.statusCode == 200) {
         // log('aaaaaaaaa');
         var data = jsonDecode(response.body);
@@ -264,10 +250,73 @@ class RemoteService {
         log('VoucherNoooooo-----${voucherNo.toJson()}');
         return voucherNo;
       }
-      //log('errrorr11111');
     } catch (e) {
       log('getVOucherNoooerrorrrr----${e.toString()};');
       rethrow;
+    }
+    return null;
+  }
+
+  Future<SaveSalesInvoice?> saveSalesInvoices() async {
+    var url = 'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
+    try {
+      Dio dio = Dio();
+      var data1 = """{
+        "VoucherDate": "2022-07-21",
+        "ManualVoucherNO": "",
+        "VoucherId": 1,
+        "RefNo": "test ref 1212",
+        "Narration": "Test Narration",
+        "PartyLedgerId": 1,
+        "TotalAmount": 152.55,
+        "itemAllocationColl": [
+          {
+            "ProductId": 1,
+            "LedgerId": 4,
+            "UnitId": 1,
+            "ActualQty": 6,
+            "BilledQty": 5,
+            "FreeQty": 1,
+            "Rate": 20,
+            "DiscountPer": 10,
+            "DiscountAmt": 10,
+            "Amount": 90
+          },
+          {
+            "ProductId": 2,
+            "LedgerId": 4,
+            "UnitId": 1,
+            "ActualQty": 12,
+            "BilledQty": 10,
+            "FreeQty": 2,
+            "Rate": 5,
+            "DiscountPer": 10,
+            "DiscountAmt": 5,
+            "Amount": 45
+          }
+        ],
+        "AditionalCostColl": [
+          {"LedgerId": 5, "Rate": 13, "Amount": 17.55, "Narration": ""}
+        ]
+      }""";
+
+      var body = {'paraDataColl': data1};
+
+      var formData = FormData.fromMap(body);
+      log('formData11------------${formData.toString()}');
+      var response = await dio.put(url,
+          data: formData,
+          options: Options(
+            headers: {
+              'accept': '*/*',
+              'Authorization': 'Bearer $dynamic',
+              'Content-Type': 'multipart/form-data'
+            },
+            //contentType: 'Application/form-data;',
+          ));
+      log('responseeeeeeeee------$response');
+    } on DioError catch (e) {
+      log('newdioerrro----$e');
     }
     return null;
   }

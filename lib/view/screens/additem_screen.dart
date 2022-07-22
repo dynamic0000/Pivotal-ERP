@@ -93,7 +93,12 @@ class _AddItemState extends State<AddItem> {
                 icon: Icon(
                   Icons.verified_rounded,
                   size: 30.sp,
-                ))
+                )),
+            IconButton(
+                onPressed: () {
+                  RemoteService().saveSalesInvoices();
+                },
+                icon: const Icon(Icons.coronavirus))
           ],
         ),
         body: FutureBuilder<List<AutoCompleteProductList?>>(

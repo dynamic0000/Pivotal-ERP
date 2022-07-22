@@ -1,73 +1,57 @@
-// import 'dart:convert';
+import 'dart:convert';
 
-// SaveSalesInvoice saveSalesInvoiceFromJson(String str) =>
-//     SaveSalesInvoice.fromJson(json.decode(str));
-
-// String saveSalesInvoiceToJson(SaveSalesInvoice data) =>
-//     json.encode(data.toJson());
+SaveSalesInvoice saveSalesInvoiceFromJson(String str) =>
+    SaveSalesInvoice.fromJson(json.decode(str));
+String saveSalesInvoiceToJson(SaveSalesInvoice data) =>
+    json.encode(data.toJson());
 
 class SaveSalesInvoice {
   SaveSalesInvoice({
-    required this.voucherDate,
+    required this.aditionalCostColl,
+    required this.itemAllocationColl,
     required this.manualVoucherNo,
-    required this.voucherId,
-    required this.refNo,
     required this.narration,
     required this.partyLedgerId,
-    required this.receiptLedgerId,
-    required this.paidAmount,
+    required this.refNo,
     required this.totalAmount,
-    required this.lineItems,
-    required this.additionalCosts,
-    required this.filePaths,
+    required this.voucherDate,
+    required this.voucherId,
   });
-
-  String voucherDate;
+  List<dynamic> aditionalCostColl;
+  List<Map<String, double>> itemAllocationColl;
   String manualVoucherNo;
-  int voucherId;
-  String refNo;
   String narration;
   int partyLedgerId;
-  int? receiptLedgerId;
-  double? paidAmount;
-  double? totalAmount;
-  List<LineItemUi> lineItems;
-  List<AdditinalCost> additionalCosts;
-  List<String> filePaths;
-
+  String refNo;
+  double totalAmount;
+  String voucherDate;
+  int voucherId;
   factory SaveSalesInvoice.fromJson(Map<String, dynamic> json) =>
       SaveSalesInvoice(
-        voucherDate: json["voucherDate"],
-        manualVoucherNo: json["manualVoucherNo"],
-        voucherId: json["voucherId"],
-        refNo: json["refNo"],
+        aditionalCostColl:
+            List<dynamic>.from(json["aditionalCostColl"].map((x) => x)),
+        itemAllocationColl: List<Map<String, double>>.from(
+            json["itemAllocationColl"].map((x) => Map.from(x)
+                .map((k, v) => MapEntry<String, double>(k, v.toDouble())))),
+        manualVoucherNo: json["manualVoucherNO"],
         narration: json["narration"],
         partyLedgerId: json["partyLedgerId"],
-        receiptLedgerId: json["receiptLedgerId"],
-        paidAmount: json["paidAmount"].toDouble(),
+        refNo: json["refNo"],
         totalAmount: json["totalAmount"].toDouble(),
-        lineItems: List<LineItemUi>.from(json["lineItems"].map((x) => x)),
-        additionalCosts:
-            List<AdditinalCost>.from(json["additionalCosts"].map((x) => x)),
-        filePaths: List<String>.from(json["filePaths"].map((x) => x)),
+        voucherDate: json["voucherDate"],
+        voucherId: json["voucherId"],
       );
   Map<String, dynamic> toJson() => {
-        "voucherDate": voucherDate,
-        "manualVoucherNo": manualVoucherNo,
-        "voucherId": voucherId,
-        "refNo": refNo,
+        "aditionalCostColl":
+            List<dynamic>.from(aditionalCostColl.map((x) => x)),
+        "itemAllocationColl": List<dynamic>.from(itemAllocationColl.map(
+            (x) => Map.from(x).map((k, v) => MapEntry<String, dynamic>(k, v)))),
+        "manualVoucherNO": manualVoucherNo,
         "narration": narration,
         "partyLedgerId": partyLedgerId,
-        "receiptLedgerId": receiptLedgerId,
-        "paidAmount": paidAmount,
+        "refNo": refNo,
         "totalAmount": totalAmount,
-        "lineItems": List<LineItemUi>.from(lineItems.map((x) => x)),
-        "additionalCosts":
-            List<AdditinalCost>.from(additionalCosts.map((x) => x)),
-        "filePaths": List<String>.from(filePaths.map((x) => x)),
+        "voucherDate": voucherDate,
+        "voucherId": voucherId,
       };
 }
-
-class AdditinalCost {}
-
-class LineItemUi {}

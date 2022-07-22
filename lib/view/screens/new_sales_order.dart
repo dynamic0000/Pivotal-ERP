@@ -230,7 +230,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         actions: [
           IconButton(
               onPressed: () async {
-                await RemoteService().saveSalesInvoice();
+                await RemoteService().saveSalesInvoices();
                 // var heram = await RemoteService().getAutoCompleteProductList();
                 //log('herammmmmmmmmm$heram');
               },

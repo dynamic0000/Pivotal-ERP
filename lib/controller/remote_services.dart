@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:html';
 
 import 'package:intl/intl.dart';
 import 'package:pivotal_erp/constant.dart';
@@ -310,75 +309,136 @@ class RemoteService {
     return voucherModes;
   }
 
-  Future<SaveSalesInvoice?> saveSalesInvoice({
-    int? voucherId,
-    int? quantity,
-    double? amount,
-    int? billedQuantity,
-    double? disAmt,
-    double? disPer,
-    int? ledgerId,
-    int? productId,
-    double? rate,
-    int? unitId,
-    int? partyledgerId,
-    double? totalAmount,
-    String? voucherDate,
-  }) async {
-    var url =
-        'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
+  Future<SaveSalesInvoice?> saveSalesInvoice() async {
+    var url = 'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
     SaveSalesInvoice? saveOn;
     try {
       Dio dio = Dio();
-
-      log('tryinggggggggg');
+      var body = {
+        "aditionalCostColl": [],
+        "itemAllocationColl": [
+          {
+            "ActualQty": 1,
+            "Amount": 1,
+            "BilledQty": 1,
+            "DiscountAmt": 1,
+            "DiscountPer": 1,
+            "FreeQty": 13,
+            "LedgerId": 0,
+            "ProductId": 0,
+            "Rate": 1,
+            "UnitId": 1
+          }
+        ],
+        "manualVoucherNO": "1",
+        "narration": "",
+        "partyLedgerId": 1,
+        "refNo": "",
+        "totalAmount": 1,
+        "voucherDate": '2022-07-20',
+        "voucherId": 1
+      };
+      var formData = FormData.fromMap({'paraDataColl': body});
+      log('tryinggggggggg${formData.toString()}');
       var response = await dio.put(
         url,
-        headers: {
-          'Authorization': 'Bearer $access',
-          'Content-Type': 'application/form-data',
-          // 'Charset': 'utf-8',
-          // 'Accept': 'application/json',
-        },
-        body: {
-          "aditionalCostColl": '${[]}',
-          "itemAllocationColl": '${[
-            {
-              "ActualQty": 1,
-              "Amount": 1,
-              "BilledQty": 1,
-              "DiscountAmt": 1,
-              "DiscountPer": 1,
-              "FreeQty": 13,
-              "LedgerId": 0,
-              "ProductId": 0,
-              "Rate": 1,
-              "UnitId": 1
-            }
-          ]}',
-          "manualVoucherNO": "1",
-          "narration": "",
-          // "partyLedgerId": 1,
-          "refNo": "",
-          // "totalAmount": 1,
-          "voucherDate": '2022-07-20',
-          // "voucherId": 1
-        },
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $access',
+            'Content-Type': 'multipart/form-data',
+            //  'Charset': 'utf-8',
+          },
+// contentType: 'application/form-data',
+          //   method: 'PUT',
+        ),
       );
-      var data = response.body;
-      log('savaDataatatatatata-----$data');
-      if (response.statusCode == 200) {
-        log('saveresponsecose---------${response.statusCode}');
-        String responseString = response.body;
-        log('saveresponseString=======$responseString');
-        var saveIt = saveSalesInvoiceFromJson(data);
-        log('save-----------$saveIt');
-        return saveIt;
-      }
-    } catch (e) {
-      log('saveadddingAPIeroooorrrrrrrrrr____________${e.toString()}');
+      log('responsedataaaaaaaa' + response.data);
+      return SaveSalesInvoice.fromJson(response.data);
+    } on DioError catch (e) {
+      log('DioEEEEEEEEEEE----------$e');
     }
-    log('saveOONN------$saveOn');
-    return saveOn;
+    return null;
+  }
+
+  //////////////////////////////////////////////////////NEW-Begining   ///////////////////////////////////////////////////////////////////////////
+  Future<SaveSalesInvoice?> saveSalesInvoices() async {
+    var url = 'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
+    try {
+      Dio dio = Dio();
+      var data1 = """{
+        "VoucherDate": "2022-07-21",
+        "ManualVoucherNO": "",
+        "VoucherId": 1,
+        "RefNo": "test ref 1212",
+        "Narration": "Test Narration",
+        "PartyLedgerId": 1,
+        "TotalAmount": 152.55,
+        "itemAllocationColl": [
+          {
+            "ProductId": 1,
+            "LedgerId": 4,
+            "UnitId": 1,
+            "ActualQty": 6,
+            "BilledQty": 5,
+            "FreeQty": 1,
+            "Rate": 20,
+            "DiscountPer": 10,
+            "DiscountAmt": 10,
+            "Amount": 90
+          },
+          {
+            "ProductId": 2,
+            "LedgerId": 4,
+            "UnitId": 1,
+            "ActualQty": 12,
+            "BilledQty": 10,
+            "FreeQty": 2,
+            "Rate": 5,
+            "DiscountPer": 10,
+            "DiscountAmt": 5,
+            "Amount": 45
+          }
+        ],
+        "AditionalCostColl": [
+          {"LedgerId": 5, "Rate": 13, "Amount": 17.55, "Narration": ""}
+        ]
+      }""";
+
+      var body = {'paraDataColl': data1};
+
+      var formData = FormData.fromMap(body);
+      log('formData11------------${formData.toString()}');
+      var response = await dio.put(url,
+          data: formData,
+          options: Options(
+            headers: {
+              'accept': '*/*',
+              'Authorization': 'Bearer $access',
+              'Content-Type': 'multipart/form-data'
+            },
+            //contentType: 'Application/form-data;',
+          ));
+      log('responseeeeeeeee------$response');
+    } on DioError catch (e) {
+      log('newdioerrro----$e');
+    }
+    return null;
   }
 }
+
+
+
+// int? voucherId,
+//     int? quantity,
+//     double? amount,
+//     int? billedQuantity,
+//     double? disAmt,
+//     double? disPer,
+//     int? ledgerId,
+//     int? productId,
+//     double? rate,
+//     int? unitId,
+//     int? partyledgerId,
+//     double? totalAmount,
+//     String? voucherDate,

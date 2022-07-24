@@ -49,7 +49,8 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
                             bearerToken: widget.bearerToken,
                             indexGetter: null,
                           )));
-              showVoucherDialog(context);
+              showVoucherDialog(context, widget.bearerToken);
+              log("bearerToken---------${widget.bearerToken}");
             }),
         SpeedDialChild(
           backgroundColor: const Color.fromARGB(255, 136, 236, 140),
@@ -103,7 +104,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
     );
   }
 
-  showVoucherDialog(BuildContext context) {
+  showVoucherDialog(BuildContext context, String? bearerTokenDynamic) {
     AlertDialog voucher = AlertDialog(
       //actionsAlignment: MainAxisAlignment.start,
       actions: [
@@ -122,7 +123,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
       ],
       title: const Text('Voucher Mode'),
       content: FutureBuilder<List<GetVoucherModes?>?>(
-        future: RemoteService().getVoucherModes(),
+        future: RemoteService().getVoucherModes(widget.bearerToken),
         builder: (context, snapshot) {
           List<GetVoucherModes?>? voucherModes = snapshot.data;
           log('snapsnotVOUCHERMODE----------$voucherModes');

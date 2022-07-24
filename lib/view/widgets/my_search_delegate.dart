@@ -85,7 +85,7 @@ class MySearchDelegate extends SearchDelegate {
           }
 
           if (result.isEmpty) {
-            log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');
+            // log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');
 
             return const Center(child: Text('No data'));
           }

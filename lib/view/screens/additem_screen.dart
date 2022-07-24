@@ -15,6 +15,7 @@ class AddItem extends StatefulWidget {
     required this.bearerToken,
   }) : super(key: key);
   final String bearerToken;
+  //int? productId;
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -52,6 +53,7 @@ class _AddItemState extends State<AddItem> {
   var quantityController = TextEditingController();
   var amountController = TextEditingController();
   var discountController = TextEditingController();
+  //final int? productId;
   //String query = '';
 
   @override
@@ -83,12 +85,16 @@ class _AddItemState extends State<AddItem> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => NewSalesOrder(
-                              quantityReq: int.parse(quantityController.text),
-                              amountReq: double.parse(amountController.text),
-                              productNameReq: product.name,
-                              rateReq: double.parse(rateController.text),
-                              indexGetter: null,
-                              bearerToken: '')));
+                                quantityReq: int.parse(quantityController.text),
+                                amountReq: double.parse(amountController.text),
+                                productNameReq: product.name,
+                                rateReq: double.parse(rateController.text),
+                                indexGetter: null,
+                                bearerToken: '',
+                                productId: product.productId,
+                                unitId: product.unitId,
+                                disAmt: int.parse(discountController.text),
+                              )));
                 },
                 icon: Icon(
                   Icons.verified_rounded,
@@ -125,7 +131,8 @@ class _AddItemState extends State<AddItem> {
                   setState(() {
                     product = item;
                     productIdx = itemIndex;
-                    newData = RemoteService().getProductDetials(productIdx);
+                    newData = RemoteService()
+                        .getProductDetials(productIdx, widget.bearerToken);
                     newData.then((productDetials) {
                       rateController.text =
                           productDetials!.salesRate.toString();

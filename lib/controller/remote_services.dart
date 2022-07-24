@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:pivotal_erp/constant.dart';
 //
@@ -13,6 +14,7 @@ import 'package:pivotal_erp/models/getvoucherno_model.dart';
 import 'package:pivotal_erp/models/saveSalesInvoice_model.dart';
 import 'package:pivotal_erp/models/token_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:pivotal_erp/view/screens/additem_screen.dart';
 
 import '../models/resetpassword_model.dart';
 
@@ -147,10 +149,10 @@ class RemoteService {
   //     rethrow;
   //   }
   // }
-  String dynamic =
-      '_icllGuVTVys2cjplZheJPFsL4MdBiuQDQM__2Y13noLpu797ovxoj0xATAStdxBqTR6Cj6dZZBzBnT0jM6ENRITcC4bczdvpKjglkslUIJQZkmyqJFbf_mxfZbTp4JFFaxflC4lnpoiNq0_EC1ly5IYPus-WraNH9GCZXswh91CCVqlj2y9M6jN8LCXo9rewfyXo2xZ422uQIPhJiR22BrRCDFbDFKZH1_c3UfZ-rdEe3NWmeXq4qzVtd0AuIcvVT4jtKXLgPBn33OIFwkogU5copealvEmbSZWC2Nl9pC3RIUDBZG-9iObzN38NMTqtBP04uqUiDsr8EV8ztCZ3T8mdYyTTW7ZlJPOja-77gmmaL3C2Jst31A0_ntHj-qZJHIWGh2Qru0Ub5rXj2ObUTO44uwHNJ5C3cr_m7l_1mo';
+  //String dynamic =
+  //  'sNmOW6Pzwq0Z2r7Juwji04TBIqDr73qMHrEe8-Ff9wZnw-rqQ6jpdg5H365RUpPfWo4ya_lc_pD75q8v7dulPH_DH0v5a0F-NF9r98i3croWOu7gUxoTxw3YD55VN5mwkXjUAjfcJMcVm2QtrkuAE07KbCf0qCGimX9EKURcXGxEP2uSpVI7orWFaxU_ord9cr5j6L8l-29N6QEzcq1YVKt_sOevAZHHeedEzGHtbDawUTDukbznURUlEoMzJMAJST6puZUmi4plq2y0ZxMnU5b4qAH08N1xcNADUT4toFRSG9heo5OkVPIDMiOUI7FobeQj2E46VT0YQ01e1KV7HaJ85fuDiDc79HHHTkgsBVTrxewNZfeOr7VlVVpwYPiYsBosdMyvdVqNJUFemkQPxmaZLzleTiHWAuuGDdrerMU';
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
-      String dynamicToken, String query) async {
+      String? bearerTokenDynamic, String query) async {
     //Future<void> getAutoCompleteProductList() async {
     List<AutoCompleteProductList> productLists = [];
     //var data9 = [];
@@ -171,7 +173,7 @@ class RemoteService {
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
-          'Authorization': 'Bearer $dynamic'
+          'Authorization': 'Bearer $bearerTokenDynamic'
         },
         body: jsonAutoCopleteProductList,
       );
@@ -190,7 +192,8 @@ class RemoteService {
     return productLists;
   }
 
-  Future<GetProductDetails?> getProductDetials(int productIdIndex) async {
+  Future<GetProductDetails?> getProductDetials(
+      int productIdIndex, String? bearerTokenDynamic) async {
     var url =
         Uri.parse('https://demo.pivotalerp.app/v1/inventory/GetProductDetail');
     try {
@@ -200,7 +203,7 @@ class RemoteService {
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $dynamic',
+          'Authorization': 'Bearer $bearerTokenDynamic',
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
@@ -221,7 +224,7 @@ class RemoteService {
     return null;
   }
 
-  Future<GetVoucherNo?> getVoucherNo() async {
+  Future<GetVoucherNo?> getVoucherNo(String? bearerTokenDynamic) async {
     var url = Uri.parse('https://demo.pivotalerp.app/v1/General/GetVoucherNo');
     try {
       DateTime now = DateTime.now();
@@ -236,7 +239,7 @@ class RemoteService {
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $dynamic',
+          'Authorization': 'Bearer $bearerTokenDynamic',
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
@@ -258,7 +261,8 @@ class RemoteService {
     return null;
   }
 
-  Future<List<GetVoucherModes>?> getVoucherModes() async {
+  Future<List<GetVoucherModes>?> getVoucherModes(
+      String? bearerTokenDynamic) async {
     List<GetVoucherModes> voucherModes = [];
 
     var url = Uri.parse('$urlERP/v1/Account/GetVoucherModes?VoucherType=13');
@@ -266,7 +270,7 @@ class RemoteService {
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $dynamic',
+          'Authorization': 'Bearer $bearerTokenDynamic',
           "Content-Type": "application/x-www-form-urlencoded"
         },
       );
@@ -291,48 +295,66 @@ class RemoteService {
     return voucherModes;
   }
 
-  Future<SaveSalesInvoice?> saveSalesInvoices({int? voucherId}) async {
+  Future<SaveSalesInvoice?> saveSalesInvoices(
+      {int? voucherId,
+      //double? totalAmount,
+      int? actualQty,
+      int? discountPer,
+      double? amount,
+      double? rate,
+      int? productId,
+      int? unitId,
+      String? voucherDate,
+      String? bearerTokenDynamic}) async {
     var url = 'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
     try {
       Dio dio = Dio();
-      var data1 = """{
-        "VoucherDate": "2022-07-21",
-        "ManualVoucherNO": "",
-        "VoucherId": $voucherId,
-        "RefNo": "test ref 1212",
-        "Narration": "Test Narration",
-        "PartyLedgerId": 1,
-        "TotalAmount": 152.55,
-        "itemAllocationColl": [
-          {
-            "ProductId": 1,
-            "LedgerId": 4,
-            "UnitId": 1,
-            "ActualQty": 6,
-            "BilledQty": 5,
-            "FreeQty": 1,
-            "Rate": 20,
-            "DiscountPer": 10,
-            "DiscountAmt": 10,
-            "Amount": 90
-          },
-          {
-            "ProductId": 2,
-            "LedgerId": 4,
-            "UnitId": 1,
-            "ActualQty": 12,
-            "BilledQty": 10,
-            "FreeQty": 2,
-            "Rate": 5,
-            "DiscountPer": 10,
-            "DiscountAmt": 5,
-            "Amount": 45
-          }
-        ],
-        "AditionalCostColl": [
-          {"LedgerId": 5, "Rate": 13, "Amount": 17.55, "Narration": ""}
-        ]
-      }""";
+      var data1 = '''{ 
+  VoucherDate:'$voucherDate',
+  ManualVoucherNO:'',
+  VoucherId:9
+  RefNo:'test ref 1212',
+  Narration:'Test Narration',
+  PartyLedgerId:1,
+  TotalAmount:152.55,
+  ItemAllocationColl:
+  [ 
+    {
+      ProductId:$productId,
+      LedgerId:4,
+      UnitId:$unitId,
+      ActualQty:$actualQty,
+      BilledQty:5,
+      FreeQty:1,
+      Rate:$rate,
+      DiscountPer:$discountPer,
+      DiscountAmt:$discountAmount,
+      Amount:$amount
+    },
+    {
+      ProductId:$productId,
+      LedgerId:4,
+      UnitId:$unitId,
+      ActualQty:$actualQty,
+      BilledQty:10,
+      FreeQty:2,
+      Rate:$rate,
+      DiscountPer:$discountPer,
+      DiscountAmt:$discountAmount,
+      Amount:$amount
+    }
+  ],
+  AditionalCostColl:[
+	{
+		LedgerId:5,
+	        Rate:$unitId,
+		Amount:$amount,
+		Narration:''
+	}
+  ]
+}''';
+
+      log("values---------AQ$actualQty,---R$rate,---DP$discountPer,---A$amount,---PI${product.productId},---PN${product.name},---productId--$productId,---discountAmount---$discountAmount,-----$voucherDate");
 
       var body = {'paraDataColl': data1};
 
@@ -342,16 +364,19 @@ class RemoteService {
           data: formData,
           options: Options(
             headers: {
-              'accept': '*/*',
-              'Authorization': 'Bearer $dynamic',
+              // 'accept': '*/*',
+              'Authorization': 'Bearer $bearerTokenDynamic',
               'Content-Type': 'multipart/form-data'
             },
-            //contentType: 'Application/form-data;',
+            //contentType: 'multipart/form-data;',
+            // responseType: ResponseType.json
           ));
       log('responseeeeeeeee------$response');
+      Fluttertoast.showToast(msg: response.data.toString());
     } on DioError catch (e) {
       log('newdioerrro----$e');
     }
+    //return  Fluttertoast.showToast(msg: response.data);
     return null;
   }
 }

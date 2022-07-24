@@ -27,6 +27,9 @@ class NewSalesOrder extends StatefulWidget {
     this.productNameReq,
     this.voucherIdpass,
     this.voucherName,
+    this.disAmt,
+    this.unitId,
+    this.productId,
   }) : super(key: key);
   final AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
@@ -36,6 +39,9 @@ class NewSalesOrder extends StatefulWidget {
   final String? productNameReq;
   final int? voucherIdpass;
   final String? voucherName;
+  final int? disAmt;
+  final int? unitId;
+  final int? productId;
 
   @override
   // ignore: no_logic_in_create_state
@@ -47,7 +53,10 @@ class NewSalesOrder extends StatefulWidget {
       productNameReq,
       bearerToken,
       voucherIdpass,
-      voucherName);
+      voucherName,
+      disAmt,
+      unitId,
+      productId);
 }
 
 class _NewSalesOrderDataState extends State<NewSalesOrder> {
@@ -59,6 +68,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   final String? productNameReq;
   final int? voucherIdpass;
   final String? voucherName;
+  final int? disAmt;
+  final int? unitId;
+  final int? productId;
 
   bool isDataPicked = false;
 
@@ -76,14 +88,18 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   bool isEnabled = true;
 
   _NewSalesOrderDataState(
-      this.indexGetter,
-      this.quantityReq,
-      this.amountReq,
-      this.rateReq,
-      this.productNameReq,
-      this.bearerToken,
-      this.voucherIdpass,
-      this.voucherName);
+    this.indexGetter,
+    this.quantityReq,
+    this.amountReq,
+    this.rateReq,
+    this.productNameReq,
+    this.bearerToken,
+    this.voucherIdpass,
+    this.voucherName,
+    this.disAmt,
+    this.unitId,
+    this.productId,
+  );
 
   @override
   void initState() {
@@ -97,41 +113,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
 
     formattedDueText = DateFormat("yyyy-MM-dd").format(DateTime.now());
   }
-
-  //first issue calendar
-  // Future<void> _selectedNepaliDate() async {
-  //   NepaliDateTime? pickedNepali = await showMaterialDatePicker(
-  //     context: context,
-  //     initialDate: selectedNepaliDate,
-  //     firstDate: NepaliDateTime(2000),
-  //     lastDate: NepaliDateTime(2090),
-  //   );
-  //   if (pickedNepali != null && pickedNepali != selectedNepaliDate) {
-  //     setState(() {
-  //       selectedNepaliDate = pickedNepali;
-  //       formattedTextNepali =
-  //           NepaliDateFormat("yyyy-MM-dd").format(selectedNepaliDate);
-  //     });
-  //   }
-  // }
-
-  //second due date calendar
-  // Future<void> _selectedDueNepaliDate() async {
-  //   NepaliDateTime? pickedDueNepali = await showMaterialDatePicker(
-  //     context: context,
-  //     initialDate: selectedDueNepaliDate,
-  //     firstDate: NepaliDateTime(2000),
-  //     lastDate: NepaliDateTime(2090),
-  //     //  language: Language.english,
-  //   );
-  //   if (pickedDueNepali != null && pickedDueNepali != selectedDueNepaliDate) {
-  //     setState(() {
-  //       selectedDueNepaliDate = pickedDueNepali;
-  //       formattedDueTextNepali =
-  //           NepaliDateFormat("yyyy-MM-dd").format(selectedDueNepaliDate);
-  //     });
-  //   }
-  // }
 
   Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
@@ -214,9 +195,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen(
-                            bearerToken: '',
+                      builder: (context) => UserHomeScreen(
+                            bearerToken: widget.bearerToken,
                           )));
+              log("userhome----${widget.bearerToken}");
             },
             icon: const Icon(Icons.arrow_back)),
         actions: [
@@ -237,7 +219,17 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               )),
           IconButton(
               onPressed: () {
-                RemoteService().saveSalesInvoices(voucherId: voucherIdpass);
+                RemoteService().saveSalesInvoices(
+                    voucherId: voucherIdpass,
+                    actualQty: quantityReq,
+                    amount: amountReq,
+                    rate: rateReq,
+                    unitId: product.unitId,
+                    productId: product.productId,
+                    discountPer: disAmt,
+                    voucherDate: formattedText,
+                    bearerTokenDynamic: widget.bearerToken);
+                log("userhome1----${widget.bearerToken}");
               },
               icon: const Icon(
                 Icons.verified_rounded,

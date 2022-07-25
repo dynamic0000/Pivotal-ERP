@@ -5,3 +5,7 @@ class ColorConst {
 }
 
 const String urlERP = 'https://demo.pivotalerp.app/';
+/* For .apk and .ipa file
+flutter build ipa ---------for ios
+flutter build apk --debug---------for android
+*/

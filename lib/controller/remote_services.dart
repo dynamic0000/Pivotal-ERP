@@ -216,7 +216,7 @@ class RemoteService {
       }
       log('errrorr11111');
     } catch (e) {
-      log('getProductDetialerrorrrr----${e.toString()};');
+      log('getProductDetialerrorrrr----${e.toString()}');
       rethrow;
     }
     return null;
@@ -254,7 +254,7 @@ class RemoteService {
         return voucherNo;
       }
     } catch (e) {
-      log('getVOucherNoooerrorrrr----${e.toString()};');
+      log('getVOucherNoooerrorrrr----${e.toString()}');
       rethrow;
     }
     return null;
@@ -362,6 +362,7 @@ class RemoteService {
             },
           ));
       log('responseeeeeeeee------$response');
+
       Fluttertoast.showToast(msg: response.data.toString());
     } on DioError catch (e) {
       log('newdioerrr----$e');

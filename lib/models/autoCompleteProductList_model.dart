@@ -42,18 +42,6 @@ class AutoCompleteProductList {
         unit: json["Unit"],
         partNo: json["PartNo"],
       );
-
-  // Map<String, dynamic> toJson() => {
-  //     "ProductId": productId,
-  //     "ProductGroupId": productGroupId,
-  //     "Name": name,
-  //     "Alias": alias,
-  //     "Code": code,
-  //     "ProductGroup": productGroup,
-  //     "UnitId": unitId,
-  //     "Unit": unit,
-  //     "PartNo": partNo,
-  // };
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data9 = <String, dynamic>{};
     data9['ProductId'] = productId;

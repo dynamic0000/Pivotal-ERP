@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/autocompleteledger_model.dart';
+import 'package:pivotal_erp/view/screens/additem_screen.dart';
 
 import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 import 'package:pivotal_erp/view/widgets/my_search_delegate.dart';
@@ -13,8 +14,18 @@ class SelectCustomer extends StatefulWidget {
   const SelectCustomer({
     Key? key,
     required this.bearerToken,
+    this.voucherId,
+    //this.quantityReq,
+    //this.rateReq,
+    //this.productNameReq,
+    //this.amountReq,
   }) : super(key: key);
   final String bearerToken;
+  final int? voucherId;
+  /*final int? quantityReq;
+  final double? amountReq;
+  final double? rateReq;
+  final String? productNameReq;*/
 
   @override
   State<SelectCustomer> createState() => _SelectCustomerState();
@@ -33,8 +44,13 @@ class _SelectCustomerState extends State<SelectCustomer> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => NewSalesOrder(
-                            bearerToken: '',
+                            bearerToken: widget.bearerToken,
                             indexGetter: null,
+                            voucherIdpass: widget.voucherId,
+                            amountReq: amount,
+                            rateReq: rate,
+                            productNameReq: product.name,
+                            quantityReq: quantity,
                           )));
             },
             icon: const Icon(Icons.arrow_back_ios)),
@@ -43,7 +59,10 @@ class _SelectCustomerState extends State<SelectCustomer> {
               onPressed: () async {
                 final result = await showSearch(
                   context: context,
-                  delegate: MySearchDelegate(bearerToken: widget.bearerToken),
+                  delegate: MySearchDelegate(
+                    bearerToken: widget.bearerToken,
+                    voucherId: widget.voucherId,
+                  ),
                 );
                 log('result------$result');
               },
@@ -52,7 +71,9 @@ class _SelectCustomerState extends State<SelectCustomer> {
       ),
       body: FutureBuilder<List<AutoCompleteLedgerList?>>(
           future: RemoteService().getAutoCompleteLedgerList(
-              query: query, bearerTokenDynamic: widget.bearerToken),
+            query: query,
+            bearerTokenDynamic: widget.bearerToken,
+          ),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -104,6 +125,11 @@ class _SelectCustomerState extends State<SelectCustomer> {
                                   MaterialPageRoute(
                                       builder: (context) => NewSalesOrder(
                                           bearerToken: widget.bearerToken,
+                                          voucherIdpass: widget.voucherId,
+                                          amountReq: amount,
+                                          rateReq: rate,
+                                          productNameReq: product.name,
+                                          quantityReq: quantity,
                                           indexGetter: lst)));
                             },
                             title: Text(

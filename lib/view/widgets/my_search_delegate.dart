@@ -10,9 +10,11 @@ import 'package:pivotal_erp/view/screens/new_sales_order.dart';
 
 class MySearchDelegate extends SearchDelegate {
   final String bearerToken;
+  final int? voucherId;
   String result = '';
   MySearchDelegate({
     required this.bearerToken,
+    this.voucherId,
   });
 
   @override
@@ -35,11 +37,11 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // final data = names.where(
-    //    (element) => element.toLowerCase().contains(query.toLowerCase()));
     return FutureBuilder<List<AutoCompleteLedgerList?>>(
         future: RemoteService().getAutoCompleteLedgerList(
-            query: query, bearerTokenDynamic: bearerToken),
+            query: query,
+            bearerTokenDynamic: bearerToken,
+            voucherId: voucherId),
         builder: (context, snapshot) {
           log('dataaaaaaaaa---------');
 
@@ -53,7 +55,7 @@ class MySearchDelegate extends SearchDelegate {
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
-                    log('ddddddd$index');
+                    // log('ddddddd$index');
                   },
                   title: Text(data?[index]!.name ?? ""),
                 );
@@ -65,14 +67,16 @@ class MySearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     return FutureBuilder<List<AutoCompleteLedgerList?>>(
         future: RemoteService().getAutoCompleteLedgerList(
-            bearerTokenDynamic: bearerToken, query: query),
+            bearerTokenDynamic: bearerToken,
+            query: query,
+            voucherId: voucherId),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
           List<AutoCompleteLedgerList?>? data = snapshot.data;
           log("data value ---- $data");
-          // log('fffffffffffsssssfffffffffff${data![0]?.ledgerGroup}');
+
           List<Map<String, dynamic>> result = [];
           List<String> keys = [];
 
@@ -117,8 +121,9 @@ class MySearchDelegate extends SearchDelegate {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => NewSalesOrder(
-                                          bearerToken: '',
+                                          bearerToken: bearerToken,
                                           indexGetter: lst,
+                                          voucherIdpass: voucherId,
                                         )));
                           },
                           title: Text(

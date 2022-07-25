@@ -154,7 +154,7 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
                                       voucherName:
                                           voucherModes[index]!.voucherName,
                                       indexGetter: null,
-                                      bearerToken: '')));
+                                      bearerToken: widget.bearerToken)));
                           log("aaaaaaaaaaa${voucherModes[index]!.voucherName} is pressed");
                         },
                       );

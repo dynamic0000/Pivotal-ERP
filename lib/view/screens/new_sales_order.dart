@@ -225,6 +225,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                             bearerToken: widget.bearerToken,
                           )));
               log("userhome----${widget.bearerToken}");
+              setState(() {});
             },
             icon: const Icon(Icons.arrow_back)),
         actions: [
@@ -976,6 +977,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 MaterialPageRoute(
                     builder: (context) => SelectCustomer(
                           bearerToken: widget.bearerToken,
+                          voucherId: voucherIdpass,
+                          /* amountReq: amountReq,
+                          rateReq: rateReq,
+                          productNameReq: productNameReq,
+                          quantityReq: quantityReq,*/
                         )));
           },
         ),

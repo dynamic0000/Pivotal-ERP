@@ -835,9 +835,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   Container amountDisplay(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.r),
-        color: const Color.fromARGB(255, 159, 191, 218),
-      ),
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(color: const Color.fromARGB(255, 154, 154, 154)),
+          color: const Color.fromARGB(255, 169, 214, 251)),
       height: 45.h,
       width: double.infinity - 20.w,
       child: Padding(

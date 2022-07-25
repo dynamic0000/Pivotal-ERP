@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
 import 'package:pivotal_erp/models/getvouchermodes_model.dart';
@@ -87,7 +88,6 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
             color: Colors.black,
           ),
           label: "My Colleagues",
-          // labelStyle: TextTheme(fonn)
         ),
         SpeedDialChild(
             backgroundColor: const Color.fromARGB(255, 136, 236, 140),
@@ -106,7 +106,6 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
 
   showVoucherDialog(BuildContext context, String? bearerTokenDynamic) {
     AlertDialog voucher = AlertDialog(
-      //actionsAlignment: MainAxisAlignment.start,
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -137,8 +136,8 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
                 hint: "Search",
               ),
               SizedBox(
-                height: 300.0, // Change as per your requirement
-                width: 300.0,
+                height: 300.0.h, // Change as per your requirement
+                width: 300.0.w,
                 child: ListView.builder(
                     itemCount: voucherModes!.length,
                     itemBuilder: (context, index) {

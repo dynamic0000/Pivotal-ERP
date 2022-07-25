@@ -43,8 +43,6 @@ class MySearchDelegate extends SearchDelegate {
             bearerTokenDynamic: bearerToken,
             voucherId: voucherId),
         builder: (context, snapshot) {
-          log('dataaaaaaaaa---------');
-
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
           }
@@ -54,9 +52,7 @@ class MySearchDelegate extends SearchDelegate {
               itemCount: data?.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  onTap: () {
-                    // log('ddddddd$index');
-                  },
+                  onTap: () {},
                   title: Text(data?[index]!.name ?? ""),
                 );
               });
@@ -89,12 +85,8 @@ class MySearchDelegate extends SearchDelegate {
           }
 
           if (result.isEmpty) {
-            // log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');
-
             return const Center(child: Text('No data'));
           }
-          // log('message${(result[0])}');
-          //////////////
           return ListView.builder(
               itemCount: result.length,
               itemBuilder: (context, index) {
@@ -106,9 +98,7 @@ class MySearchDelegate extends SearchDelegate {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.sp,
-                        color: Colors.black
-                        // backgroundColor: Color.fromARGB(255, 154, 203, 242)
-                        ),
+                        color: Colors.black),
                   ),
                   children: [
                     ...result[index].values.first.map((lst) {

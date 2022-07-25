@@ -29,8 +29,6 @@ class AddItem extends StatefulWidget {
   final double? creditLimit;
   final int? creditDays;
 
-  //int? productId;
-
   @override
   State<AddItem> createState() => _AddItemState();
 }
@@ -54,7 +52,6 @@ double? rate;
 double? discount;
 int productIdx = 0;
 double? discountAmount;
-//AutoCompleteProductList? product;
 String query = '';
 AutoCompleteLedgerList? containerValue;
 
@@ -69,9 +66,6 @@ class _AddItemState extends State<AddItem> {
   var quantityController = TextEditingController();
   var amountController = TextEditingController();
   var discountController = TextEditingController();
-
-  //final int? productId;
-  //String query = '';
 
   @override
   Widget build(BuildContext context) {
@@ -135,12 +129,6 @@ class _AddItemState extends State<AddItem> {
                   Icons.verified_rounded,
                   size: 30.sp,
                 )),
-            IconButton(
-                onPressed: () {
-                  //  log("voucherID -------$voucherIdpass");
-                  //    RemoteService().saveSalesInvoices(voucherId: );
-                },
-                icon: const Icon(Icons.coronavirus))
           ],
         ),
         body: FutureBuilder<List<AutoCompleteProductList?>>(
@@ -150,14 +138,12 @@ class _AddItemState extends State<AddItem> {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             }
-
             List<AutoCompleteProductList?>? data1 = snapshot.data;
 
             return FutureBuilder<GetProductDetails?>(
               future: newData,
               builder: (context, snapshot) {
                 GetProductDetails? productDetials = snapshot.data;
-
                 /////////////////////////////////////
                 addProductList({item, itemIndex}) {
                   setState(() {
@@ -168,7 +154,6 @@ class _AddItemState extends State<AddItem> {
                     newData.then((productDetials) {
                       rateController.text =
                           productDetials!.salesRate.toString();
-
                       unitController.text = productDetials!.baseUnit.toString();
                     });
                   });
@@ -178,7 +163,6 @@ class _AddItemState extends State<AddItem> {
                   child: Column(
                     children: [
                       SizedBox(
-                        //  color: Colors.grey,
                         width: double.infinity,
                         height: 530.h,
                         child: Column(children: [
@@ -228,7 +212,6 @@ class _AddItemState extends State<AddItem> {
                                   SizedBox(
                                     width: 90.w,
                                     child: TextFormField(
-                                      //initialValue: '0',
                                       controller: quantityController,
                                       onChanged: (value) {
                                         setState(() {
@@ -241,11 +224,6 @@ class _AddItemState extends State<AddItem> {
 
                                             amount = quantity! * rate!;
 
-                                            log("rate-------$rate");
-
-                                            log("intQuantity-----------$quantity");
-
-                                            log("amount--------$amount");
                                             amountController.text =
                                                 amount.toString();
                                           });
@@ -354,7 +332,7 @@ class _AddItemState extends State<AddItem> {
                                     horizontal: 14.0, vertical: 28),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(5.r),
                                     color: Colors.grey[300],
                                   ),
                                   child: Column(
@@ -362,14 +340,12 @@ class _AddItemState extends State<AddItem> {
                                       SizedBox(
                                         height: 10.h,
                                       ),
-
                                       _rowData(
                                           'Closing Stock',
                                           productDetials?.closingQty
                                                   .toString() ??
                                               '0'),
-                                      _rowData('Alternate Unit',
-                                          'N/A'), ////int.parse(product.code) value rakhda error aauxa hera
+                                      _rowData('Alternate Unit', 'N/A'),
                                       _rowData(
                                           'Last Sale Rate',
                                           productDetials?.salesRate
@@ -400,7 +376,6 @@ class _AddItemState extends State<AddItem> {
                                           productDetials?.exDutyRate
                                                   .toString() ??
                                               '0'),
-
                                       SizedBox(
                                         height: 10.h,
                                       ),

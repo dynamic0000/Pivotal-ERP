@@ -15,17 +15,17 @@ class SelectCustomer extends StatefulWidget {
     Key? key,
     required this.bearerToken,
     this.voucherId,
-    //this.quantityReq,
-    //this.rateReq,
-    //this.productNameReq,
-    //this.amountReq,
+    this.quantityReq,
+    this.rateReq,
+    this.productNameReq,
+    this.amountReq,
   }) : super(key: key);
   final String bearerToken;
   final int? voucherId;
-  /*final int? quantityReq;
+  final int? quantityReq;
   final double? amountReq;
   final double? rateReq;
-  final String? productNameReq;*/
+  final String? productNameReq;
 
   @override
   State<SelectCustomer> createState() => _SelectCustomerState();
@@ -92,12 +92,8 @@ class _SelectCustomerState extends State<SelectCustomer> {
             }
 
             if (result.isEmpty) {
-              log('qqqqqqqqqqqqqqqqqqq----------${result.isEmpty}');
-
               return const Center(child: Text('No data'));
             }
-            // log('message${(result[0])}');
-            //////////////
             return ListView.builder(
                 itemCount: result.length,
                 itemBuilder: (context, index) {
@@ -109,9 +105,7 @@ class _SelectCustomerState extends State<SelectCustomer> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.sp,
-                          color: Colors.black
-                          // backgroundColor: Color.fromARGB(255, 154, 203, 242)
-                          ),
+                          color: Colors.black),
                     ),
                     children: [
                       ...result[index].values.first.map((lst) {

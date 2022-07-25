@@ -23,7 +23,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       onWillPop: () async {
         if (isDialOpen.value) {
           isDialOpen.value = false;
-
           return false;
         } else {
           return true;
@@ -37,7 +36,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             IconButton(
                 onPressed: () {
                   showLogOutAlertDialog(context);
-                  //showLogOutAlertDialog(context);
                 },
                 icon: const Icon(Icons.logout))
           ],
@@ -50,14 +48,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 60.w,
                 ),
-                const Text(
+                Text(
                   "Sales Order",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 25.sp),
                 ),
                 SizedBox(
                   height: 30.h,
@@ -79,8 +77,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 ),
                 salesRow(context, 'images/year.png', 'This Year', '8 orders',
                     'Last Order', '0 order'),
-
-                /////////second
                 SizedBox(
                   height: 15.h,
                 ),
@@ -98,17 +94,17 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   Container salesRow(BuildContext context, String photo, String latestTime,
       String latestOrder, String previousTime, String previousOrder) {
     return Container(
-      height: 100,
+      height: 100.h,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.white30, width: 1.0),
+          border: Border.all(color: Colors.white30, width: 1.0.w),
           color: const Color.fromARGB(255, 255, 253, 253),
           borderRadius: BorderRadius.circular(10.r),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2, //spread radius
-              blurRadius: 2, // blur radius
+              spreadRadius: 2.r, //spread radius
+              blurRadius: 2.r, // blur radius
               offset: const Offset(0, 2),
             )
           ]),
@@ -156,15 +152,10 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 ),
               ],
             ),
-            //today
-
-            //yesterday
             Row(
-              // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
-                  // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
@@ -226,8 +217,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text("Are you sure you want to logout?"),
-      // content: Text(
-      //     "Would you like to continue learning how to use Flutter alerts?"),
       actions: [
         yesButton,
         noButton,

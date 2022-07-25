@@ -1,7 +1,3 @@
-// To parse required this JSON data, do
-//
-//     final getProductDetails = getProductDetailsFromMap(jsonString);
-
 import 'dart:convert';
 
 class GetProductDetails {
@@ -245,9 +241,7 @@ class GetProductDetails {
 
 class GetProductDetialsToJSON {
   int productId;
-
   GetProductDetialsToJSON(this.productId);
-
   Map toJson() => {
         'productId': productId,
       };

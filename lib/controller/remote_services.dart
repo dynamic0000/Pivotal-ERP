@@ -19,39 +19,34 @@ import 'package:pivotal_erp/view/screens/additem_screen.dart';
 import '../models/resetpassword_model.dart';
 
 class RemoteService {
+  /* Service model  for token */
   Future<TokenModel?> getToken(String userName, String password) async {
     try {
       var uri = Uri.parse('$urlERP/v1//token');
       final response = await http.post(uri, body: {
         "userName": userName,
         "password": password,
-        // "userName": 'admin',
-        // "password": 'admin',
         "grant_type": 'password'
       });
       final jsonDecoded = jsonDecode(response.body);
       final tokenModel = TokenModel.fromMap(jsonDecoded);
-      //log('httppppppppp$tokenModel');
+
       if (response.statusCode == 200) {
-        // log('resssssssssssssssssssssss$response');
         return tokenModel;
       }
-      // print('sad');
       return null;
     } catch (e) {
       rethrow;
     }
   }
 
+/* Service model  for update password */
   Future<http.Response?> updatePassword(
       String oldPWD, String newPWD, String dynamicToken) async {
     try {
       User user = User(oldPWD, newPWD);
-
       String jsonUser = jsonEncode(user);
-      // log('jjjjjjjjjjjjjjjjjj$jsonUser');
       var uri = Uri.parse('$urlERP/v1/General/UpdatePwd');
-      // var uri = Uri.parse('https://demo.pivotalerp.app/v1/General/UpdatePwd');
       final response = await http.post(uri,
           headers: {
             'Content-Type': 'application/json',
@@ -60,13 +55,14 @@ class RemoteService {
             'Authorization': 'Bearer $dynamicToken'
           },
           body: jsonUser);
-
       final jsonDecoded = jsonDecode(response.body);
     } catch (e) {
       rethrow;
     }
     return null;
   }
+
+  /* Service model  for url verification of login screen */
 
   Future<String> getUrl(String url) async {
     try {
@@ -81,6 +77,8 @@ class RemoteService {
       return " Failed:";
     }
   }
+
+  /* Service model  for auto complete suggestion in select customer screen */
 
   Future<List<AutoCompleteLedgerList>> getAutoCompleteLedgerList(
       {String? query,
@@ -124,7 +122,7 @@ class RemoteService {
     }
     return results;
   }
-
+/* Service model  for get ledger details which may be used  in future*/
   // Future<ledgerDetail?> getLedgerDetails() async {
   //   try {
   //     GetLedgerToJson details = GetLedgerToJson(2);
@@ -151,13 +149,11 @@ class RemoteService {
   //     rethrow;
   //   }
   // }
-  //String dynamic =
-  //  'x6y49bN-kS-62NsI4-K3qXsykhfA0-5TcUt9fMgzR46QytIy1THLoE2H8PNVKs8QytRjVQhobwQKi0aGeUeSQkAXMfEZL5KPkc5IenTDo2mVWLefRA1xbczM60y3WbZHDekmAtzpZiyDTo-wIu1ATkOPw_xgBeJ4NzASFvLs3__pUU6XEGWtTXh6HXj5T2Jeg1wED9Rhrnn7ymH-pVwIPt6JVjYthUXhFmwZcxmJAy4hcFgkZSJSbOnYUSHBpF6uEFQm2Qbd0PFwonW6Mt3KrL7OaA-GsfF05yBdaWa78sUpCgV9bGRvZ-k-7-fpX2YWTF-uYaTyVl6lA6GBQ6W6pa_OeT-_IysTQd95AUgKQg6b4x9VUUo48AL2Xae7FsCv0HAUErTJKFdvpeOaV3JP0-cejxa23GG-sD20-wHBy1I';
+
+  /* Service model  for product list for add item screen --Upper data selection part  */
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
       String? bearerTokenDynamic, String query) async {
-    //Future<void> getAutoCompleteProductList() async {
     List<AutoCompleteProductList> productLists = [];
-    //var data9 = [];
     var url = Uri.parse('$urlERP/v1/inventory/AutoCompleteProductList');
     try {
       AutoCompleteProductListToJSON autoCompleteProductListToJSON =
@@ -181,7 +177,6 @@ class RemoteService {
       );
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-
         return [
           ...data.map((e) => AutoCompleteProductList.fromJson(e)).toList()
         ];
@@ -194,6 +189,7 @@ class RemoteService {
     return productLists;
   }
 
+  /* Service model  for product list for add item screen --lower auto data display part  */
   Future<GetProductDetails?> getProductDetials(
       int productIdIndex, String? bearerTokenDynamic) async {
     var url =
@@ -226,8 +222,9 @@ class RemoteService {
     return null;
   }
 
+/* Service model for to get the voucher dialog box*/
   Future<GetVoucherNo?> getVoucherNo(String? bearerTokenDynamic) async {
-    var url = Uri.parse('https://demo.pivotalerp.app/v1/General/GetVoucherNo');
+    var url = Uri.parse('$urlERP/v1/General/GetVoucherNo');
     try {
       DateTime now = DateTime.now();
       String formattedDate = DateFormat('yyyy-MM-dd').format(now);
@@ -263,10 +260,10 @@ class RemoteService {
     return null;
   }
 
+/* Service model for to get the voucher dialog box*/
   Future<List<GetVoucherModes>?> getVoucherModes(
       String? bearerTokenDynamic) async {
     List<GetVoucherModes> voucherModes = [];
-
     var url = Uri.parse('$urlERP/v1/Account/GetVoucherModes?VoucherType=13');
     try {
       var response = await http.post(
@@ -276,27 +273,22 @@ class RemoteService {
           "Content-Type": "application/x-www-form-urlencoded"
         },
       );
-
       if (response.statusCode == 200) {
         log('satatuscode-------${response.statusCode}');
         var data = jsonDecode(response.body);
-
-        // var voucherModes =
-        //   [...data.map((e) => GetVoucherModes.fromJson(e)).toList()];
-
-        log('VoucherMOdessssss-------$voucherModes');
+        log('VoucherMOdes-------$voucherModes');
 
         return [...data.map((e) => GetVoucherModes.fromJson(e)).toList()];
       } else {
         log("No data---fetch error");
       }
     } catch (e) {
-      log('eeeeeeeeeeeeeeee_________${e.toString()}');
+      log('eValue_________${e.toString()}');
     }
-    // log('final' '$results9');
     return voucherModes;
   }
 
+/* Service model for to put the data into api */
   Future<SaveSalesInvoice?> saveSalesInvoices(
       {int? voucherId,
       //double? totalAmount,
@@ -356,30 +348,24 @@ class RemoteService {
   ]
 }''';
 
-      log("values---------AQ$actualQty,---R$rate,---DP$discountPer,---A$amount,---PI${product.productId},---PN${product.name},---productId--$productId,---discountAmount---$discountAmount,-----$voucherDate");
-      log("voucherIDDD-$voucherId");
-
+      // log("values---------AQ$actualQty,---R$rate,---DP$discountPer,---A$amount,---PI${product.productId},---PN${product.name},---productId--$productId,---discountAmount---$discountAmount,-----$voucherDate");
+      //log("voucherIDDD-$voucherId");
       var body = {'paraDataColl': data1};
-
       var formData = FormData.fromMap(body);
       log('formData11------------${formData.toString()}');
       var response = await dio.put(url,
           data: formData,
           options: Options(
             headers: {
-              // 'accept': '*/*',
               'Authorization': 'Bearer $bearerTokenDynamic',
               'Content-Type': 'multipart/form-data'
             },
-            //contentType: 'multipart/form-data;',
-            // responseType: ResponseType.json
           ));
       log('responseeeeeeeee------$response');
       Fluttertoast.showToast(msg: response.data.toString());
     } on DioError catch (e) {
-      log('newdioerrro----$e');
+      log('newdioerrr----$e');
     }
-    //return  Fluttertoast.showToast(msg: response.data);
     return null;
   }
 }

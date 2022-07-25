@@ -20,8 +20,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(milliseconds: 150), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) =>  UserHomeScreen(bearerToken: widget.bearerToken,)));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => UserHomeScreen(
+                    bearerToken: widget.bearerToken,
+                  )));
     });
   }
 
@@ -34,12 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             child: CircularProgressIndicator(
           color: Colors.black,
           // strokeWidth: 5.0,
-        )
-            // SpinKitRing(
-            //   color: Colors.white,
-            //   size: 50.0,
-            // ),
-            ),
+        )),
       ),
     );
   }

@@ -26,13 +26,12 @@ class MapSampleState extends State<MapSample> {
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
-  /////////////////////////////////marker
+  /* Marker Point */
   final List<Marker> _marker = [];
 
   @override
   void initState() {
     super.initState();
-
     List<Marker> list = [
       Marker(
           icon: BitmapDescriptor.defaultMarkerWithHue(
@@ -61,7 +60,7 @@ class MapSampleState extends State<MapSample> {
     _marker.addAll(list);
   }
 
-  ///      /////////////////////////////////marker
+/* marker Point*/
 
   @override
   Widget build(BuildContext context) {

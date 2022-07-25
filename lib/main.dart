@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/view/screens/splash_screen.dart';
 
-// const bool debugEnableDevicesSimulator = true;
-
 void main() {
   runApp(const MyApp());
 }
@@ -23,9 +21,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(primarySwatch: Colors.blue),
-            home: const SplashScreen(),
-            // home: const AddItem(bearerToken: ''),
-            // home: const NewScreen(),
+            home: const SplashScreen(), // home: const NewScreen(),
           );
         });
   }

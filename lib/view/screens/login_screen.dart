@@ -23,27 +23,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     urlController.text = 'https://demo.pivotalerp.app/';
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isChecked = false;
+    // bool isChecked = false;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      // ),
       body: Stack(children: [
         Positioned(
             top: 0,
             right: 0,
             left: 0,
             child: Container(
-              // width: MediaQuery.of(context).size.width,
               height: 350.h,
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -51,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fit: BoxFit.cover)),
             )),
 
-        //  cloudddddddddddddddddd
+/* Cloud  image placed */
         Positioned(
           top: 50.h,
           left: 80.w,
@@ -74,11 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       title: const Text('Change API'),
                       content: TextFormField(
                         controller: urlController,
-                        //  initialValue: 'https://demo.pivotalerp.app/',
                         decoration: const InputDecoration(
                           label: Text('Url Please'),
                         ),
-                        //`   readOnly: true,
                       ),
                       semanticLabel: 'Hurray',
                       actions: [
@@ -170,7 +163,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           MinLengthValidator(3,
                               errorText: 'password must be at least 4 digits')
                         ]),
-                        // obscureText: obscureText,
                         controller: passwordController,
                         decoration: InputDecoration(
                             prefixIcon: Padding(
@@ -196,10 +188,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             )),
                         obscureText: !_showPassword,
                       ),
-
-                      // SizedBox(
-                      //   height: 8.h,
-                      // ),
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -225,13 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'Forgot Password?',
                                 style: TextStyle(color: Colors.blue),
                               ),
-                              onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const ResetPasswordScreen()));
-                              },
+                              onTap: () {},
                             )
                           ],
                         ),
@@ -239,7 +221,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 8.h,
                       ),
-                      //logggggggggggggggggg INnnnnnnnnnnnnnnnnnnnnnnn
                       Container(
                           height: 43.h,
                           width: 100.w,
@@ -255,6 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       .getToken(userName, password);
                                   if (response != null) {
                                     const CircularProgressIndicator();
+                                    // ignore: use_build_context_synchronously
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -265,7 +247,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     );
                                   }
                                 } catch (e) {
-                                  //  FlutterError.demangleStackTrace.toString();
                                   Fluttertoast.showToast(
                                       msg: 'Credential error');
                                 }

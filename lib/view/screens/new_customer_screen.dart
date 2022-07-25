@@ -32,7 +32,6 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // centerTitle: true,
         title: Text(
           "New Customer",
           style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.normal),
@@ -124,13 +123,11 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                       color: const Color.fromARGB(255, 21, 115, 193),
                       fontWeight: FontWeight.bold),
                 ),
-
                 SearchField(
                   hint: "Select Province",
                   suggestions:
                       province.map((e) => SearchFieldListItem(e)).toList(),
                 ),
-
                 SizedBox(
                   height: 5.h,
                 ),
@@ -146,11 +143,6 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                   suggestions:
                       district.map((e) => SearchFieldListItem(e)).toList(),
                 ),
-                // TextFormField(
-                //   decoration: const InputDecoration(
-                //     border: UnderlineInputBorder(),
-                //   ),
-                // ),
                 SizedBox(
                   height: 5.h,
                 ),

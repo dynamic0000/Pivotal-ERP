@@ -221,8 +221,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                       builder: (context) => UserHomeScreen(
                             bearerToken: widget.bearerToken,
                           )));
-              log("userhome----${widget.bearerToken}");
-              setState(() {});
             },
             icon: const Icon(Icons.arrow_back)),
         actions: [
@@ -237,7 +235,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     builder: (context) => buildSheet());
               },
               icon: Icon(
-                // Icons.assignment_turned_in,
                 Icons.difference_outlined,
                 size: 30.sp,
               )),
@@ -297,7 +294,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 205, 227, 245),
-                  borderRadius: BorderRadius.circular(8)),
+                  borderRadius: BorderRadius.circular(8.r)),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
@@ -306,22 +303,17 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                   children: [
                     SingleChildScrollView(
                       child: SizedBox(
-                          //color: Colors.white,
-                          height: 220,
-                          width: 160,
-                          child: customerData),
+                          height: 220.h, width: 160.w, child: customerData),
                     ),
-                    const VerticalDivider(
-                      width: 2,
+                    VerticalDivider(
+                      width: 2.w,
                       indent: 5,
                       endIndent: 5,
                       thickness: 2,
                       color: Colors.grey,
                     ),
-
-                    // Container(color: Colors.blue, width: 20.w),
+                    /*for date and invoices field*/
                     Container(
-                      // color: Colors.grey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -337,8 +329,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                           ),
                           SizedBox(
                             child: Text(
-                              //"13",
-
                               voucherIdpass?.toString() ?? "",
                               style: TextStyle(
                                   fontSize: 15.sp,
@@ -371,21 +361,17 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                   ),
                                   child: Text(
                                     formattedText,
-                                    // formattedText,
-
                                     style: TextStyle(fontSize: 15.sp),
                                   ),
                                 ),
                               ),
-
-                              // ),
                               IconButton(
                                   onPressed: () {
                                     _selectDate();
                                   },
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.calendar_today,
-                                    size: 18,
+                                    size: 18.sp,
                                   ))
                             ],
                           ),
@@ -414,8 +400,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                   ),
                                   child: Text(
                                     formattedDueText,
-                                    // formattedDueText,
-
                                     style: TextStyle(fontSize: 15.sp),
                                   ),
                                 ),
@@ -424,9 +408,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                                   onPressed: () {
                                     _selectDueDate();
                                   },
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.calendar_today,
-                                    size: 18,
+                                    size: 18.sp,
                                   ))
                             ],
                           ),
@@ -443,13 +427,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 10.h,
                 ),
-
                 dataPicked,
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
                 amountPicked,
-
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -474,11 +456,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                   height: 12.h,
                 ),
 
-                ///for add line container
+                /*for add line container*/
                 GestureDetector(
                   child: DottedBorder(
                     color: const Color.fromARGB(255, 194, 194, 194),
-                    strokeWidth: 2,
+                    strokeWidth: 2.w,
                     radius: Radius.circular(8.r),
                     borderType: BorderType.RRect,
                     child: Container(
@@ -494,10 +476,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                               SizedBox(
                                 width: 5.w,
                               ),
-                              const Icon(
+                              Icon(
                                 Icons.add_circle_rounded,
                                 color: Colors.green,
-                                size: 23,
+                                size: 23.sp,
                               ),
                               SizedBox(
                                 width: 5.w,
@@ -534,15 +516,15 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 SizedBox(
                   height: 15.h,
                 ),
-                // addItem_data(context, GetProductDetails()),
                 Divider(
                   indent: 45,
                   color: Colors.grey.withOpacity(.8),
                   thickness: 1,
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: 15.h,
                 ),
+/*for sub total - total amount fields*/
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -558,8 +540,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                         ),
                         const Spacer(),
                         Text(
-                          //  "000.0",
-
                           amountReq?.toString() ?? "000.00",
                           style: TextStyle(
                               fontSize: 18.sp,
@@ -580,7 +560,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                               fontSize: 18.sp,
                               color: const Color.fromARGB(255, 143, 142, 142)),
                         ),
-                        // const Spacer(),
                         SizedBox(
                           width: 35.w,
                           height: 20.h,
@@ -603,7 +582,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                           child: TextField(
                             decoration: InputDecoration(
                               hintText: "000.00",
-                              contentPadding: const EdgeInsets.only(top: 28),
+                              contentPadding: EdgeInsets.only(top: 28.h),
                               hintStyle: TextStyle(
                                   color: Colors.grey, fontSize: 16.sp),
                             ),
@@ -617,26 +596,20 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     Row(
                       children: [
                         Container(width: 70.w, color: Colors.transparent),
-
                         Text(
                           "Excise @ ",
                           style: TextStyle(
                               fontSize: 18.sp,
                               color: const Color.fromARGB(255, 143, 142, 142)),
                         ),
-                        // SizedBox(
-                        //   width: 60,
-                        // ),
                         SizedBox(
                           width: 35.w,
                           height: 20.h,
                           child: TextField(
                             textAlignVertical: TextAlignVertical.bottom,
-
-                            // textAlign: TextAlign.,
                             decoration: InputDecoration(
                                 hintText: "Rate",
-                                contentPadding: const EdgeInsets.only(top: 28),
+                                contentPadding: EdgeInsets.only(top: 28.h),
                                 hintStyle: TextStyle(
                                     color: Colors.grey, fontSize: 16.sp)),
                           ),
@@ -648,7 +621,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                           child: TextField(
                             decoration: InputDecoration(
                                 hintText: "000.00",
-                                contentPadding: const EdgeInsets.only(top: 28),
+                                contentPadding: EdgeInsets.only(top: 28.h),
                                 hintStyle: TextStyle(
                                     color: Colors.grey, fontSize: 16.sp)),
                           ),
@@ -673,11 +646,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                           height: 20.h,
                           child: TextField(
                             textAlignVertical: TextAlignVertical.bottom,
-
-                            // textAlign: TextAlign.,
                             decoration: InputDecoration(
                                 hintText: "Rate",
-                                contentPadding: const EdgeInsets.only(top: 28),
+                                contentPadding: EdgeInsets.only(top: 28.h),
                                 hintStyle: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16.sp,
@@ -689,12 +660,9 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                           width: 50.w,
                           height: 20.h,
                           child: TextField(
-                            // textAlignVertical: TextAlignVertical.bottom,
-
-                            // textAlign: TextAlign.,
                             decoration: InputDecoration(
                                 hintText: "000.00",
-                                contentPadding: const EdgeInsets.only(top: 28),
+                                contentPadding: EdgeInsets.only(top: 28.h),
                                 hintStyle: TextStyle(
                                     color: Colors.grey, fontSize: 16.sp)),
                           ),
@@ -816,7 +784,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     ),
                   ],
                 ),
-
                 SizedBox(
                   height: 20.h,
                 ),
@@ -841,10 +808,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
           decoration: BoxDecoration(
               border:
                   Border.all(color: const Color.fromARGB(255, 177, 177, 177)),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10.r),
               color: const Color.fromARGB(255, 169, 214, 251)),
           height: 30,
-          width: double.infinity - 20,
+          width: double.infinity - 20.w,
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: Text(_resultFile ?? '',
@@ -868,15 +835,14 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   Container amountDisplay(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.r),
         color: const Color.fromARGB(255, 159, 191, 218),
       ),
-      height: 45,
-      width: double.infinity - 20,
+      height: 45.h,
+      width: double.infinity - 20.w,
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Row(
-          // crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
@@ -886,19 +852,17 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     log("amoutReq$amountReq");
                   });
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.remove_circle,
                   color: Colors.red,
-                  size: 25,
+                  size: 25.sp,
                 )),
-            //const Spacer(),
             Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   product.name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500, fontSize: 15),
+                  style:
+                      TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp),
                 ),
                 Text('$quantityReq*$rateReq')
               ],
@@ -924,32 +888,31 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               color: const Color.fromARGB(255, 16, 124, 213),
               fontWeight: FontWeight.bold),
         ),
-        const SizedBox(
-          height: 5,
+        SizedBox(
+          height: 5.h,
         ),
         GestureDetector(
           child: DottedBorder(
             color: const Color.fromARGB(255, 155, 154, 154),
             strokeWidth: 1,
-            radius: const Radius.circular(5),
+            radius: Radius.circular(5.h),
             borderType: BorderType.RRect,
             child: Container(
                 height: 80.h,
                 width: 120.w,
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 205, 231, 252),
-                    borderRadius: BorderRadius.circular(5)),
+                    borderRadius: BorderRadius.circular(5.r)),
                 child: Center(
                   child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
                         width: 5.w,
                       ),
-                      const Icon(
+                      Icon(
                         Icons.add_circle_rounded,
                         color: Colors.green,
-                        size: 23,
+                        size: 23.sp,
                       ),
                       SizedBox(
                         width: 5.w,
@@ -969,10 +932,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                     builder: (context) => SelectCustomer(
                           bearerToken: widget.bearerToken,
                           voucherId: voucherIdpass,
-                          /* amountReq: amountReq,
+                          amountReq: amountReq,
                           rateReq: rateReq,
                           productNameReq: productNameReq,
-                          quantityReq: quantityReq,*/
+                          quantityReq: quantityReq,
                         )));
           },
         ),
@@ -986,7 +949,6 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   }) {
     log('aaaaaaaaaaaaaaaaaaaaa----------$a');
     return Column(
-      // mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -996,8 +958,8 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               color: const Color.fromARGB(255, 16, 124, 213),
               fontWeight: FontWeight.bold),
         ),
-        const SizedBox(
-          height: 8,
+        SizedBox(
+          height: 8.h,
         ),
         Text(a!.name.toString(),
             style: GoogleFonts.mavenPro(
@@ -1006,8 +968,8 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 color: Colors.black.withOpacity(0.8),
               ),
             )),
-        const SizedBox(
-          height: 9,
+        SizedBox(
+          height: 9.h,
         ),
         Text(a.address.toString(),
             style: GoogleFonts.alegreyaSans(
@@ -1016,18 +978,18 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                 color: Colors.grey.shade800.withOpacity(1),
               ),
             )),
-        const SizedBox(
-          height: 9,
+        SizedBox(
+          height: 9.h,
         ),
         _rowData(title: 'Pan no   -', titleData: a.panVatNo.toString()),
-        const SizedBox(
-          height: 9,
+        SizedBox(
+          height: 9.h,
         ),
         _rowData(
             title: 'Credit Limit   -',
             titleData: a.creditLimitAmount.toString()),
-        const SizedBox(
-          height: 8,
+        SizedBox(
+          height: 8.h,
         ),
         _rowData(
             title: 'Credit Days   -', titleData: a.creditLimitDays.toString()),
@@ -1146,9 +1108,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
             filesColumn(context, "images/dustbin.png", "Remove", () {
               Navigator.pop(context);
               setState(() {
-                // _platformFile = '';
                 _resultFile = null;
-                //log('letscheck-----------$_resultFile');
               });
             }),
           ],

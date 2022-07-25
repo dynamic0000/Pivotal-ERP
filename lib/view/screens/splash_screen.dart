@@ -23,10 +23,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    // final height = MediaQuery.of(context).size.height;
-    // log("widthhh$width" "heighttt$height");
-
     return Scaffold(
       body: Container(
           width: MediaQuery.of(context).size.width,
@@ -39,8 +35,6 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
                   height: 220.h,
@@ -95,9 +89,6 @@ class _SplashScreenState extends State<SplashScreen> {
                         image: AssetImage("images/line_13.png"),
                       )),
                     ),
-                    // SizedBox(
-                    //   height: 30.h,
-                    // ),
                   ],
                 )
               ],

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final GetVoucherNo = GetVoucherNoFromMap(jsonString);
-
 import 'dart:convert';
 
 class GetVoucherNo {

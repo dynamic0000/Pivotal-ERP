@@ -222,8 +222,8 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen(
-                            bearerToken: '',
+                      builder: (context) => UserHomeScreen(
+                            bearerToken: widget.bearerToken,
                           )));
             },
             icon: const Icon(Icons.arrow_back)),

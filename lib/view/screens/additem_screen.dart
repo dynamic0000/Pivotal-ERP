@@ -66,9 +66,9 @@ class _AddItemState extends State<AddItem> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  NewSalesOrder(
+                        builder: (context) => NewSalesOrder(
                               indexGetter: null,
-                              bearerToken: '',
+                              bearerToken: widget.bearerToken,
                             )));
               },
               icon: const Icon(Icons.arrow_back_ios)),
@@ -78,9 +78,13 @@ class _AddItemState extends State<AddItem> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>  NewSalesOrder(
-                            quantityReq:int.parse(quantityController.text) ,amountReq:double.parse(amountController.text) ,productNameReq: product.name,rateReq: double.parse(rateController.text),
-                              indexGetter: null, bearerToken: '')));
+                          builder: (context) => NewSalesOrder(
+                              quantityReq: int.parse(quantityController.text),
+                              amountReq: double.parse(amountController.text),
+                              productNameReq: product.name,
+                              rateReq: double.parse(rateController.text),
+                              indexGetter: null,
+                              bearerToken: widget.bearerToken)));
                 },
                 icon: Icon(
                   Icons.verified_rounded,
@@ -89,8 +93,8 @@ class _AddItemState extends State<AddItem> {
           ],
         ),
         body: FutureBuilder<List<AutoCompleteProductList?>>(
-          future: RemoteService()
-              .getAutoCompleteProductList(widget.bearerToken, query),
+          future: RemoteService().getAutoCompleteProductList(
+              dynamicToken: widget.bearerToken, query: query),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -116,7 +120,8 @@ class _AddItemState extends State<AddItem> {
                   setState(() {
                     product = item;
                     productIdx = itemIndex;
-                    newData = RemoteService().getProductDetials(productIdx);
+                    newData = RemoteService()
+                        .getProductDetials(productIdIndex: productIdx);
                     newData.then((productDetials) {
                       rateController.text =
                           productDetials!.salesRate.toString();

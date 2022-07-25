@@ -158,7 +158,7 @@ class RemoteService {
   // }
 
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
-      String query, String dynamicToken) async {
+      {String? query, String? dynamicToken}) async {
     //Future<void> getAutoCompleteProductList() async {
     List<AutoCompleteProductList> productLists = [];
     //var data9 = [];
@@ -168,7 +168,7 @@ class RemoteService {
           AutoCompleteProductListToJSON(
         1,
         //'sandesh',
-        query,
+        query!,
         1,
       );
 
@@ -181,7 +181,8 @@ class RemoteService {
           'Charset': 'utf-8',
           'Accept': 'application/json',
           // 'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer $access'
+          // 'Authorization': 'Bearer $access'
+          'Authorization': 'Bearer $dynamicToken'
         },
         //body lai json format ma change gareko
         body: jsonAutoCopleteProductList,
@@ -205,18 +206,19 @@ class RemoteService {
     return productLists;
   }
 
-  Future<GetProductDetails?> getProductDetials(int productIdIndex) async {
+  Future<GetProductDetails?> getProductDetials(
+      {int? productIdIndex, String? dynamicToken}) async {
     var url =
         Uri.parse('https://demo.pivotalerp.app/v1/inventory/GetProductDetail');
     try {
       GetProductDetialsToJSON getProductDetialsToJSON =
-          GetProductDetialsToJSON(productIdIndex);
+          GetProductDetialsToJSON(productIdIndex!);
       log('contAPIIIII-____$productIdIndex');
       String jsonGetProductDetials = jsonEncode(getProductDetialsToJSON);
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $access',
+          'Authorization': 'Bearer $dynamicToken',
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
@@ -239,7 +241,7 @@ class RemoteService {
     return null;
   }
 
-  Future<GetVoucherNo?> getVoucherNo() async {
+  Future<GetVoucherNo?> getVoucherNo({String? dynamicToken}) async {
     var url = Uri.parse('https://demo.pivotalerp.app/v1/General/GetVoucherNo');
     try {
       DateTime now = DateTime.now();
@@ -253,7 +255,7 @@ class RemoteService {
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $access',
+          'Authorization': 'Bearer $dynamicToken',
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
@@ -276,7 +278,7 @@ class RemoteService {
   }
 
   ////////////////////////////////////////////////////////////////////
-  Future<List<GetVoucherModes>?> getVoucherModes() async {
+  Future<List<GetVoucherModes>?> getVoucherModes({String? dynamicToken}) async {
     List<GetVoucherModes> voucherModes = [];
 
     var url = Uri.parse('$urlERP/v1/Account/GetVoucherModes?VoucherType=13');
@@ -284,7 +286,7 @@ class RemoteService {
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $access',
+          'Authorization': 'Bearer $dynamicToken',
           "Content-Type": "application/x-www-form-urlencoded"
         },
       );
@@ -309,60 +311,60 @@ class RemoteService {
     return voucherModes;
   }
 
-  Future<SaveSalesInvoice?> saveSalesInvoice() async {
-    var url = 'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
-    SaveSalesInvoice? saveOn;
-    try {
-      Dio dio = Dio();
-      var body = {
-        "aditionalCostColl": [],
-        "itemAllocationColl": [
-          {
-            "ActualQty": 1,
-            "Amount": 1,
-            "BilledQty": 1,
-            "DiscountAmt": 1,
-            "DiscountPer": 1,
-            "FreeQty": 13,
-            "LedgerId": 0,
-            "ProductId": 0,
-            "Rate": 1,
-            "UnitId": 1
-          }
-        ],
-        "manualVoucherNO": "1",
-        "narration": "",
-        "partyLedgerId": 1,
-        "refNo": "",
-        "totalAmount": 1,
-        "voucherDate": '2022-07-20',
-        "voucherId": 1
-      };
-      var formData = FormData.fromMap({'paraDataColl': body});
-      log('tryinggggggggg${formData.toString()}');
-      var response = await dio.put(
-        url,
-        data: formData,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $access',
-            'Content-Type': 'multipart/form-data',
-            //  'Charset': 'utf-8',
-          },
-// contentType: 'application/form-data',
-          //   method: 'PUT',
-        ),
-      );
-      log('responsedataaaaaaaa' + response.data);
-      return SaveSalesInvoice.fromJson(response.data);
-    } on DioError catch (e) {
-      log('DioEEEEEEEEEEE----------$e');
-    }
-    return null;
-  }
+//   Future<SaveSalesInvoice?> saveSalesInvoice({String? dynamicToken}) async {
+//     var url = 'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
+//     SaveSalesInvoice? saveOn;
+//     try {
+//       Dio dio = Dio();
+//       var body = {
+//         "aditionalCostColl": [],
+//         "itemAllocationColl": [
+//           {
+//             "ActualQty": 1,
+//             "Amount": 1,
+//             "BilledQty": 1,
+//             "DiscountAmt": 1,
+//             "DiscountPer": 1,
+//             "FreeQty": 13,
+//             "LedgerId": 0,
+//             "ProductId": 0,
+//             "Rate": 1,
+//             "UnitId": 1
+//           }
+//         ],
+//         "manualVoucherNO": "1",
+//         "narration": "",
+//         "partyLedgerId": 1,
+//         "refNo": "",
+//         "totalAmount": 1,
+//         "voucherDate": '2022-07-20',
+//         "voucherId": 1
+//       };
+//       var formData = FormData.fromMap({'paraDataColl': body});
+//       log('tryinggggggggg${formData.toString()}');
+//       var response = await dio.put(
+//         url,
+//         data: formData,
+//         options: Options(
+//           headers: {
+//             'Authorization': 'Bearer $access',
+//             'Content-Type': 'multipart/form-data',
+//             //  'Charset': 'utf-8',
+//           },
+// // contentType: 'application/form-data',
+//           //   method: 'PUT',
+//         ),
+//       );
+//       log('responsedataaaaaaaa' + response.data);
+//       return SaveSalesInvoice.fromJson(response.data);
+//     } on DioError catch (e) {
+//       log('DioEEEEEEEEEEE----------$e');
+//     }
+//     return null;
+//   }
 
   //////////////////////////////////////////////////////NEW-Begining   ///////////////////////////////////////////////////////////////////////////
-  Future<SaveSalesInvoice?> saveSalesInvoices() async {
+  Future<SaveSalesInvoice?> saveSalesInvoices({String? dynamicToken}) async {
     var url = 'https://demo.pivotalerp.app/v1/Inventory/SaveSalesInvoice';
     try {
       Dio dio = Dio();
@@ -402,7 +404,7 @@ class RemoteService {
         ],
         "AditionalCostColl": [
           {"LedgerId": 5, "Rate": 13, "Amount": 17.55, "Narration": ""}
-        ]
+        ] 
       }""";
 
       var body = {'paraDataColl': data1};
@@ -414,7 +416,7 @@ class RemoteService {
           options: Options(
             headers: {
               'accept': '*/*',
-              'Authorization': 'Bearer $access',
+              'Authorization': 'Bearer $dynamicToken',
               'Content-Type': 'multipart/form-data'
             },
             //contentType: 'Application/form-data;',

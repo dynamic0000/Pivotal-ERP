@@ -31,8 +31,8 @@ class _SelectCustomerState extends State<SelectCustomer> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  NewSalesOrder(
-                            bearerToken: '',
+                      builder: (context) => NewSalesOrder(
+                            bearerToken: widget.bearerToken,
                             indexGetter: null,
                           )));
             },

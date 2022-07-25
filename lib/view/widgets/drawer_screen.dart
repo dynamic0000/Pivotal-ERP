@@ -38,8 +38,8 @@ class DrawerScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UserHomeScreen(
-                            bearerToken: '',
+                      builder: (context) => UserHomeScreen(
+                            bearerToken: bearerToken,
                           )));
             },
           ),

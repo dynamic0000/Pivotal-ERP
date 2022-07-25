@@ -34,8 +34,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: ((context) => const UserHomeScreen(
-                            bearerToken: '',
+                      builder: ((context) => UserHomeScreen(
+                            bearerToken: widget.bearerToken,
                           ))));
             },
             icon: const Icon(Icons.arrow_back_ios)),

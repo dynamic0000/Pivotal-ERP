@@ -122,7 +122,8 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
       ],
       title: const Text('Voucher Mode'),
       content: FutureBuilder<List<GetVoucherModes?>?>(
-        future: RemoteService().getVoucherModes(),
+        future:
+            RemoteService().getVoucherModes(dynamicToken: widget.bearerToken),
         builder: (context, snapshot) {
           List<GetVoucherModes?>? voucherModes = snapshot.data;
           log('snapsnotVOUCHERMODE----------$voucherModes');
@@ -139,26 +140,28 @@ class _SpeedDialIconState extends State<SpeedDialIcon> {
                 height: 300.0, // Change as per your requirement
                 width: 300.0,
                 child: ListView.builder(
-                    itemCount: voucherModes!.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(voucherModes[index]!.voucherName!),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => NewSalesOrder(
-                                      voucherIdpass:
-                                          voucherModes[index]!.voucherId!,
-                                      voucherName:
-                                          voucherModes[index]!.voucherName,
-                                      indexGetter: null,
-                                      bearerToken: '')));
-                          log("aaaaaaaaaaa${voucherModes[index]!.voucherName} is pressed");
-                        },
-                      );
-                    }),
-              )
+                  itemCount: voucherModes!.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(voucherModes[index]!.voucherName!),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewSalesOrder(
+                                    voucherIdpass:
+                                        voucherModes[index]!.voucherId!,
+                                    voucherName:
+                                        voucherModes[index]!.voucherName,
+                                    indexGetter: null,
+                                    bearerToken: widget.bearerToken)));
+                        log("aaaaaaaaaaa${voucherModes[index]!.voucherName} is pressed");
+                        log("aaaaaaaaaaa is pressed------------bearerre${widget.bearerToken}");
+                      },
+                    );
+                  },
+                ),
+              ),
             ],
           );
         },

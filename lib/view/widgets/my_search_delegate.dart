@@ -53,6 +53,7 @@ class MySearchDelegate extends SearchDelegate {
                 return ListTile(
                   onTap: () {
                     log('ddddddd$index');
+                    log('bearerrerSearchdel-----------$bearerToken');
                   },
                   title: Text(data?[index]!.name ?? ""),
                 );
@@ -117,7 +118,8 @@ class MySearchDelegate extends SearchDelegate {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => NewSalesOrder(
-                                        bearerToken: '', indexGetter: lst)));
+                                        bearerToken: bearerToken,
+                                        indexGetter: lst)));
                           },
                           title: Text(
                             lst.name,

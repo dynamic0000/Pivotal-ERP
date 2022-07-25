@@ -149,8 +149,8 @@ class RemoteService {
   //     rethrow;
   //   }
   // }
-  //String dynamic =
-  //  'sNmOW6Pzwq0Z2r7Juwji04TBIqDr73qMHrEe8-Ff9wZnw-rqQ6jpdg5H365RUpPfWo4ya_lc_pD75q8v7dulPH_DH0v5a0F-NF9r98i3croWOu7gUxoTxw3YD55VN5mwkXjUAjfcJMcVm2QtrkuAE07KbCf0qCGimX9EKURcXGxEP2uSpVI7orWFaxU_ord9cr5j6L8l-29N6QEzcq1YVKt_sOevAZHHeedEzGHtbDawUTDukbznURUlEoMzJMAJST6puZUmi4plq2y0ZxMnU5b4qAH08N1xcNADUT4toFRSG9heo5OkVPIDMiOUI7FobeQj2E46VT0YQ01e1KV7HaJ85fuDiDc79HHHTkgsBVTrxewNZfeOr7VlVVpwYPiYsBosdMyvdVqNJUFemkQPxmaZLzleTiHWAuuGDdrerMU';
+  String dynamic =
+      'x6y49bN-kS-62NsI4-K3qXsykhfA0-5TcUt9fMgzR46QytIy1THLoE2H8PNVKs8QytRjVQhobwQKi0aGeUeSQkAXMfEZL5KPkc5IenTDo2mVWLefRA1xbczM60y3WbZHDekmAtzpZiyDTo-wIu1ATkOPw_xgBeJ4NzASFvLs3__pUU6XEGWtTXh6HXj5T2Jeg1wED9Rhrnn7ymH-pVwIPt6JVjYthUXhFmwZcxmJAy4hcFgkZSJSbOnYUSHBpF6uEFQm2Qbd0PFwonW6Mt3KrL7OaA-GsfF05yBdaWa78sUpCgV9bGRvZ-k-7-fpX2YWTF-uYaTyVl6lA6GBQ6W6pa_OeT-_IysTQd95AUgKQg6b4x9VUUo48AL2Xae7FsCv0HAUErTJKFdvpeOaV3JP0-cejxa23GG-sD20-wHBy1I';
   Future<List<AutoCompleteProductList>> getAutoCompleteProductList(
       String? bearerTokenDynamic, String query) async {
     //Future<void> getAutoCompleteProductList() async {
@@ -173,7 +173,7 @@ class RemoteService {
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
-          'Authorization': 'Bearer $bearerTokenDynamic'
+          'Authorization': 'Bearer $dynamic'
         },
         body: jsonAutoCopleteProductList,
       );
@@ -203,7 +203,7 @@ class RemoteService {
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $bearerTokenDynamic',
+          'Authorization': 'Bearer $dynamic',
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
@@ -239,7 +239,7 @@ class RemoteService {
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $bearerTokenDynamic',
+          'Authorization': 'Bearer $dynamic',
           'Content-Type': 'application/json',
           'Charset': 'utf-8',
           'Accept': 'application/json',
@@ -270,7 +270,7 @@ class RemoteService {
       var response = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer $bearerTokenDynamic',
+          'Authorization': 'Bearer $dynamic',
           "Content-Type": "application/x-www-form-urlencoded"
         },
       );
@@ -312,7 +312,7 @@ class RemoteService {
       var data1 = '''{ 
   VoucherDate:'$voucherDate',
   ManualVoucherNO:'',
-  VoucherId:9
+  VoucherId:$voucherId,
   RefNo:'test ref 1212',
   Narration:'Test Narration',
   PartyLedgerId:1,
@@ -355,6 +355,7 @@ class RemoteService {
 }''';
 
       log("values---------AQ$actualQty,---R$rate,---DP$discountPer,---A$amount,---PI${product.productId},---PN${product.name},---productId--$productId,---discountAmount---$discountAmount,-----$voucherDate");
+      log("voucherIDDD-$voucherId");
 
       var body = {'paraDataColl': data1};
 
@@ -365,7 +366,7 @@ class RemoteService {
           options: Options(
             headers: {
               // 'accept': '*/*',
-              'Authorization': 'Bearer $bearerTokenDynamic',
+              'Authorization': 'Bearer $dynamic',
               'Content-Type': 'multipart/form-data'
             },
             //contentType: 'multipart/form-data;',

@@ -30,6 +30,11 @@ class NewSalesOrder extends StatefulWidget {
     this.disAmt,
     this.unitId,
     this.productId,
+    this.customerName,
+    this.customerAddress,
+    this.panNo,
+    this.creditLimit,
+    this.creditDays,
   }) : super(key: key);
   final AutoCompleteLedgerList? indexGetter;
   final String bearerToken;
@@ -42,6 +47,11 @@ class NewSalesOrder extends StatefulWidget {
   final int? disAmt;
   final int? unitId;
   final int? productId;
+  final String? customerName;
+  final String? customerAddress;
+  final String? panNo;
+  final double? creditLimit;
+  final int? creditDays;
 
   @override
   // ignore: no_logic_in_create_state
@@ -56,7 +66,12 @@ class NewSalesOrder extends StatefulWidget {
       voucherName,
       disAmt,
       unitId,
-      productId);
+      productId,
+      customerName,
+      customerAddress,
+      panNo,
+      creditLimit,
+      creditDays);
 }
 
 class _NewSalesOrderDataState extends State<NewSalesOrder> {
@@ -71,6 +86,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
   final int? disAmt;
   final int? unitId;
   final int? productId;
+  final String? customerName;
+  final String? customerAddress;
+  final String? panNo;
+  final double? creditLimit;
+  final int? creditDays;
 
   bool isDataPicked = false;
 
@@ -99,6 +119,11 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     this.disAmt,
     this.unitId,
     this.productId,
+    this.customerName,
+    this.customerAddress,
+    this.panNo,
+    this.creditLimit,
+    this.creditDays,
   );
 
   @override
@@ -181,6 +206,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
 
   @override
   Widget build(BuildContext context) {
+    //var invoiceNo = voucherIdpass.toString();
     // Scaffold hasData(BuildContext context, AutoCompleteLedgerList? indexGetter) {
 
     return Scaffold(
@@ -255,7 +281,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
       AutoCompleteLedgerList? indexGetter}) {
     var customerData = indexGetter == null
         ? noData_addCustomer(context!)
-        : yesData_addCustomer(context!, indexGetter);
+        : yesData_addCustomer(context: context!, a: indexGetter);
 //////////////condition for file pixked display////////
     var dataPicked =
         _resultFile == null ? Container() : fileNameDisplay(context);
@@ -294,6 +320,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                       thickness: 2,
                       color: Colors.grey,
                     ),
+
                     // Container(color: Colors.blue, width: 20.w),
                     Container(
                       // color: Colors.grey,
@@ -312,18 +339,14 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                           ),
                           SizedBox(
                             child: Text(
+                              //"13",
+
                               voucherIdpass.toString(),
                               style: TextStyle(
                                   fontSize: 15.sp,
                                   color: const Color.fromARGB(255, 7, 7, 7),
                                   fontWeight: FontWeight.normal),
                             ),
-                            // width: 60.w,
-                            // height: 16.h,
-                            // child: TextField(
-                            //   style: TextStyle(fontSize: 10.sp),
-                            //   readOnly: true,
-                            // ),
                           ),
                           SizedBox(
                             height: 5.h,
@@ -497,8 +520,17 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => AddItem(
+                                  customerName: indexGetter?.name,
+                                  customerAddress: indexGetter?.address,
+                                  panNo: indexGetter?.panVatNo,
+                                  creditLimit: indexGetter?.creditLimitAmount,
+                                  creditDays: indexGetter?.creditLimitDays,
+
+                                  voucherId: voucherIdpass,
+                                  //voucherId: voucherIdpass,
                                   bearerToken: widget.bearerToken,
                                 )));
+                    log("voucherID------$voucherIdpass");
                   },
                 ),
                 SizedBox(
@@ -835,7 +867,7 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
         //   log('letscheck-----------${_platformFile?.name}');
         // });
 
-        log('dipika is absent');
+        log('sandesh is absent');
       },
     );
   }
@@ -951,10 +983,10 @@ class _NewSalesOrderDataState extends State<NewSalesOrder> {
     );
   }
 
-  Column yesData_addCustomer(
+  Column yesData_addCustomer({
     BuildContext? context,
     AutoCompleteLedgerList? a,
-  ) {
+  }) {
     log('aaaaaaaaaaaaaaaaaaaaa----------$a');
     return Column(
       // mainAxisAlignment: MainAxisAlignment.start,

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pivotal_erp/controller/remote_services.dart';
+import 'package:pivotal_erp/models/autocompleteledger_model.dart';
 
 import 'package:pivotal_erp/models/autocompleteproductList_model.dart';
 import 'package:pivotal_erp/models/getproductdetails_model.dart';
@@ -13,8 +14,21 @@ class AddItem extends StatefulWidget {
   const AddItem({
     Key? key,
     required this.bearerToken,
+    required this.voucherId,
+    required this.customerName,
+    required this.customerAddress,
+    required this.panNo,
+    required this.creditLimit,
+    required this.creditDays,
   }) : super(key: key);
   final String bearerToken;
+  final int? voucherId;
+  final String? customerName;
+  final String? customerAddress;
+  final String? panNo;
+  final double? creditLimit;
+  final int? creditDays;
+
   //int? productId;
 
   @override
@@ -22,15 +36,16 @@ class AddItem extends StatefulWidget {
 }
 
 var product = AutoCompleteProductList(
-    name: '',
-    alias: '',
-    code: '',
-    productGroup: '',
-    partNo: '',
-    productGroupId: 2,
-    productId: 0,
-    unit: '',
-    unitId: 5);
+  name: '',
+  alias: '',
+  code: '',
+  productGroup: '',
+  partNo: '',
+  productGroupId: 0,
+  productId: 0,
+  unit: '0',
+  unitId: 0,
+);
 var newData;
 
 int? quantity = 0;
@@ -41,6 +56,7 @@ int productIdx = 0;
 double? discountAmount;
 //AutoCompleteProductList? product;
 String query = '';
+AutoCompleteLedgerList? containerValue;
 
 @override
 void initState() {
@@ -53,6 +69,7 @@ class _AddItemState extends State<AddItem> {
   var quantityController = TextEditingController();
   var amountController = TextEditingController();
   var discountController = TextEditingController();
+
   //final int? productId;
   //String query = '';
 
@@ -68,13 +85,20 @@ class _AddItemState extends State<AddItem> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => NewSalesOrder(
-                      bearerToken: '',
+                      bearerToken: widget.bearerToken,
                       indexGetter: null,
+                      voucherIdpass: widget.voucherId?.toInt(),
+                      creditDays: widget.creditDays,
+                      creditLimit: widget.creditLimit,
+                      customerName: widget.customerName,
+                      customerAddress: widget.customerAddress,
                     ),
                   ),
                 );
                 setState(() {
                   productIdx = 0;
+                  newData = RemoteService()
+                      .getProductDetials(productIdx, widget.bearerToken);
                 });
               },
               icon: const Icon(Icons.arrow_back_ios)),
@@ -90,11 +114,22 @@ class _AddItemState extends State<AddItem> {
                                 productNameReq: product.name,
                                 rateReq: double.parse(rateController.text),
                                 indexGetter: null,
-                                bearerToken: '',
+                                bearerToken: widget.bearerToken,
                                 productId: product.productId,
                                 unitId: product.unitId,
                                 disAmt: int.parse(discountController.text),
+                                voucherIdpass: widget.voucherId?.toInt(),
+                                creditDays: widget.creditDays,
+                                creditLimit: widget.creditLimit,
+                                customerName: widget.customerName,
+                                customerAddress: widget.customerAddress,
                               )));
+                  setState(() {
+                    productIdx = 0;
+                    newData = RemoteService()
+                        .getProductDetials(productIdx, widget.bearerToken);
+                  });
+                  log("voucherIDwidget--------${widget.voucherId}");
                 },
                 icon: Icon(
                   Icons.verified_rounded,
@@ -102,6 +137,7 @@ class _AddItemState extends State<AddItem> {
                 )),
             IconButton(
                 onPressed: () {
+                  //  log("voucherID -------$voucherIdpass");
                   //    RemoteService().saveSalesInvoices(voucherId: );
                 },
                 icon: const Icon(Icons.coronavirus))
@@ -118,12 +154,8 @@ class _AddItemState extends State<AddItem> {
             List<AutoCompleteProductList?>? data1 = snapshot.data;
 
             return FutureBuilder<GetProductDetails?>(
-              //  newData = RemoteService().getProductDetials(productIdx);
-
               future: newData,
-              //  RemoteService().getProductDetials(productIdx),
               builder: (context, snapshot) {
-                // List<GetProductDetails>
                 GetProductDetails? productDetials = snapshot.data;
 
                 /////////////////////////////////////
@@ -143,10 +175,6 @@ class _AddItemState extends State<AddItem> {
                     });
                   });
                 }
-
-                //log('contOutttttttttt${rateController.text}');
-                //////////////////////////////////
-                // var productDetials = snapshot.data;
 
                 return SingleChildScrollView(
                   child: Column(
@@ -209,8 +237,10 @@ class _AddItemState extends State<AddItem> {
                                           newData.then((productDetials) {
                                             quantity = int.parse(
                                                 quantityController.text);
+
                                             rate = double.parse(
                                                 rateController.text);
+
                                             amount = quantity! * rate!;
 
                                             log("rate-------$rate");
